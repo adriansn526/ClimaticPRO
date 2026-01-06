@@ -1,0 +1,209 @@
+🚀 Starting WooCommerce import to cms.climaticpro.ro...
+📍 Destination: https://cms.climaticpro.ro
+============================================================
+
+🏷️  Importing categories...
+  ❌ Failed to import aer conditionat: 400
+  ❌ Failed to import Aparate de aer comerciale: 400
+  ❌ Failed to import Aparate de aer conditionat 12.000 BTU: 400
+  ❌ Failed to import Aparate de aer conditionat 18000 BTU: 400
+  ❌ Failed to import Aparate de aer conditionat 24000 BTU: 400
+  ✅ Aparate de aer conditionat 48000 BTU (ID: 79 -> 85)
+  ❌ Failed to import Aparate de aer conditionat coloana: 404
+  ❌ Failed to import Aparate de aer conditionat pentru tavan: 400
+  ❌ Failed to import Aparate de aer conditonat rezidentiale: 400
+  ❌ Failed to import Aparate de aer condtionat 9000 BTU: 400
+  ❌ Failed to import Aparate de aer multisplit: 400
+  ❌ Failed to import Meseriasul bun la toate: 400
+  ❌ Failed to import Montare / Instalare / reparatii aer conditionat: 400
+  ❌ Failed to import Preturi instalare: 400
+  ✅ Tratare aer (ID: 82 -> 86)
+
+🎨 Importing attributes...
+  ❌ Failed to import Agent frigorific: 400
+  ❌ Failed to import Alimentare: 404
+  ❌ Failed to import Brand: 400
+  ❌ Failed to import Capacitate: 400
+  ❌ Failed to import Capacitate aparat:: 404
+  ❌ Failed to import Capacitate incalzire: 404
+  ❌ Failed to import Capacitate racire: 400
+  ❌ Failed to import Caracteristici speciale: 404
+  ❌ Failed to import Clasa energie: 400
+  ❌ Failed to import Cod Unitate Externa: 404
+  ❌ Failed to import Cod unitate interna: 404
+  ❌ Failed to import Color: 404
+  ❌ Failed to import Consum nominal W: 404
+  ❌ Failed to import COP: 404
+  ❌ Failed to import Culoare: 404
+  ❌ Failed to import Debit aer: 400
+  ❌ Failed to import Debit de aer incalzire: 400
+  ❌ Failed to import Debit de aer racire: 400
+  ❌ Failed to import Dezumidificare: 400
+  ❌ Failed to import Dimensiune UE LxlxH mm: 404
+  ❌ Failed to import Dimensiune UI LxlxH mm: 404
+  ✅ EER (ID: 31 -> 50)
+    ❌ Failed term: 2.93
+    ❌ Failed term: 3,52
+    ✅ Term: 3.09
+    ❌ Failed term: 3.4
+    ❌ Failed term: 3.65
+    ❌ Failed term: 3.97
+    ❌ Failed term: 6.2
+  ❌ Failed to import Filtru: 400
+  ❌ Failed to import Functii: 400
+  ❌ Failed to import Garantie: 400
+  ✅ Garantie compresor (ID: 54 -> 51)
+    ❌ Failed term: 36 luni
+    ❌ Failed term: 60 luni
+  ✅ Greutate UE (ID: 15 -> 52)
+    ❌ Failed term: 22 Kg
+    ❌ Failed term: 23 Kg
+    ✅ Term: 24 Kg
+    ❌ Failed term: 25 Kg
+    ❌ Failed term: 33 Kg
+    ❌ Failed term: 38 Kg
+    ❌ Failed term: 40 Kg
+    ❌ Failed term: 835 x 300 x 540 mm
+  ❌ Failed to import Greutate UI: 400
+  ❌ Failed to import Inaltime unitate externa: 400
+  ❌ Failed to import Inaltime Unitate interna: 400
+  ❌ Failed to import Intensitate curent incalzire: 400
+  ✅ Intensitate curent racire (ID: 34 -> 53)
+    ❌ Failed term: 13.0 A
+    ❌ Failed term: 13.5 A
+    ✅ Term: 6.5 A
+    ❌ Failed term: 9.5 A
+  ❌ Failed to import Inverter: 400
+  ❌ Failed to import Kit instalare inclus: 404
+  ❌ Failed to import Latime Unitate externa: 400
+  ❌ Failed to import Latime Unitate interna: 400
+  ❌ Failed to import Lungime Unitate externa: 400
+  ❌ Failed to import Lungime unitate interna: 404
+  ❌ Failed to import Model: 400
+  ✅ Preincarcare maxima (ID: 47 -> 54)
+    ✅ Term: 15 m
+    ❌ Failed term: 20 m
+    ❌ Failed term: 25 m
+  ❌ Failed to import Putere sonora: 404
+  ❌ Failed to import Refrigerant: 400
+  ❌ Failed to import SCOP: 400
+  ❌ Failed to import Suprafata de acoperire: 400
+  ❌ Failed to import Suprafata de montare: 400
+  ❌ Failed to import Teava conexiune condens: 400
+  ❌ Failed to import Teava conexiune gaz: 404
+  ❌ Failed to import Teava conexiune lichid: 400
+  ❌ Failed to import Tehnologie Wi-Fi: 400
+  ❌ Failed to import Telecomanda: 400
+  ❌ Failed to import Tensiune alimentare: 400
+  ❌ Failed to import Tip compresor: 400
+  ❌ Failed to import Tip produs: 400
+  ❌ Failed to import Tip unitate: 400
+  ✅ Utilizare (ID: 6 -> 55)
+    ✅ Term: Rezidential
+  ❌ Failed to import Zgomot UI dB: 400
+
+🏷️  Importing tags...
+  ❌ Failed to import 150: 400
+  ❌ Failed to import 9000 BTU: 404
+  ❌ Failed to import xtremeEco12000: 400
+
+📦 Importing products...
+  ❌ [1/82] Failed: Aparat de aer conditionat Midea Xtreme Fresh MSAGBU-12HRFN8-QRD1GW/MOX133-12HFN8-QRD1GW Inverter 12000 BTU WIFI LAMPA UV - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11942 is an invalid image ID.","data":{"status":400}}
+  ❌ [2/82] Failed: Aparat de aer conditionat Midea Xtreme Fresh MSAGCU-18HRFNX-QRD0GW/MOX301-18HFN8-QRD0GW Inverter 18000 BTU WIFI LAMPA UV - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11899 is an invalid image ID.","data":{"status":400}}
+  ❌ [3/82] Failed: Aparat de aer conditionat Midea Xtreme Fresh MSAGAU-09HRFN8-QRD1GW/MOX133-09HFN8-QRD1GW Inverter 9000 BTU WIFI LAMPA UV - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11899 is an invalid image ID.","data":{"status":400}}
+  ❌ [4/82] Failed: New Product - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11901 is an invalid image ID.","data":{"status":400}}
+  ❌ [5/82] Failed: Aparat de aer conditionat Daikin SENSIRA C 18000 BTU Wi-Fi - FTXC50E-RXC50E, inverter, R32 - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [6/82] Failed: Aparat de aer conditionat Daikin SENSIRA C 9000 BTU Wi-Fi - FTXC25E-RXC25E, inverter, R32 - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11687 is an invalid image ID.","data":{"status":400}}
+  ❌ [7/82] Failed: Aparat de aer conditionat Daikin SENSIRA C 12000 BTU Wi-Fi, FTXC35E-RXC35E, inverter, R32 - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [8/82] Failed: APARAT DE AER CONDITIONAT MIDEA BREEZELESS E 18000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11388 is an invalid image ID.","data":{"status":400}}
+  ❌ [9/82] Failed: APARAT DE AER CONDITIONAT MIDEA BREEZELESS E  12000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11388 is an invalid image ID.","data":{"status":400}}
+  ❌ [10/82] Failed: APARAT DE AER CONDITIONAT MIDEA BREEZELESS E  9000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11388 is an invalid image ID.","data":{"status":400}}
+  ❌ [11/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO 2022 AG2ECO-18NXD0-I(R) INVERTER 18000 BTU (Copy) - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [12/82] Failed: Aparat de aer conditionat Gree Pulsar GWH18AGD-K6DNA1D , 18000 BTU, Clasa A++, Auto-diagnoza, Display LED, Inverter, Alb, Wi-fi, Kit montaj inclus (Copy) - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#8495 is an invalid image ID.","data":{"status":400}}
+  ❌ [13/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 18000 BTU MSEPBU-18HRFN8/MOX330-18HFN8 - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9333 is an invalid image ID.","data":{"status":400}}
+  ❌ [14/82] Failed: Aparat de aer conditionat Zephir Ionizer, ZE-12R32, WIFI, Inverter, 12000 BTU, Kit de instalare inclus, Clasa A++ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11286 is an invalid image ID.","data":{"status":400}}
+  ❌ [15/82] Failed: Aparat de aer conditionat Zephir, ZE-18R32 WIFI INZ, Inverter, 18000 BTU, ionizare, Kit de instalare inclus, Clasa A++ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11286 is an invalid image ID.","data":{"status":400}}
+  ❌ [16/82] Failed: Aparat de aer conditionat Zephir Ionizer ZE-09R32, WIFI, Inverter, 9000 BTU, Kit de instalare inclus, Clasa A++ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11286 is an invalid image ID.","data":{"status":400}}
+  ✅ [17/82] Instalare Standard (ID: 11170 -> 65)
+  ❌ [18/82] Failed: Aparat de aer conditionat Yamato Optimum YW18T2 cu KIT INSTALARE inclus - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11126 is an invalid image ID.","data":{"status":400}}
+  ❌ [19/82] Failed: Aparat de aer conditionat Yamato Optimum YW24T2 cu KIT INSTALARE inclus, Inverter, WIFI - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11126 is an invalid image ID.","data":{"status":400}}
+  ❌ [20/82] Failed: Aparat de aer conditionat Yamato Optimum YW12T2 cu KIT INSTALARE inclus - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11126 is an invalid image ID.","data":{"status":400}}
+  ❌ [21/82] Failed: Aparat de aer conditionat Yamato Optimum YW09T2 cu KIT INSTALARE inclus - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11126 is an invalid image ID.","data":{"status":400}}
+  ❌ [22/82] Failed: Oferta!!! Aer conditionat Kyato 12000 BTU, WiFi, Inverter + instalare inclusa - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [23/82] Failed: Aer conditionat Fujitsu ASYG12KPCE-AOYG12KPCA de 12000 BTU Clasa de energie A++,  WiFi - Optional si garantie 60 luni - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11007 is an invalid image ID.","data":{"status":400}}
+  ❌ [24/82] Failed: Aer conditionat Fujitsu ASEG18KLCA de 18000 BTU, Inverter, Clasa de energie A++ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11009 is an invalid image ID.","data":{"status":400}}
+  ❌ [25/82] Failed: Aer conditionat Fujitsu ASEG24KLCA de 24000 BTU, Inverter, Clasa de energie A++ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11003 is an invalid image ID.","data":{"status":400}}
+  ❌ [26/82] Failed: Aer conditionat Fujitsu ASEH09KNCA de 9000 BTUInverter, Clasa de energie A++,  WiFi inclus - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11005 is an invalid image ID.","data":{"status":400}}
+  ❌ [27/82] Failed: Aer conditionat Fujitsu ASEH12KNCA de 12000 BTU, Inverter, Clasa de energie A++,  WiFi inclus - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11007 is an invalid image ID.","data":{"status":400}}
+  ❌ [28/82] Failed: Aer conditionat Yamato YW24G8 de 24000 BTU Clasa de energie A++,  WiFi - Da si garantie 36 luni - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [29/82] Failed: Aer conditionat Midea CB1-12HRFB8-I(R)/CB1-12HFNX-O(R) de 12000 BTU Clasa de energie A++,  WiFi - Da si garantie 36 luni - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11013 is an invalid image ID.","data":{"status":400}}
+  ❌ [30/82] Failed: Aer conditionat Fujitsu ASYG09KPCE-AOYG09KPCA de 9000 BTU Clasa de energie A++,  WiFi - Optional si garantie 60 luni - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#11005 is an invalid image ID.","data":{"status":400}}
+  ❌ [31/82] Failed: APARAT DE AER CONDITIONAT KYATO-K12A++FEEL, WIFI Inclus, Clasa Energetica A++/A+ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#10127 is an invalid image ID.","data":{"status":400}}
+  ❌ [32/82] Failed: APARAT DE AER CONDITIONAT KYATO-K09A++FEEL, WIFI inclus, Clasa Energetica A++/A+ - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#10127 is an invalid image ID.","data":{"status":400}}
+  ❌ [33/82] Failed: APARAT DE AER CONDITIONAT KYATO-K18A++FEEL - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#10127 is an invalid image ID.","data":{"status":400}}
+  ❌ [34/82] Failed: APARAT DE AER CONDITIONAT KYATO-K24A++FEEL - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#10127 is an invalid image ID.","data":{"status":400}}
+  ❌ [35/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO UV   AG2ECO-24NXD0-I(R)/AG2ECO-24N8D0-O(R) INVERTER 24000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9965 is an invalid image ID.","data":{"status":400}}
+  ❌ [36/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  24000 BTU MSEPCU-24HRFN8(R)/MOX430-24HFN8(R) - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9974 is an invalid image ID.","data":{"status":400}}
+  ❌ [37/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  18000 BTU MSEPCU-18HRFN8(R)/MOX430-18HFN8(R) - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9974 is an invalid image ID.","data":{"status":400}}
+  ❌ [38/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  9000 BTU  MSEPBU-09HRFN8(R)/MOX330-09HFN8(R) - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9974 is an invalid image ID.","data":{"status":400}}
+  ❌ [39/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  12000 BTU MSEPBU-12HRFN8(R)/MOX330-12HFN8(R) - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9974 is an invalid image ID.","data":{"status":400}}
+  ❌ [40/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO UV AG2ECO-12NXD0-I(R) INVERTER 12000 BTU - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [41/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO UV AG2ECO-09NXD0-I(R) INVERTER 9000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9965 is an invalid image ID.","data":{"status":400}}
+  ❌ [42/82] Failed: Aparat aer conditionat TESLA TA36FFCL-1232IAPC 12000BTU A++ R32 Alb - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9401 is an invalid image ID.","data":{"status":400}}
+  ❌ [43/82] Failed: APARAT DE AER CONDITIONAT MIDEA BREEZELESS  MSFAAU-12HRFN8-QRD6GW/MOB01-12HFN8-QRD6GW(A) INVERTER 12000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9326 is an invalid image ID.","data":{"status":400}}
+  ❌ [44/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 18000 BTU MSEPBU-18HRFN8/MOX330-18HFN8 - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9333 is an invalid image ID.","data":{"status":400}}
+  ❌ [45/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 12000 BTU MSEPBU-12HRFN8/MOX330-12HFN8 - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9329 is an invalid image ID.","data":{"status":400}}
+  ❌ [46/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO 2022 AG2ECO-09NXD0-I(R) INVERTER 9000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9338 is an invalid image ID.","data":{"status":400}}
+  ❌ [47/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO  AG2ECO-12NXD0-I(R) INVERTER 12000 BTU, WiFi, filtru HEPA, temperaturi extreme - 404
+     Error: {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}
+  ❌ [48/82] Failed: APARAT DE AER CONDITIONAT MIDEA XTREME ECO 2022 AG2ECO-18NXD0-I(R) INVERTER 18000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9335 is an invalid image ID.","data":{"status":400}}
+  ❌ [49/82] Failed: APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 9000 BTU MSEPBU-09HRFN8/MOX330-09HFN8 - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9329 is an invalid image ID.","data":{"status":400}}
+  ❌ [50/82] Failed: APARAT DE AER CONDITIONAT MIDEA BREEZELESS  MSFAAU-09HRFN8-QRD6GW/MOB01-09HFN8-QRD6GW(A) INVERTER 9000 BTU - 400
+     Error: {"code":"woocommerce_product_invalid_image_id","message":"#9340 is an invalid image ID.","data":{"status":400}}

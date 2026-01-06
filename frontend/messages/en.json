@@ -1,0 +1,14 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "readMore": "Read more"
+  },
+  "hero": {
+    "title": "ClimaticPro",
+    "subtitle": "Short project description",
+    "cta": "Contact us"
+  }
+}

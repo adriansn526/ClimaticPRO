@@ -1,0 +1,178 @@
+🚀 Starting image import...
+📍 Source: https://climaticpro.ro
+📍 Destination: https://cms.climaticpro.ro
+============================================================
+📊 Found 0 products in WordPress
+📊 Processing 82 products from export
+
+⏭️  Skipping Aparat de aer conditionat Midea Xtreme Fresh MSAGBU-12HRFN8- (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Midea Xtreme Fresh MSAGCU-18HRFNX- (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Midea Xtreme Fresh MSAGAU-09HRFN8- (not in WordPress)
+
+⏭️  Skipping New Product (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Daikin SENSIRA C 18000 BTU Wi-Fi - (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Daikin SENSIRA C 9000 BTU Wi-Fi -  (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Daikin SENSIRA C 12000 BTU Wi-Fi,  (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA BREEZELESS E 18000 BTU (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA BREEZELESS E  12000 BTU (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA BREEZELESS E  9000 BTU (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO 2022 AG2ECO-18NXD (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Pulsar GWH18AGD-K6DNA1D , 180 (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 18000 BT (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Zephir Ionizer, ZE-12R32, WIFI, In (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Zephir, ZE-18R32 WIFI INZ, Inverte (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Zephir Ionizer ZE-09R32, WIFI, Inv (not in WordPress)
+
+⏭️  Skipping Instalare Standard (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Optimum YW18T2 cu KIT INSTA (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Optimum YW24T2 cu KIT INSTA (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Optimum YW12T2 cu KIT INSTA (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Optimum YW09T2 cu KIT INSTA (not in WordPress)
+
+⏭️  Skipping Oferta!!! Aer conditionat Kyato 12000 BTU, WiFi, Inverter +  (not in WordPress)
+
+⏭️  Skipping Aer conditionat Fujitsu ASYG12KPCE-AOYG12KPCA de 12000 BTU C (not in WordPress)
+
+⏭️  Skipping Aer conditionat Fujitsu ASEG18KLCA de 18000 BTU, Inverter, C (not in WordPress)
+
+⏭️  Skipping Aer conditionat Fujitsu ASEG24KLCA de 24000 BTU, Inverter, C (not in WordPress)
+
+⏭️  Skipping Aer conditionat Fujitsu ASEH09KNCA de 9000 BTUInverter, Clas (not in WordPress)
+
+⏭️  Skipping Aer conditionat Fujitsu ASEH12KNCA de 12000 BTU, Inverter, C (not in WordPress)
+
+⏭️  Skipping Aer conditionat Yamato YW24G8 de 24000 BTU Clasa de energie  (not in WordPress)
+
+⏭️  Skipping Aer conditionat Midea CB1-12HRFB8-I(R)/CB1-12HFNX-O(R) de 12 (not in WordPress)
+
+⏭️  Skipping Aer conditionat Fujitsu ASYG09KPCE-AOYG09KPCA de 9000 BTU Cl (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT KYATO-K12A++FEEL, WIFI Inclus, Cla (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT KYATO-K09A++FEEL, WIFI inclus, Cla (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT KYATO-K18A++FEEL (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT KYATO-K24A++FEEL (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO UV   AG2ECO-24NXD (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  2400 (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  1800 (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  9000 (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC UV  1200 (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO UV AG2ECO-12NXD0- (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO UV AG2ECO-09NXD0- (not in WordPress)
+
+⏭️  Skipping Aparat aer conditionat TESLA TA36FFCL-1232IAPC 12000BTU A++  (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA BREEZELESS  MSFAAU-12HRFN8-Q (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 18000 BT (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 12000 BT (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO 2022 AG2ECO-09NXD (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO  AG2ECO-12NXD0-I( (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA XTREME ECO 2022 AG2ECO-18NXD (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA ALL EASY PRO NORDIC 9000 BTU (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA BREEZELESS  MSFAAU-09HRFN8-Q (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Alpin R32 YW18G8 Inverter 1 (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Alpin R32 YW09G8 Inverter 9 (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Alpin R32 YW12G8 Inverter 1 (not in WordPress)
+
+⏭️  Skipping Curatarea si igienizarea Unitatii Interne (not in WordPress)
+
+⏭️  Skipping Remedierea situatiilor in care curge apa din aparat (not in WordPress)
+
+⏭️  Skipping Instalare Premium (not in WordPress)
+
+⏭️  Skipping Montare aer conditionat 12000 BTU (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA AG EXTREME SAVE 2021 AG-12NX (not in WordPress)
+
+⏭️  Skipping APARAT DE AER CONDITIONAT MIDEA AG EXTREME SAVE 2021 AG-09NX (not in WordPress)
+
+⏭️  Skipping Aer conditionat Samsung FreshAir-AR12TXHQASINEU, Digital Inv (not in WordPress)
+
+⏭️  Skipping Aer conditionat VORTEX VAI1222FJW, 12000 BTU, A++/A+, Wi-Fi, (not in WordPress)
+
+⏭️  Skipping Aer conditionat VORTEX VAI1222FA, 12000 BTU, A++/A+, kit ins (not in WordPress)
+
+⏭️  Skipping Dezumidificator Gree Daisy GDN20BD-K5EBAA1 (not in WordPress)
+
+⏭️  Skipping Aparat de Aer Conditionat Tip Coloana Gree GVH48AH-M3DNA5A i (not in WordPress)
+
+⏭️  Skipping Aparat de Aer Conditionat Tip Coloana de podea Gree GVH24MA  (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat YAMATO Optimum YW18H1, 18000 BTU (not in WordPress)
+
+⏭️  Skipping Aparat aer conditionat Yamato Optimum YW12H2 ,12000 BTU, A++ (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Yamato Optimum T1, 9000 BTU, Venti (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Fairy R32 GWH24ACE-K6DNA1A In (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Soyal GWH18AKC-K6DNA1A Invert (not in WordPress)
+
+⏭️  Skipping Aer conditionat Gree Fairy GWH12ACC-K6DNA1F, 12000 BTU, wi-f (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Fairy R32 GWH09ACC-K6DNA1A In (not in WordPress)
+
+⏭️  Skipping Aer conditionat Gree Fairy GWH12ACC-K6DNA1F, 12000 BTU, Wi-F (not in WordPress)
+
+⏭️  Skipping Aer conditionat Gree Fairy Black GWH09ACC-K6DNA1F, 9000 BTU, (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Pulsar GWH24AGD-K6DNA1C Inver (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat, Gree, Pulsar GWH12AGB-K6DNA1A, 12 (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Pulsar GWH09AGA-K6DNA1A, 9000 (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Bora A4 Silver 24000 BTU GWH2 (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Bora A4 Silver 18000 BTU GWH1 (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Bora A4 Silver R32 GWH12AAB-K (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Bora A4 Silver GWH09AAA-K6DNA (not in WordPress)
+
+⏭️  Skipping Aparat de aer conditionat Gree Soyal GWH09AKC-K6DNA1A Invert (not in WordPress)
+
+============================================================
+✅ Image import complete!
+📊 Summary:
+  - Products processed: 0
+  - Images uploaded: 0
+  - Products updated: 0
+  - Cached images: 0

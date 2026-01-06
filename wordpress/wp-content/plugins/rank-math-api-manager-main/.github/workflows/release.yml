@@ -1,0 +1,79 @@
+name: Build and Release Plugin
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+
+      - name: Create production-ready plugin ZIP
+        run: |
+          # Create plugin directory with correct name
+          mkdir -p rank-math-api-manager
+
+          # Copy core plugin files
+          cp rank-math-api-manager.php rank-math-api-manager/
+
+          # Copy includes directory if exists
+          if [ -d "includes" ]; then
+            cp -r includes/ rank-math-api-manager/
+          fi
+
+          # Copy assets directory if exists
+          if [ -d "assets" ]; then
+            cp -r assets/ rank-math-api-manager/
+          fi
+
+          # Copy essential documentation
+          [ -f "README.md" ] && cp README.md rank-math-api-manager/
+          [ -f "LICENSE" ] && cp LICENSE rank-math-api-manager/
+          [ -f "LICENSE.md" ] && cp LICENSE.md rank-math-api-manager/
+          [ -f "CHANGELOG.md" ] && cp CHANGELOG.md rank-math-api-manager/
+          [ -f "changelog.txt" ] && cp changelog.txt rank-math-api-manager/
+          [ -f "readme.txt" ] && cp readme.txt rank-math-api-manager/
+
+          # Remove any development files that may have been copied
+          rm -rf rank-math-api-manager/.git* 2>/dev/null || true
+          rm -rf rank-math-api-manager/.github/ 2>/dev/null || true
+          rm -rf rank-math-api-manager/tests/ 2>/dev/null || true
+          rm -rf rank-math-api-manager/.cursor/ 2>/dev/null || true
+          rm -rf rank-math-api-manager/node_modules/ 2>/dev/null || true
+          rm -f rank-math-api-manager/.DS_Store 2>/dev/null || true
+          rm -f rank-math-api-manager/TODO*.md 2>/dev/null || true
+          rm -f rank-math-api-manager/.env* 2>/dev/null || true
+          rm -f rank-math-api-manager/.gitignore 2>/dev/null || true
+
+          # Create ZIP file with WordPress-compatible name
+          zip -r rank-math-api-manager.zip rank-math-api-manager/
+
+          # Verify ZIP structure
+          echo "📦 ZIP Contents:"
+          unzip -l rank-math-api-manager.zip | head -20
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./rank-math-api-manager.zip
+          asset_name: rank-math-api-manager.zip
+          asset_content_type: application/zip
+
+      - name: Verify Release Completion
+        run: |
+          echo "✅ Release asset uploaded successfully"
+          echo "📦 File: rank-math-api-manager.zip"
+          echo "📋 Contents: Production-ready plugin files only"
+          echo "🚀 Ready for WordPress auto-update system"

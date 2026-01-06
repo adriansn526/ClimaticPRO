@@ -1,0 +1,86 @@
+[
+  {
+    "id": 109,
+    "name": "150",
+    "slug": "150",
+    "description": "",
+    "count": 0,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/tags/109",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/tags"
+        }
+      ]
+    }
+  },
+  {
+    "id": 108,
+    "name": "9000 BTU",
+    "slug": "9000-btu",
+    "description": "",
+    "count": 0,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/tags/108",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/tags"
+        }
+      ]
+    }
+  },
+  {
+    "id": 277,
+    "name": "xtremeEco12000",
+    "slug": "xtremeeco12000",
+    "description": "",
+    "count": 1,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/tags/277",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/tags"
+        }
+      ]
+    }
+  }
+]

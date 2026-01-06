@@ -1,0 +1,518 @@
+[
+  {
+    "id": 289,
+    "name": "aer conditionat",
+    "slug": "aer-conditionat",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 59,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/289",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "name": "Aparate de aer comerciale",
+    "slug": "aparate-de-aer-comerciale",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 9,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/20",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 74,
+    "name": "Aparate de aer conditionat 12.000 BTU",
+    "slug": "aparate-de-aer-conditionat-12-000-btu",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 24,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/74",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 77,
+    "name": "Aparate de aer conditionat 18000 BTU",
+    "slug": "aparate-de-aer-conditionat-18000-btu",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 16,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/77",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 78,
+    "name": "Aparate de aer conditionat 24000 BTU",
+    "slug": "aparate-de-aer-conditionat-24000-btu",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 9,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/78",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 79,
+    "name": "Aparate de aer conditionat 48000 BTU",
+    "slug": "aparate-de-aer-conditionat-48000-btu",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 1,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/79",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 75,
+    "name": "Aparate de aer conditionat coloana",
+    "slug": "aparate-de-aer-conditionat-coloana",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 2,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/75",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 42,
+    "name": "Aparate de aer conditionat pentru tavan",
+    "slug": "aparate-de-aer-conditionat-pentru-tavan",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": {
+      "id": 120,
+      "date_created": null,
+      "date_created_gmt": null,
+      "date_modified": null,
+      "date_modified_gmt": null,
+      "src": false,
+      "name": "",
+      "alt": ""
+    },
+    "menu_order": 0,
+    "count": 0,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/42",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 32,
+    "name": "Aparate de aer conditonat rezidentiale",
+    "slug": "aparate-de-aer-conditonat-rezidentiale",
+    "parent": 0,
+    "description": "[html_block id=\"730\"]",
+    "display": "default",
+    "image": {
+      "id": 91,
+      "date_created": null,
+      "date_created_gmt": null,
+      "date_modified": null,
+      "date_modified_gmt": null,
+      "src": false,
+      "name": "",
+      "alt": ""
+    },
+    "menu_order": 0,
+    "count": 63,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/32",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 70,
+    "name": "Aparate de aer condtionat 9000 BTU",
+    "slug": "aparate-de-aer-condtionat-9000-btu",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 21,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/70",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 29,
+    "name": "Aparate de aer multisplit",
+    "slug": "aparate-de-aer-multisplit",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": {
+      "id": 117,
+      "date_created": null,
+      "date_created_gmt": null,
+      "date_modified": null,
+      "date_modified_gmt": null,
+      "src": false,
+      "name": "",
+      "alt": ""
+    },
+    "menu_order": 0,
+    "count": 0,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/29",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 85,
+    "name": "Meseriasul bun la toate",
+    "slug": "meseriasul-bun-la-toate",
+    "parent": 0,
+    "description": "Oferim servicii cu timp de interventie rapid pentru orice lucrare de reparatie se poate efectua in casa omului:\r\n- defectiuni ele instalatiei electrice sau montarea de corpuri de iluminat, schimbarea intrerupatoarelor sau prizelor\r\n-inlocuirea tablourilor electrice, inlocuuirea instalatiei electrice\r\n-defectiuni ale instalatiei sanitare (pierderi de apa, scurgeri infundate)\r\n-mici lucrari de zugraveala\r\n-fixarea diferitelor obiecte pe pereti\r\n-deblocari usi de acces in apartament\r\n-inlocuirea unei placi de gresie sa fainata sparte",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 0,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/85",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 28,
+    "name": "Montare / Instalare / reparatii aer conditionat",
+    "slug": "montare-instalare-reparatii-aer-conditionat",
+    "parent": 0,
+    "description": "<ul>\r\n \t<li style=\"text-align: left\">Instalam si reparam orice tip de aparat de aer conditionat.</li>\r\n \t<li style=\"text-align: left\">Suntem o echipa cu peste 15 ani experienta in domeniul aerului conditionat care poate asigura suport pentru instalarea sau remedierea oricarei probleme aparute la aparate de aer conditionat noi de tip inverter sau mai vechi de tip On/Off</li>\r\n \t<li style=\"text-align: left\">Remediem problmele in care aparatul tau de aer conditionat nu mai raceste, nu porneste, curge apa din el, scoate zgomote in timpul functionarii sau miroase urat</li>\r\n \t<li style=\"text-align: left\">Oferim servicii de igienizare si verificare a nivelului de freon din instalatie pentru toate modelele de aparate de aer conditionat. Aceasta lucrarea de intretinere este necesara la inceputul fiecarui sezon calduros.</li>\r\n</ul>",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 3,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/28",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 53,
+    "name": "Preturi instalare",
+    "slug": "preturi-instalare",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": {
+      "id": 8958,
+      "date_created": "2022-03-28T07:18:37",
+      "date_created_gmt": "2022-03-28T07:18:37",
+      "date_modified": "2022-03-28T07:18:37",
+      "date_modified_gmt": "2022-03-28T07:18:37",
+      "src": "https://climaticpro.ro/wp-content/uploads/2022/03/c010cc20-5f43-4021-bcb3-a77b5c0d075f.jpg",
+      "name": "c010cc20-5f43-4021-bcb3-a77b5c0d075f",
+      "alt": ""
+    },
+    "menu_order": 0,
+    "count": 0,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/53",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  },
+  {
+    "id": 82,
+    "name": "Tratare aer",
+    "slug": "tratare-aer",
+    "parent": 0,
+    "description": "",
+    "display": "default",
+    "image": null,
+    "menu_order": 0,
+    "count": 1,
+    "_links": {
+      "self": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories/82",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://climaticpro.ro/wp-json/wc/v3/products/categories"
+        }
+      ]
+    }
+  }
+]

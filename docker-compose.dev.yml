@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: climaticpro-frontend-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_WORDPRESS_API_URL=https://cms.climaticpro.ro/graphql
+      - WATCHPACK_POLLING=true
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.climaticpro-dev.rule=Host(`dev.climaticpro.ro`)"
+      - "traefik.http.routers.climaticpro-dev.entrypoints=websecure"
+      - "traefik.http.routers.climaticpro-dev.tls.certresolver=cfresolver"
+      - "traefik.http.services.climaticpro-dev.loadbalancer.server.port=3000"
+
+networks:
+  proxy:
+    external: true

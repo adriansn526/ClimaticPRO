@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env
+*.log
+backups/*.sql
+backups/*.sql.gz
+!backups/encrypted/*.enc
+!backups/encrypted/BACKUP_INFO.md
+wordpress/wp-content/uploads/
+wordpress/wp-content/cache/
+frontend/docs/uploads.zip
+frontend/docs/uploads.zip
+frontend/docs/*.zip
