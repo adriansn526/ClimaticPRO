@@ -1,6 +1,33 @@
 version: '3.8'
 
 services:
+
+  cms-tunnel:
+    image: alpine/socat
+    command: openssl-listen:443,cert=/certs/cms.pem,verify=0,fork tcp:climaticpro-wordpress-1:80
+    container_name: climaticpro-cms-tunnel
+    volumes:
+      - ./certs:/certs:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+
+  wp-cli:
+    image: wordpress:cli
+    container_name: climaticpro-wp-cli
+    command: tail -f /dev/null
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./uploads:/var/www/html/wp-content/uploads
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: climaticpro_wp
+      WORDPRESS_DB_PASSWORD: XWBTMMTF0KWTEp7wVzrY
+      WORDPRESS_DB_NAME: climaticpro_wp
+    networks:
+      - proxy
+    user: "33:33" # Run as www-data to match wordpress container permissions
+
   frontend-dev:
     build:
       context: ./frontend
@@ -8,23 +35,34 @@ services:
     container_name: climaticpro-frontend-dev
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3005:3000"
+    links:
+      - "cms-tunnel:cms.climaticpro.ro"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-      - /app/.next
+    
     environment:
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
       - NODE_ENV=development
       - NEXT_PUBLIC_WORDPRESS_API_URL=https://cms.climaticpro.ro/graphql
+      - WORDPRESS_API_URL=http://climaticpro-wordpress-1/graphql
       - WATCHPACK_POLLING=true
+    command: npm run dev
     networks:
       - proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.climaticpro-dev.rule=Host(`dev.climaticpro.ro`)"
       - "traefik.http.routers.climaticpro-dev.entrypoints=websecure"
-      - "traefik.http.routers.climaticpro-dev.tls.certresolver=cfresolver"
+      - "traefik.http.routers.climaticpro-dev-insecure.rule=Host(`dev.climaticpro.ro`)"
+      - "traefik.http.routers.climaticpro-dev-insecure.entrypoints=web"
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.climaticpro-dev-insecure.middlewares=https-redirect"
+      - "traefik.http.routers.climaticpro-dev.tls.certresolver=httpresolver"
       - "traefik.http.services.climaticpro-dev.loadbalancer.server.port=3000"
+
+
 
 networks:
   proxy:

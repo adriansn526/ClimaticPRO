@@ -15,19 +15,14 @@ const plans = [
   },
   {
     key: 'premium',
-    features: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5'],
+    features: ['feature1', 'feature2', 'feature3', 'feature6'],
     popular: true,
-  },
-  {
-    key: 'vip',
-    features: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5', 'feature6'],
-    popular: false,
   },
 ];
 
 export default function ServicesSection() {
   const t = useTranslations('services');
-  
+
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-primary-50">
       <div className="container mx-auto px-4">
@@ -51,9 +46,9 @@ export default function ServicesSection() {
             {t('subtitle')}
           </motion.p>
         </div>
-        
+
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.key}
@@ -68,43 +63,50 @@ export default function ServicesSection() {
                   <Badge variant="success">⭐ Cel mai popular</Badge>
                 </div>
               )}
-              
-              <Card 
-                hover 
-                className={`h-full ${plan.popular ? 'ring-2 ring-primary-500 shadow-2xl' : ''}`}
+
+              <Card
+                hover
+                className={`h-full border border-gray-200 flex flex-col overflow-hidden ${plan.popular ? 'ring-2 ring-primary-600 shadow-xl relative' : 'shadow-lg'}`}
               >
-                <div className="p-8">
-                  {/* Plan Name */}
+                {/* Header Section */}
+                <div className={`p-8 text-center border-b border-gray-100 ${plan.popular ? 'bg-primary-50' : 'bg-gray-50'}`}>
                   <h3 className="text-2xl font-bold mb-2 text-gray-900">
                     {t(plan.key)}
                   </h3>
-                  
+
                   {/* Price */}
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-primary-600">
+                  <div className="my-4">
+                    <span className="text-5xl font-extrabold text-gray-900 tracking-tight">
                       {t(`${plan.key}Price`)}
                     </span>
                   </div>
-                  
+
                   {/* Description */}
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-700 font-medium">
                     {t(`${plan.key}Desc`)}
                   </p>
-                  
+                </div>
+
+                <div className="p-8 flex flex-col flex-grow">
                   {/* Features List */}
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-4 mb-8 flex-grow">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start">
-                        <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{t(feature)}</span>
+                        <div className={`p-1 rounded-full mr-3 flex-shrink-0 mt-0.5 ${plan.popular ? 'bg-primary-100' : 'bg-green-100'}`}>
+                          <Check className={`w-3 h-3 ${plan.popular ? 'text-primary-700' : 'text-green-700'}`} />
+                        </div>
+                        <span className="text-gray-900 font-medium">{t(feature)}</span>
                       </li>
                     ))}
                   </ul>
-                  
+
                   {/* CTA Button */}
-                  <Button 
-                    variant={plan.popular ? 'primary' : 'outline'} 
-                    className="w-full"
+                  <Button
+                    variant={plan.popular ? 'primary' : 'outline'}
+                    className={`w-full py-3 font-bold text-lg ${plan.popular
+                        ? '!bg-[#0052a3] !text-white hover:!bg-[#003d7a] shadow-lg hover:shadow-xl border-none ring-0'
+                        : 'bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-50'
+                      }`}
                   >
                     {t('cta')}
                   </Button>

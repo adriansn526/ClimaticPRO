@@ -23,17 +23,41 @@
     "title": "Găsește Aerul Condiționat Perfect",
     "subtitle": "pentru fiecare spațiu din casa sau afacerea ta",
     "bedroom": "Dormitor",
-    "bedroomFeatures": ["Silențios <25dB", "Sleep Mode", "Timer programabil"],
+    "bedroomFeatures": [
+      "Silențios <25dB",
+      "Sleep Mode",
+      "Timer programabil"
+    ],
     "living": "Living/Salon",
-    "livingFeatures": ["Putere mare", "Design elegant", "WiFi Smart Control"],
+    "livingFeatures": [
+      "Putere mare",
+      "Design elegant",
+      "WiFi Smart Control"
+    ],
     "office": "Birou/Cabinet",
-    "officeFeatures": ["WiFi Smart", "Silențios", "Eficiență A+++"],
+    "officeFeatures": [
+      "WiFi Smart",
+      "Silențios",
+      "Eficiență A+++"
+    ],
     "commercial": "Spații Comerciale",
-    "commercialFeatures": ["Profesional", "Durabil", "Service rapid"],
+    "commercialFeatures": [
+      "Profesional",
+      "Durabil",
+      "Service rapid"
+    ],
     "house": "Casă Întreagă",
-    "houseFeatures": ["Multi-split 3-5 unități", "O singură unitate exterioară", "Eficient energetic"],
+    "houseFeatures": [
+      "Multi-split 3-5 unități",
+      "O singură unitate exterioară",
+      "Eficient energetic"
+    ],
     "apartment": "Apartament",
-    "apartmentFeatures": ["Multi-split 2-3 camere", "Compact", "Silențios"]
+    "apartmentFeatures": [
+      "Multi-split 2-3 camere",
+      "Compact",
+      "Silențios"
+    ]
   },
   "products": {
     "title": "Produse Recomandate",
@@ -51,11 +75,11 @@
     "title": "Servicii Profesionale de Instalare",
     "subtitle": "Echipă certificată cu experiență de 15+ ani",
     "standard": "Standard",
-    "standardPrice": "350 RON",
+    "standardPrice": "950 RON",
     "standardDesc": "Instalare clasică profesională",
     "premium": "Premium",
-    "premiumPrice": "550 RON",
-    "premiumDesc": "Instalare + curățare + garanție extinsă",
+    "premiumPrice": "1200 RON",
+    "premiumDesc": "Instalare profesională prioritară",
     "vip": "VIP",
     "vipPrice": "La cerere",
     "vipDesc": "Servicii complete personalizate",

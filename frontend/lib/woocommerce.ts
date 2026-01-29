@@ -60,7 +60,7 @@ export interface WooCommerceProduct {
   } | null;
 }
 
-const WORDPRESS_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhost:8080/graphql';
+const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhost:8080/graphql';
 
 export async function getProductBySlug(slug: string): Promise<WooCommerceProduct | null> {
   const query = `
@@ -116,30 +116,30 @@ export async function getProductBySlug(slug: string): Promise<WooCommerceProduct
       }
     }
   `;
-  
+
   try {
     const response = await fetch(WORDPRESS_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         query,
         variables: { slug }
       }),
       next: { revalidate: 60 },
     });
-    
+
     if (!response.ok) {
       console.error('WordPress API error:', response.status, response.statusText);
       return null;
     }
-    
+
     const json = await response.json();
-    
+
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);
       return null;
     }
-    
+
     return json.data?.product || null;
   } catch (error) {
     console.error('Error fetching product:', error);
@@ -196,7 +196,7 @@ export async function getFeaturedProducts(limit: number = 8): Promise<WooCommerc
       }
     }
   `;
-  
+
   try {
     const response = await fetch(WORDPRESS_API_URL, {
       method: 'POST',
@@ -204,25 +204,98 @@ export async function getFeaturedProducts(limit: number = 8): Promise<WooCommerc
       body: JSON.stringify({ query }),
       next: { revalidate: 60 }, // ISR 1 minute
     });
-    
+
     if (!response.ok) {
       console.error('WordPress API error:', response.status, response.statusText);
       return [];
     }
-    
+
     const json = await response.json();
-    
+
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);
       return [];
     }
-    
+
     const products = json.data?.products?.nodes || [];
     console.log(`Loaded ${products.length} featured products from WooCommerce`);
-    
+
     return products;
   } catch (error) {
     console.error('Error fetching featured products:', error);
+    return [];
+  }
+}
+
+export async function getBestSellingProducts(limit: number = 4): Promise<WooCommerceProduct[]> {
+  const query = `
+    query GetBestSellingProducts {
+      products(first: ${limit}, where: { orderby: { field: TOTAL_SALES, order: DESC } }) {
+        nodes {
+          id
+          databaseId
+          name
+          slug
+          onSale
+          featured
+          image {
+            sourceUrl
+            altText
+          }
+          ... on SimpleProduct {
+            price
+            regularPrice
+            salePrice
+            stockStatus
+            sku
+            attributes {
+              nodes {
+                name
+                label
+                options
+              }
+            }
+            productCategories {
+              nodes {
+                name
+                slug
+              }
+            }
+            allPaBrand {
+              nodes {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 3600 }, // Cache 1 hour
+    });
+
+    if (!response.ok) {
+      console.error('WordPress API error:', response.status, response.statusText);
+      return [];
+    }
+
+    const json = await response.json();
+
+    if (json.errors) {
+      console.error('GraphQL Errors:', json.errors);
+      return [];
+    }
+
+    return json.data?.products?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching best selling products:', error);
     return [];
   }
 }
@@ -257,34 +330,144 @@ export async function searchProducts(searchQuery: string): Promise<WooCommercePr
       }
     }
   `;
-  
+
   try {
     const response = await fetch(WORDPRESS_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         query,
         variables: { search: searchQuery }
       }),
       cache: 'no-store', // Don't cache search results
     });
-    
+
     if (!response.ok) {
       console.error('WordPress API error:', response.status, response.statusText);
       return [];
     }
-    
+
     const json = await response.json();
-    
+
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);
       return [];
     }
-    
+
     return json.data?.products?.nodes || [];
   } catch (error) {
     console.error('Error searching products:', error);
     return [];
+  }
+}
+
+export interface ProductFilters {
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  onSale?: boolean;
+  search?: string;
+  brand?: string;
+  orderby?: { field: string; order: string };
+  after?: string;
+  exclude?: number[];
+}
+
+export async function getProducts(filters: ProductFilters = {}, limit: number = 12): Promise<{ products: WooCommerceProduct[], pageInfo: any }> {
+  const { category, minPrice, maxPrice, onSale, search, brand, orderby, after, exclude } = filters;
+
+  // Construct filter arguments
+  let whereArgs: string[] = [];
+  if (category) whereArgs.push(`category: "${category}"`);
+  if (minPrice) whereArgs.push(`minPrice: ${minPrice}`);
+  if (maxPrice) whereArgs.push(`maxPrice: ${maxPrice}`);
+  if (onSale) whereArgs.push(`onSale: true`);
+  if (search) whereArgs.push(`search: "${search}"`);
+  if (exclude && exclude.length > 0) whereArgs.push(`notIn: [${exclude.join(', ')}]`);
+
+  // Add orderby
+  const orderArgs = orderby
+    ? `orderby: { field: ${orderby.field}, order: ${orderby.order} }`
+    : `orderby: { field: DATE, order: DESC }`;
+
+  const afterArg = after ? `, after: "${after}"` : '';
+
+  const query = `
+    query GetProducts {
+      products(first: ${limit}${afterArg}, where: { ${whereArgs.join(', ')} }, ${orderArgs}) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          id
+          databaseId
+          name
+          slug
+          onSale
+          featured
+          image {
+            sourceUrl
+            altText
+          }
+          ... on SimpleProduct {
+            price
+            regularPrice
+            salePrice
+            stockStatus
+            sku
+            attributes {
+              nodes {
+                name
+                label
+                options
+              }
+            }
+            productCategories {
+              nodes {
+                name
+                slug
+              }
+            }
+            allPaBrand {
+              nodes {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+      console.error('WordPress API error:', response.status, response.statusText);
+      return { products: [], pageInfo: {} };
+    }
+
+    const json = await response.json();
+
+    if (json.errors) {
+      console.error('GraphQL Errors:', json.errors);
+      return { products: [], pageInfo: {} };
+    }
+
+    return {
+      products: json.data?.products?.nodes || [],
+      pageInfo: json.data?.products?.pageInfo || {}
+    };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { products: [], pageInfo: {} };
   }
 }
 
@@ -334,7 +517,7 @@ export async function getInstallationProducts(limit: number = 3): Promise<WooCom
       }
     }
   `;
-  
+
   try {
     const response = await fetch(WORDPRESS_API_URL, {
       method: 'POST',
@@ -342,19 +525,19 @@ export async function getInstallationProducts(limit: number = 3): Promise<WooCom
       body: JSON.stringify({ query }),
       next: { revalidate: 300 }, // Cache 5 minutes
     });
-    
+
     if (!response.ok) {
       console.error('WordPress API error:', response.status, response.statusText);
       return [];
     }
-    
+
     const json = await response.json();
-    
+
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);
       return [];
     }
-    
+
     return json.data?.products?.nodes || [];
   } catch (error) {
     console.error('Error fetching installation products:', error);
@@ -386,7 +569,7 @@ export async function getWooCommerceCategories(): Promise<WooCommerceCategory[]>
       }
     }
   `;
-  
+
   try {
     const response = await fetch(WORDPRESS_API_URL, {
       method: 'POST',
@@ -394,14 +577,14 @@ export async function getWooCommerceCategories(): Promise<WooCommerceCategory[]>
       body: JSON.stringify({ query }),
       next: { revalidate: 600 }, // Cache 10 minutes
     });
-    
+
     const json = await response.json();
-    
+
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);
       return [];
     }
-    
+
     return json.data?.productCategories?.nodes || [];
   } catch (error) {
     console.error('Error fetching WooCommerce categories:', error);

@@ -41,22 +41,11 @@ if (!function_exists('getenv_docker')) {
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'wordpress') );
-
-/** Database username */
-define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'example username') );
-
-/** Database password */
-define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', 'example password') );
-
-/**
- * Docker image fallback values above are sourced from the official WordPress installation wizard:
- * https://github.com/WordPress/WordPress/blob/1356f6537220ffdc32b9dad2a6cdbe2d010b7a88/wp-admin/setup-config.php#L224-L238
- * (However, using "example username" and "example password" in your database is strongly discouraged.  Please use strong, random credentials!)
- */
-
-/** Database hostname */
-define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'mysql') );
+// ** Database settings ** //
+define( 'DB_NAME', 'climaticpro_wp_new' );
+define( 'DB_USER', 'climaticpro_wp' );
+define( 'DB_PASSWORD', 'XWBTMMTF0KWTEp7wVzrY' );
+define( 'DB_HOST', '172.18.0.1:3306' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', getenv_docker('WORDPRESS_DB_CHARSET', 'utf8mb4') );
@@ -75,14 +64,14 @@ define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE', '') );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'ff26025dce85743149d9af50f5ed22ea361983ac') );
-define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  '2a7d28eb176ce6f2c8d8cde72363d7fa0d4294c7') );
-define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    '152cb89408b2ce03369a173a101caf7877735b35') );
-define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY',        '6787a6fe3d9c2953933f30cc1fbb9be987baca02') );
-define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT',        'fda0cad9efdf1d67123e606ad51f2cb8b0ca8897') );
-define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', '9527c20b5baf0e594e9358b26f3ec0275cfea7d6') );
-define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   '0707a144d0c7843f722060e8189dad1fff7e37c7') );
-define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '4d2a12bda810ff0d0f356ee586fe17bcd2708466') );
+define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'e0671930dec58b344dac5209e37b7f703fa1de0f') );
+define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  '469a407f159832a2d17014a6d0ce2736c0d11bd1') );
+define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    '69ee9997b295557ba4c81d91dca9d7e1ee974b2c') );
+define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY',        '8a048127807f35cac13403e27692166833be1c5d') );
+define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT',        'b776abaf78d55b2dbc6086738dcf573f3288449e') );
+define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', '1b6a431cf3afbbb08b6f1dc31195be044a66de28') );
+define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   '6706df104a50791b7e307c73dfad06f5ef32d80c') );
+define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '711604a8572e52a0a83b131bc89499f51dde831f') );
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
 
 /**#@-*/
@@ -99,7 +88,10 @@ define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '4d2a12b
  *
  * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#table-prefix
  */
-$table_prefix = getenv_docker('WORDPRESS_TABLE_PREFIX', 'wp_');
+$table_prefix = 'cmp_';
+
+define( 'WP_HOME', 'https://cms.climaticpro.ro' );
+define( 'WP_SITEURL', 'https://cms.climaticpro.ro' );
 
 /**
  * For developers: WordPress debugging mode.
@@ -113,26 +105,33 @@ $table_prefix = getenv_docker('WORDPRESS_TABLE_PREFIX', 'wp_');
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', false );
+// define( 'DB_HOST', '172.18.0.3' );
+define( 'WP_DEBUG', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
 // If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
 // see also https://wordpress.org/support/article/administration-over-ssl/#using-a-reverse-proxy
+// Allow HTTPS for local requests
+if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1') && $_SERVER['SERVER_PORT'] == 80) {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
 	$_SERVER['HTTPS'] = 'on';
 }
 // (we include this by default because reverse proxying is extremely common in container environments)
 
+if ( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
+	$_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
+}
+
+define( 'FORCE_SSL_ADMIN', true );
+
 if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
 	eval($configExtra);
 }
 
-define( 'WP_DEBUG_DISPLAY', false );
-define( 'AUTOMATIC_UPDATER_DISABLED', true );
-define( 'WP_AUTO_UPDATE_CORE', false );
-define( 'DISALLOW_FILE_MODS', false );
-define( 'WP_DEBUG_LOG', true );
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

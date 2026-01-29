@@ -9,23 +9,36 @@ import { Menu, X, Phone, Mail, ShoppingCart, Search, User, Heart, GitCompare } f
 import Button from '@/components/ui/Button';
 import MegaMenu from './MegaMenu';
 import MobileMegaMenu from './MobileMegaMenu';
+import { useCart } from '@/contexts/CartContext';
+import { useWishlist } from '@/lib/hooks/useWishlist';
+import CartDrawer from '@/components/cart/CartDrawer';
 
 export default function Header() {
   const t = useTranslations('common');
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Conditionally render hooks only after client hydration to avoid mismatch if needed,
+  // but since this is 'use client', standard hook usage is fine.
+  // We need to handle optional context if somehow used outside provider, but we wrapped layout.
+
+  // NOTE: We import these here. If CartProvider is missing, this might throw.
+  // But we added it to layout.
+  const { totalItems } = useCart();
+  const { count: wishlistCount } = useWishlist();
+
   // Header nu e sticky pe paginile de produs
   const isProductPage = pathname?.startsWith('/produs/');
   const headerClass = isProductPage ? 'relative' : 'sticky top-0';
-  
+
   const navigation = [
     { name: 'Instalare', href: '/instalare' },
     { name: 'Resurse & Ghiduri', href: '/resurse' },
     { name: 'Metode de Plata', href: '/metode-plata' },
     { name: 'Vanzari B2B', href: '/vanzari-b2b' },
   ];
-  
+
   return (
     <header className={`${headerClass} z-50 bg-white shadow-sm`}>
       {/* Top Bar */}
@@ -44,7 +57,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      
+
       {/* Main Header */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4">
@@ -60,7 +73,7 @@ export default function Header() {
                 className="h-16 w-auto"
               />
             </Link>
-            
+
             {/* Search Bar */}
             <div className="hidden md:flex flex-1 max-w-2xl mx-8">
               <div className="relative w-full">
@@ -75,34 +88,44 @@ export default function Header() {
                 </button>
               </div>
             </div>
-            
+
             {/* Right Actions */}
             <div className="hidden md:flex items-center gap-3">
               <Link href="/cont" className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors">
                 <User className="w-5 h-5" />
                 <span className="text-xs mt-1">Contul meu</span>
               </Link>
-              <Link href="/favorite" className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors relative">
-                <Heart className="w-5 h-5" />
+              <Link href="/wishlist" className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors relative">
+                <div className="relative">
+                  <Heart className="w-5 h-5" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+                  )}
+                </div>
                 <span className="text-xs mt-1">Favorite</span>
               </Link>
               <Link href="/compara" className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors">
                 <GitCompare className="w-5 h-5" />
                 <span className="text-xs mt-1">Compara</span>
               </Link>
-              <Link href="/checkout" className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                </svg>
-                <span className="text-xs mt-1">Checkout</span>
-              </Link>
-              <Link href="/cos" className="flex items-center gap-2 bg-primary-600 text-gray-900 px-4 py-2.5 rounded-lg hover:bg-primary-700 transition-colors shadow-sm relative">
-                <ShoppingCart className="w-5 h-5" />
-                <span className="text-sm font-semibold">Coș</span>
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
-              </Link>
+
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors relative"
+                aria-label="Coș cumpărături"
+              >
+                <div className="relative">
+                  <ShoppingCart className="w-5 h-5" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1.5 bg-red-600 text-white text-[9px] font-bold rounded-full w-3.5 h-3.5 flex items-center justify-center border border-white">
+                      {totalItems}
+                    </span>
+                  )}
+                </div>
+                <span className="text-xs mt-1">Coș</span>
+              </button>
             </div>
-            
+
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -119,7 +142,7 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-6 py-3">
             <MegaMenu />
-            
+
             <nav className="flex items-center gap-6">
               {navigation.map((item) => (
                 <Link
@@ -134,9 +157,12 @@ export default function Header() {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Mega Menu */}
       <MobileMegaMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+
+      {/* Cart Drawer */}
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 }

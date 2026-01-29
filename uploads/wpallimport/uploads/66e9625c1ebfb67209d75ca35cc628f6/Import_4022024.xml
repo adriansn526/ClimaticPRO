@@ -1,0 +1,1153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<denumire><![CDATA[Aer conditionat Fujitsu ASYG09KPCE-AOYG09KPCA de 9000 BTU Clasa de energie A++,  WiFi - Optional si garantie 60 luni]]></denumire>
+		<codprodusclimatico><![CDATA[ASYG09KPCE-AOYG09KPCA]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[1936]]></pretfurnizor>
+		<pret><![CDATA[2300]]></pret>
+		<pretclimatico><![CDATA[2,619]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/fujitsu.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Fujitsu]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[9000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[8530 (3071 - 10236) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[9550 BTU (3071 - 12966) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[3,52]]></eer>
+		<seer><![CDATA[6.70]]></seer>
+		<cop><![CDATA[3.54]]></cop>
+		<scop><![CDATA[4]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[131 kWh/an]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[840 kWh/an]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[6.5 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[9.0 A]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[ASYG09KPCE]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Dezumidificare, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[Anti-praf]]></filtru>
+		<dezumidificare><![CDATA[1.3 l/h]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[580 m³/h]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[580 m³/h]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[22 / 31 / 38 / 45  dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[26 / 36 / 40 / 45 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[Perete]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[784 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[224 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[270 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[8 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[AOYG09KPCA]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[Rotary]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[15 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[20 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[15 m]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[1650 m³/h]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[47 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[59 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[663 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[290 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[541 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[23 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Optional]]></control_wifi>
+		<suprafata_acoperire><![CDATA[20-25 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-10°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+46°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[9.52 mm (3/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[16 mm]]></teava_conexiune_condens>
+		<garantie><![CDATA[60 luni]]></garantie>
+		<garaintie_compresor><![CDATA[60 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><p style="text-align: justify;"><span style="font-size: 14pt;">Aparat de aer conditionat<strong><br><span style="font-size: 18pt; color: #0a3370;">Fujitsu Eco ASYG09KPCE-AOYG09KPCA Inverter 9000 BTU</span><br></strong></span></p>
+<p>&nbsp;</p>
+<p><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-heron-energy-fujitsu-ASYG09KPCE-unitate-interioara_mica.jpg" alt="" width="229" height="100"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/fujitsu-logo.png" alt="" width="160" height="75"></p>
+<p>Aparatul de aer conditionat Fujitsu este un dispozitiv avansat ce ofera un mediu placut si confortabil in orice sezon. Cu tehnologia sa inovatoare, acest aparat asigura atat racirea, cat si incalzirea intr-un mod eficient, reusind sa mentina&nbsp;temperatura optima in interiorul locuintei sau spatiului de lucru.</p>
+<p>&nbsp;</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-wi-fi-ready.png" alt="" width="400px" height="215px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Wi-Fi Ready</strong></p>
+<p>Puteti controla aparatul de aer conditionat oricand si de oriunde, prin functia Wi-Fi. Functia este optionala si necesita achizitionarea unui adaptor WLAN ( UTY-TFSXF2 sau UTY-TFSXH3).</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Design rectangular subtire &amp; elegant</strong></p>
+<p>Designul subtire si elegant al acestei unitati interioare este obtinut datorita schimbatorului de caldura de inalta densitate cu mai multe cai si ventilatorului cu eﬁcienta ridicata.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-kpca-1111.jpg" alt="" width="400px" height="253px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-kpca-2.png" alt="" width="400px" height="150px"></p>
+<p>*1: 9000 BTU / *2:12000 BTU</p>
+</td>
+<td style="width: 50%;">
+<p><strong>Eﬁcienta energetica ridicata</strong></p>
+<p>Eﬁcienta ridicata este atinsa cu ajutorul schimbatorului de caldura in forma lambda, a turbinei de mari dimensiuni si a noului tip de refrigerant.</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Flux de aer confortabil &amp; Functionare silentioasa</strong></p>
+<p>Flapsul de mari dimensiuni si noua structura a fantei de evacuare creaza un ﬂux de aer care este dispersat pana la nivelul solului, in mod silentios.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-kpca-33.png" alt="" width="400px" height="130px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-kpca-44.png" alt="" width="400px" height="149px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Functioneaza la temperaturi scazute</strong></p>
+<p>Aparatul functioneaza in parametri chiar si la temperaturi scazute, -10°C in mod de racire si -15°C in mod de incalzire.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><span style="color: #34495e;"><strong>CARACTERISTICI:</strong></span></p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-functionare-economica.png" alt="" width="83px" height="83px"><strong>Functionare economica</strong></p>
+<p>Setarea termostatului este ajustata automat, functie de temperatura camerei, pentru a evita racirea sau incalzirea inutile.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-functionare-la-putere-maxima.png" alt="" width="83px" height="83px"><strong>Functionare la putere maxima</strong></p>
+<p>Aparatul functioneaza la viteza maxima a ventilatorului si a compresorului, iar temperatura camerei devine confortabila intr-un timp foarte scurt.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-functionare-pe-timpul-somnului.png" alt="" width="83px" height="83px"><strong>Functionare pe timpul somnului</strong></p>
+<p>Aparatul este programat sa modiﬁce automat temperatura camerei, pentru a favoriza un somn cat mai confortabil.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-comutare-automata.png" alt="" width="83px" height="83px"><strong>Comutare automata</strong></p>
+<p>Aparatul comuta automat intre modurile incalzire si racire, functie de temperatura setata si temperatura camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-cronometru.png" alt="" width="83px" height="83px"><strong>Cronometru</strong></p>
+<p>Timerul digital permite selectarea uneia dintre cele 4 optiuni de pornire si/sau oprire programata: ON, OFF, ON &gt;&gt; OFF sau OFF &gt;&gt; ON.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/6-oscilare-sus-jos-flaps.png" alt="" width="83px" height="83px"><strong>Oscilare sus-jos a ﬂapsului</strong></p>
+<p>Flapsul oscileaza automat pe verticala, sus-jos.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/7-atentionare-filtru.png" alt="" width="83px" height="83px"><strong>Atentionare ﬁltru</strong></p>
+<p>Aparatul indica necesitatea curatarii ﬁltrului printr-un semnal luminos.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/8-viteza-ventilatorului-automata.png" alt="" width="83px" height="83px"><strong>Viteza ventilatorului automata</strong></p>
+<p>Aparatul este programat sa ajusteze automat ﬂuxul de aer eliberat, functie de modiﬁcarea temperaturii camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/9-panou-lavabil.png" alt="" width="83px" height="83px"><strong>Panou lavabil</strong></p>
+<p>Panoul frontal al unitatii interioare este usor de demontat, ceea ce face si mentenanta mai usoara.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/10-repornire-automata.png" alt="" width="83px" height="83px"><strong>Repornire automata</strong></p>
+<p>In cazul unei caderi de tensiune, la reluarea alimentarii, aparatul va reporni automat, pastrand setarile anterioare evenimentului.</p>
+</td>
+</tr>
+</tbody>
+</table></div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Fujitsu ASYG12KPCE-AOYG12KPCA de 12000 BTU Clasa de energie A++,  WiFi - Optional si garantie 60 luni]]></denumire>
+		<codprodusclimatico><![CDATA[ASYG12KPCE-AOYG12KPCA]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[2031]]></pretfurnizor>
+		<pret><![CDATA[2500]]></pret>
+		<pretclimatico><![CDATA[2,859]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/fujitsu.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Fujitsu]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[12000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[11601 (3071 - 12624) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[12966 BTU (3071 - 16378) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[3.4]]></eer>
+		<seer><![CDATA[6.3]]></seer>
+		<cop><![CDATA[3.33]]></cop>
+		<scop><![CDATA[4.10]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[189 kWh/an]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[853 kWh/an]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[6.5 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[9.0 A]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[ASYG12KPCE]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Dezumidificare, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[Anti-praf]]></filtru>
+		<dezumidificare><![CDATA[1.8 l/h]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[630 m³/h]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[630 m³/h]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[22 / 33 / 40 / 46  dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[27 / 35 / 40 / 46 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[Perete]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[784 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[224 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[270 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[8 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[AOYG12KPCA]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[Rotary]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[15 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[20 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[15 m]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[1700 m³/h]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[49 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[62 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[663 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[290 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[541 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[25 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Optional]]></control_wifi>
+		<suprafata_acoperire><![CDATA[25-35 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-10°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+46°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[9.52 mm (3/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[16 mm]]></teava_conexiune_condens>
+		<garantie><![CDATA[60 luni]]></garantie>
+		<garaintie_compresor><![CDATA[60 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><p><span style="font-size: 14pt;">Aparat de aer conditionat<strong><br><span style="font-size: 18pt; color: #000000;">Fujitsu Eco ASYG12KPCE-AOYG12KPCA Inverter 12000 BTU</span><br></strong></span></p>
+<p>&nbsp;</p>
+<p><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-heron-energy-fujitsu-ASYG09KPCE-unitate-interioara_mica.jpg" alt="" width="229" height="100"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/fujitsu-logo.png" alt="" width="160" height="75"></p>
+<p>Aparatul de aer conditionat Fujitsu este un dispozitiv avansat ce ofera un mediu placut si confortabil in orice sezon. Cu tehnologia sa inovatoare, acest aparat asigura atat racirea, cat si incalzirea intr-un mod eficient, reusind sa mentina&nbsp;temperatura optima in interiorul locuintei sau spatiului de lucru.</p>
+<p>&nbsp;</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-wi-fi-ready.png" alt="" width="400px" height="215px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Wi-Fi Ready</strong></p>
+<p>Puteti controla aparatul de aer conditionat oricand si de oriunde, prin functia Wi-Fi. Functia este optionala si necesita achizitionarea unui adaptor WLAN (UTY-TFSXF2).</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Design rectangular subtire &amp; elegant</strong></p>
+<p>Designul subtire si elegant cu linii drepte, este realizat cu ajutorul schimbatorului de caldura performant cu densitate ridicata si de ventilatorul cu randament ridicat.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-kpca-1111.jpg" alt="" width="400px" height="300px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-kpca-2.png" alt="" width="400px" height="148px"></p>
+<p>*1: 9000 BTU / *2: 12000 BTU</p>
+</td>
+<td style="width: 50%;">
+<p><strong>Economie de energie ridicata</strong></p>
+<p>Eficienta ridicata de inalta clasa este obtinuta de un schimbator de caldură lamda de inalta eficienta, un ventilator mare cu flux transversal si un agent frigorific nou.</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Flux de aer confortabil si functionare silentioasa</strong></p>
+<p>Flapsul de mari dimensiuni si noua structura a fantei de evacuare creaza un flux de aer care este dispersat pana la nivelul solului, in mod silentios.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-kpca-33.png" alt="" width="400px" height="130px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-kpca-44.png" alt="" width="400px" height="149px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Functioneaza la temperaturi scazute</strong></p>
+<p>Aparatul functioneaza in parametri chiar si la temperaturi scazute, -10°C in mod de racire si -15°C in mod de incalzire.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><span style="color: #000000;"><strong>CARACTERISTICI:</strong></span></p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-functionare-economica.png" alt="" width="83px" height="83px"><strong>Functionare economica</strong></p>
+<p>Setarea termostatului este ajustata automat, functie de temperatura camerei, pentru a evita racirea sau incalzirea inutile.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-functionare-la-putere-maxima.png" alt="" width="83px" height="83px"><strong>Functionare la putere maxima</strong></p>
+<p>Aparatul functioneaza la viteza maxima a ventilatorului si a compresorului, iar temperatura camerei devine confortabila intr-un timp foarte scurt.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-functionare-pe-timpul-somnului.png" alt="" width="83px" height="83px"><strong>Functionare pe timpul somnului</strong></p>
+<p>Aparatul este programat sa modiﬁce automat temperatura camerei, pentru a favoriza un somn cat mai confortabil.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-comutare-automata.png" alt="" width="83px" height="83px"><strong>Comutare automata</strong></p>
+<p>Aparatul comuta automat intre modurile incalzire si racire, functie de temperatura setata si temperatura camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-cronometru.png" alt="" width="83px" height="83px"><strong>Cronometru</strong></p>
+<p>Timerul digital permite selectarea uneia dintre cele 4 optiuni de pornire si/sau oprire programata: ON, OFF, ON &gt;&gt; OFF sau OFF &gt;&gt; ON.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/6-oscilare-sus-jos-flaps.png" alt="" width="83px" height="83px"><strong>Oscilare sus-jos a ﬂapsului</strong></p>
+<p>Flapsul oscileaza automat pe verticala, sus-jos.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/7-atentionare-filtru.png" alt="" width="83px" height="83px"><strong>Atentionare ﬁltru</strong></p>
+<p>Aparatul indica necesitatea curatarii ﬁltrului printr-un semnal luminos.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/8-viteza-ventilatorului-automata.png" alt="" width="83px" height="83px"><strong>Viteza ventilatorului automata</strong></p>
+<p>Aparatul este programat sa ajusteze automat ﬂuxul de aer eliberat, functie de modiﬁcarea temperaturii camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/9-panou-lavabil.png" alt="" width="83px" height="83px"><strong>Panou lavabil</strong></p>
+<p>Panoul frontal al unitatii interioare este usor de demontat, ceea ce face si mentenanta mai usoara.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/10-repornire-automata.png" alt="" width="83px" height="83px"><strong>Repornire automata</strong></p>
+<p>In cazul unei caderi de tensiune, la reluarea alimentarii, aparatul va reporni automat, pastrand setarile anterioare evenimentului.</p>
+</td>
+</tr>
+</tbody>
+</table></div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Fujitsu ASYG18KLCA-AOYG18KLCA de 18000 BTU Clasa de energie A++,  WiFi - Optional si garantie 60 luni]]></denumire>
+		<codprodusclimatico><![CDATA[ASYG18KLCA-AOYG18KLCA]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[4198]]></pretfurnizor>
+		<pret><![CDATA[4800]]></pret>
+		<pretclimatico><![CDATA[5,249]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/fujitsu.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Fujitsu]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[18000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[17742 (3071 - 18766) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[21496 BTU (2047 - 25931) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[3.09]]></eer>
+		<seer><![CDATA[7.2]]></seer>
+		<cop><![CDATA[3.5]]></cop>
+		<scop><![CDATA[4.30]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[253 kWh/an]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[1563 kWh/an]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[9.5 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[13.5 A]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[ASYG18KLCA]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Dezumidificare, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[Anti-praf]]></filtru>
+		<dezumidificare><![CDATA[1.9 l/h]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[865 m³/h]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[995 m³/h]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[35 / 40 / 44 / 47 dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[37 / 41 / 45 / 50 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[Perete]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[790 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[249 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[293 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[9.5 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[AOYG18KLCA]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[Rotary]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[15 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[25 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[20 m]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[1830 m³/h]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[50 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[61 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[799 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[290 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[542 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[33 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Optional]]></control_wifi>
+		<suprafata_acoperire><![CDATA[40-50 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-10°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+46°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[9.52 mm (3/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[16 mm]]></teava_conexiune_condens>
+		<garantie><![CDATA[60 luni]]></garantie>
+		<garaintie_compresor><![CDATA[60 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><p style="text-align: justify;"><span style="font-size: 14pt;">Aparat de aer conditionat<strong><br><span style="font-size: 18pt; color: #0a3370;">Fujitsu EcoASYG18KLCA-AOYG18KLCA Inverter 18000 BTU</span><br></strong></span></p>
+<p style="text-align: justify;">&nbsp;</p>
+<p>&nbsp;<img style="display: block; margin-left: auto; margin-right: auto;" title="Noul Fujitsu Eco, banner prezentare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/ASYG09KPCE/Fujitsu-Eco-Rezidential.jpg" alt="Noul Fujitsu Eco, banner prezentare" width="1140" height="344"></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong><br>Confort in orice spatiu</strong></span><br><span style="font-size: 12pt;">Produsele din gama Eco, de la Fujitsu, sunt elegante si simple, cu o estetica&nbsp;ce&nbsp;le pune in&nbsp;evidenta. Design-ul compact al aparatului de aer conditionat din gama Eco face ca acesta sa poata fi integrat cu usurinta in orice spatiu rezidential, fie el si de mici dimensiuni, precum dormitorul sau biroul de acasa<a href="https://www.climatico.ro/" target="_blank" rel="noopener">.</a>&nbsp;</span><br><span style="font-size: 12pt;">Gama Eco beneficiaza de multiple beneficii care vor crea un confort sporit utilizatorului.</span></p>
+<p>&nbsp;<span style="text-align: justify;">&nbsp;</span><span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Mod Economic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/economy-mode-01.png" alt="Mod Economic" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Mod putere" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/powerful-mode-01.png" alt="Mod putere" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Functie operare caldura" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/heat-operatio-01.png" alt="Functie operare caldura" width="35"><span style="text-align: justify;">&nbsp;</span><span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Auto-schimbare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/auto-changeover-01.png" alt="Auto-schimbare" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Filter" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/up-down-swing-flaps-01.png" alt="Filter" width="35">&nbsp;&nbsp;<img style="text-align: justify; margin: 0 0px 5px 0px;" title="Fan speed" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/automatic-fan-speed-01.png" alt="Fan speed" width="35">&nbsp;<span style="text-middle: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Auto restart" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/auto-restart-01.png" alt="Auto restart" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Timer 24 ore" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/sleep-timer-01.png" alt="Timer 24 ore" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0px;" title="Programator saptamanal" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/program-timer-01.png" alt="Programator saptamanal" width="35" height="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Programare zilnica" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/weekly-timer-01.png" alt="Programare zilnica" width="35"><span style="text-align: justify;">&nbsp;<br><br></span></p>
+<p><br><br></p>
+<p>&nbsp;</p>
+<p style="text-align: justify;"><strong><span style="font-size: 14pt;">Dimensiuni mici, flux de aer puternic si ajustabil</span><br></strong><span style="font-size: 12pt;">Desi de mici dimensiuni, lungimea aparatului fiind de doar 78 de centimetri, fluxul de aer de care dispune acesta este unul puternic, obtinut cu ajutorul unui schimbator de caldura, precum si prin utilizarea unui ventilator cu debit mare de aer si dimensiuni compacte. Puterea fluxului de aer se poate ajusta.<br><br></span></p>
+<p>&nbsp;<br><img style="display: block; margin-left: auto; margin-right: auto;" title="Dimensiuni mici, putere mare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/ASYG09KPCE/Dimensiuni_Fujitsu.jpg" alt="Dimensiuni mici, putere mare" width="700" height="202"></p>
+<p style="text-align: justify;"><br><span style="font-size: 14pt;"><strong><br>Usor de curatat</strong></span><br><span style="font-size: 12pt;">Filtrul echipamentului de aer conditionat Fujitsu se poate curata cu usurinta, fara ajutorul personalului specializat. Acesta&nbsp;colecteaza particule mari de praf si ajuta la curatarea&nbsp;aerului.<br><br></span></p>
+<p style="text-align: justify;"><span style="font-size: 12pt;"><span style="font-size: 14pt;"><strong>Clasa energetica A++</strong><strong><img style="float: right; border-width: 0px; margin: 10px;" title="Consum de energie redus" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/Eticheta_energetica_Fujitus.jpg" alt="Consum de energie redus" width="425" height="271"></strong><span style="font-size: 14pt;"><span style="font-size: 12pt;"><br>Tehnologia inverter ajuta la economisirea substantiala de energie, iar astfel echipamentele de aer conditionat Fujitsu, din gama Eco, sunt incadrate in clasa energetica de nivel A++, pentru racire si A+ pentru incalzire.</span></span></span></span></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong>Functionare silentioasa</strong></span><br><span style="font-size: 12pt;">Pentru a oferi un plus de confort, aparatul de aer conditionat Fujitsu din gama Eco&nbsp;poate fi folosit in timpul somnului, selectand&nbsp;modul Sleep, un mod silentios care nu v-a produce prea mult&nbsp;zgomot&nbsp;care sa afecteze starea de odihna.</span></p>
+<p style="text-align: justify;">&nbsp;<span style="font-size: 14pt;"><strong><br></strong></span><strong style="font-size: 14pt; text-align: justify;">Functioneaza la temperaturi scazute</strong><strong style="font-size: 18.6667px; text-align: justify;"><img style="float: right; margin: 10px;" title="Functionare la temperaturi scazute" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/ASYG09KPCE/Aparat-de-aer-condtionat-Fujitsu-Eco-ASYG09KPCE-temperaturi-functionare.png" alt="Functionare la temperaturi scazute" width="425" height="158"></strong><span style="font-size: 12pt;">Unitatea externa a aparatului de aer conditionat Fujitsu Eco poate fi montata in conditii dificile de mediu, aceasta avand capacitatea de a functiona in parametrii optimi. Pentru functionare in modul racire, temperatura exterioara poate varia intre -10 si 46 de grade Celsius, in timp ce pentru modul incalzire, temperatura exterioara poate varia intre -15 si 24 grade Celsius.</span></p>
+<p style="text-align: justify;"><strong style="font-size: 14pt;">Repornire automata<br></strong><span style="font-size: 12pt;">In cazul intreruperii alimentarii cu energie elctrica, aparatul de aer conditionat Fujitsu ECO, fara a fi nevoie de alte interventii suplimentare.</span></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong>Programare inchidere / deschidere</strong></span><br><span style="font-size: 12pt;">Functia de programare a aparatului de aer conditonat ajuta ca device-ul sa se&nbsp;inchida sau sa porneasca atunci cand decide utilizatorul, acesta putand astfel sa isi creeze un mediu propice pentru momentul in care se culca, dar nu doreste ca aparatul sa functioneze pe toata perioada noptii sau pentru revenirea sa acasa.<br><br><span style="font-size: 14pt;"><strong>Autoreglare functie de racire sau incalzire</strong></span><br>Functia Auto Changeover ofera posibilitatea aparatulului de aer conditionat Fujitsu Eco&nbsp;sa aleaga intre modul de incalzire si cel de racire, in functie de temperatura setata de catre utilizator si in functie de temperatura ambientala. Astfel, in cazul in care in camera se doreste sa se ajunga la o temperatura de 27 grade Celsius, aparatul va selecta automat functia de incalzire sau racire, masurand temperatura existenta la momentul pornirii, putand oricand comuta intre functii daca este necesar.<br></span><br><strong style="text-align: justify; font-size: 12pt;">Operare economica<br></strong><span style="font-size: 12pt;">Temperatura setata este modificata automat cu 1°C. Setarea termostatului se modifica automat in functie de temperatura ambientala pentru a evita racirea si incalzirea inutila.</span></p>
+<p><strong><span style="font-size: 12pt;">O</span><span style="font-size: 12pt;">perare puternica</span></strong><br><span style="font-size: 12pt;">Este posibila functionarea in mod continuu timp de 20 de minute cu un debit de aer maxim si o viteza maxima a compresorului. Racirea si incalzirea rapida fac camera confortabila intr-un timp scurt.</span></p>
+<hr>
+<p><span style="font-size: 14pt;"><strong><br><img style="margin: 10px; float: left;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/R32_Climatico.jpg" alt="" width="100" height="100">Prietenos cu mediul</strong></span><br><span style="font-size: 12pt;">Refrigerantul de ultima generatie R32, care este folosit de aparatele de aer conditionat din gama Eco de la Fujitsu pentru a transfera caldura, are un impact redus&nbsp;asupra mediului si este foarte eficient.</span></p>
+
+</div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Fujitsu ASYG24KLCA-AOYG24KLCA de 24000 BTU Clasa de energie A++,  WiFi - Optional si garantie 60 luni]]></denumire>
+		<codprodusclimatico><![CDATA[ASYG24KLCA-AOYG24KLCA]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[5031]]></pretfurnizor>
+		<pret><![CDATA[5800]]></pret>
+		<pretclimatico><![CDATA[6,249]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/fujitsu.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Fujitsu]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[24000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[24225 (3071 - 26272) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[27296 BTU (3071 - 30708) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[2.93]]></eer>
+		<seer><![CDATA[7.10]]></seer>
+		<cop><![CDATA[3.6]]></cop>
+		<scop><![CDATA[4]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[350 kWh/an]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[2485 kWh/an]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[13.5 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[17.5 A]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[ASYG24KLCA]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Dezumidificare, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[Anti-praf]]></filtru>
+		<dezumidificare><![CDATA[3.1 l/h]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[1040 m³/h]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[1040 m³/h]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[33 / 38 / 45 / 51 dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[37 / 41 / 45 / 52 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[Perete]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[790 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[249 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[293 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[10 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[AOYG24KLCA]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[Rotary]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[15 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[30 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[25 m]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[2885 m³/h]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[55 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[65 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[799 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[290 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[632 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[38 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Optional]]></control_wifi>
+		<suprafata_acoperire><![CDATA[60-70 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-10°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+46°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[12.7 mm (1/2")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[16 mm]]></teava_conexiune_condens>
+		<garantie><![CDATA[60 luni]]></garantie>
+		<garaintie_compresor><![CDATA[60 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><p style="text-align: justify;"><span style="font-size: 14pt;">Aparat de aer conditionat<strong><br><span style="font-size: 18pt; color: #0a3370;">Fujitsu ASYG24KLCA-AOYG24KLCA Inverter 24000 BTU</span><br></strong></span></p>
+<p style="text-align: justify;">&nbsp;</p>
+<p>&nbsp;<img style="display: block; margin-left: auto; margin-right: auto;" title="Noul Fujitsu Eco, banner prezentare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/ASYG09KPCE/Fujitsu-Eco-Rezidential.jpg" alt="Noul Fujitsu Eco, banner prezentare" width="1140" height="344"></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong><br>Confort in orice spatiu</strong></span><br><span style="font-size: 12pt;">Produsele din gama Eco, de la Fujitsu, sunt elegante si simple, cu o estetica&nbsp;ce&nbsp;le pune in&nbsp;evidenta. Design-ul compact al aparatului de aer conditionat din gama Eco face ca acesta sa poata fi integrat cu usurinta in orice spatiu rezidential, fie el si de mici dimensiuni, precum dormitorul sau biroul de acasa<a data-mce-href="https://www.climatico.ro/" href="https://www.climatico.ro/" target="_blank" rel="noopener">.</a>&nbsp;</span><br><span style="font-size: 12pt;">Gama Eco beneficiaza de multiple beneficii care vor crea un confort sporit utilizatorului.</span></p>
+<p>&nbsp;<span style="text-align: justify;">&nbsp;</span><span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Mod Economic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/economy-mode-01.png" alt="Mod Economic" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Mod putere" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/powerful-mode-01.png" alt="Mod putere" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Functie operare caldura" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/heat-operatio-01.png" alt="Functie operare caldura" width="35"><span style="text-align: justify;">&nbsp;</span><span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Auto-schimbare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/auto-changeover-01.png" alt="Auto-schimbare" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Filter" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/up-down-swing-flaps-01.png" alt="Filter" width="35">&nbsp;&nbsp;<img style="text-align: justify; margin: 0 0px 5px 0px;" title="Fan speed" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/automatic-fan-speed-01.png" alt="Fan speed" width="35">&nbsp;<span style="text-middle: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Auto restart" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/auto-restart-01.png" alt="Auto restart" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Timer 24 ore" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/sleep-timer-01.png" alt="Timer 24 ore" width="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0px;" title="Programator saptamanal" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/program-timer-01.png" alt="Programator saptamanal" width="35" height="35">&nbsp;<span style="text-align: justify;">&nbsp;</span><img style="text-align: justify; margin: 0 0px 5px 0px;" title="Programare zilnica" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/rezidential/fujitsu/KGTA/weekly-timer-01.png" alt="Programare zilnica" width="35"><span style="text-align: justify;">&nbsp;<br><br></span></p>
+<p><strong style="text-align: justify;"><span style="font-size: 14pt;">Dimensiuni mici, flux de aer puternic si ajustabil<br></span></strong><span style="font-size: 12pt; text-align: justify;">Desi de mici dimensiuni, lungimea aparatului fiind de doar 78 de centimetri, fluxul de aer de care dispune acesta este unul puternic, obtinut cu ajutorul unui schimbator de caldura, precum si prin utilizarea unui ventilator cu debit mare de aer si dimensiuni compacte. Puterea fluxului de aer se poate ajusta.</span></p>
+<p>&nbsp;<br><img style="display: block; margin-left: auto; margin-right: auto;" title="Dimensiuni mici, putere mare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/ASYG09KPCE/Dimensiuni_Fujitsu.jpg" alt="Dimensiuni mici, putere mare" width="700" height="202"></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong>Usor de curatat</strong></span><br><span style="font-size: 12pt;">Filtrul echipamentului de aer conditionat Fujitsu se poate curata cu usurinta, fara ajutorul personalului specializat. Acesta&nbsp;colecteaza particule mari de praf si ajuta la curatarea&nbsp;aerului.<br></span><span style="font-size: 12pt;"><span style="font-size: 14pt;"><strong><br>Clasa energetica A++</strong><span style="font-size: 14pt;"><strong><img style="float: right; border-width: 0px; margin: 10px;" title="Consum de energie redus" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/Eticheta_energetica_Fujitus.jpg" alt="Consum de energie redus" width="425" height="271"><br></strong></span></span></span><span style="font-size: 12pt;">Tehnologia inverter ajuta la economisirea substantiala de energie, iar astfel echipamentele de aer conditionat Fujitsu, din gama Eco, sunt incadrate in clasa energetica de nivel A++, pentru racire si A+ pentru incalzire.</span></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong>Functionare silentioasa</strong></span><br><span style="font-size: 12pt;">Pentru a oferi un plus de confort, aparatul de aer conditionat Fujitsu din gama Eco&nbsp;poate fi folosit in timpul somnului, selectand&nbsp;modul Sleep, un mod silentios care nu v-a produce prea mult&nbsp;zgomot&nbsp;care sa afecteze starea de odihna.</span></p>
+<p style="text-align: justify;"><strong style="font-size: 14pt;">Functioneaza la temperaturi scazute</strong><strong style="font-size: 18.6667px;"><img style="float: right; margin: 10px;" title="Functionare la temperaturi scazute" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/ASYG09KPCE/Aparat-de-aer-condtionat-Fujitsu-Eco-ASYG09KPCE-temperaturi-functionare.png" alt="Functionare la temperaturi scazute" width="425" height="158"></strong><span style="font-size: 12pt;">Unitatea externa a aparatului de aer conditionat Fujitsu Eco poate fi montata in conditii dificile de mediu, aceasta avand capacitatea de a functiona in parametrii optimi. Pentru functionare in modul racire, temperatura exterioara poate varia intre -10 si 46 de grade Celsius, in timp ce pentru modul incalzire, temperatura exterioara poate varia intre -15 si 24 grade Celsius.</span></p>
+<p style="text-align: justify;"><strong style="font-size: 14pt;">Repornire automata<br></strong><span style="font-size: 12pt;">In cazul intreruperii alimentarii cu energie elctrica, aparatul de aer conditionat Fujitsu ECO, fara a fi nevoie de alte interventii suplimentare.</span></p>
+<p style="text-align: justify;"><span style="font-size: 14pt;"><strong>Programare inchidere / deschidere</strong></span><br><span style="font-size: 12pt;">Functia de programare a aparatului de aer conditonat ajuta ca device-ul sa se&nbsp;inchida sau sa porneasca atunci cand decide utilizatorul, acesta putand astfel sa isi creeze un mediu propice pentru momentul in care se culca, dar nu doreste ca aparatul sa functioneze pe toata perioada noptii sau pentru revenirea sa acasa.<br><br><span style="font-size: 14pt;"><strong>Autoreglare functie de racire sau incalzire</strong></span><br>Functia Auto Changeover ofera posibilitatea aparatulului de aer conditionat Fujitsu Eco&nbsp;sa aleaga intre modul de incalzire si cel de racire, in functie de temperatura setata de catre utilizator si in functie de temperatura ambientala<a href="https://www.climatico.ro/" target="_blank" rel="noopener">.</a> Astfel, in cazul in care in camera se doreste sa se ajunga la o temperatura de 27 grade Celsius, aparatul va selecta automat functia de incalzire sau racire, masurand temperatura existenta la momentul pornirii, putand oricand comuta intre functii daca este necesar.<br></span><br><strong style="text-align: justify; font-size: 12pt;">Operare economica<br></strong><span style="font-size: 12pt;">Temperatura setata este modificata automat cu 1°C. Setarea termostatului se modifica automat in functie de temperatura ambientala pentru a evita racirea si incalzirea inutila.</span></p>
+<p><strong><span style="font-size: 12pt;">O</span><span style="font-size: 12pt;">perare puternica</span></strong><br><span style="font-size: 12pt;">Este posibila functionarea in mod continuu timp de 20 de minute cu un debit de aer maxim si o viteza maxima a compresorului. Racirea si incalzirea rapida fac camera confortabila intr-un timp scurt.</span></p>
+<hr>
+<p><span style="font-size: 14pt;"><strong><img style="margin: 10px; float: left;" title="Pritenos cu mediul" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/Eco/R32_Climatico.jpg" width="100" height="100">Prietenos cu mediul</strong></span><br><span style="font-size: 12pt;">Refrigerantul de ultima generatie R32, care este folosit de aparatele de aer conditionat din gama Eco de la Fujitsu pentru a transfera caldura, are un impact redus&nbsp;asupra mediului si este foarte eficient.</span></p>
+
+</div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Fujitsu ASYG09KMCE-AOYG09KMCC de 9000 BTU Clasa de energie A++,  WiFi - Optional si garantie 36 luni]]></denumire>
+		<codprodusclimatico><![CDATA[ASYG09KMCE-AOYG09KMCC]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[2318]]></pretfurnizor>
+		<pret><![CDATA[2700]]></pret>
+		<pretclimatico><![CDATA[2,859]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/fujitsu.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Fujitsu]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[9000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[8530 (3070.8 - 10236) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[9553.6 (3070.8 - 12965.6) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[3.97]]></eer>
+		<seer><![CDATA[7.4]]></seer>
+		<cop><![CDATA[3.97]]></cop>
+		<scop><![CDATA[4.1]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[6.5 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[9 A]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[ASYG09KMCE]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Autodiagnoza, Dezumidificare, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[1.8 l/h]]></filtru>
+		<dezumidificare><![CDATA[11.66 m³/min]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[11.66 m³/min]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[40 / 34 / 29 / 20 dB]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[40 / 34 / 29 / 20 dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[58 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[834 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[222 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[270 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[10 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[AOYG09KMCC]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[20 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[15 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[1650 m³/h]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[47 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[59 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[663 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[290 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[541 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[22 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Optional]]></control_wifi>
+		<suprafata_acoperire><![CDATA[20-25 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-10°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+46°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[9.52 mm (3/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[Nu]]></teava_conexiune_condens>
+		<garantie><![CDATA[36 luni]]></garantie>
+		<garaintie_compresor><![CDATA[36 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><p><span style="font-size: 14pt;">Aparat de aer conditionat<strong><br><span style="font-size: 18pt; color: #000000;">Fujitsu ASYG09KMCE-AOYG09KMCC Inverter 9000 BTU</span><br></strong></span></p>
+<p>&nbsp;</p>
+<p><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-heron-energy-fujitsu-ASYG09KPCE-unitate-interioara_mica.jpg" alt="" width="229" height="100"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/fujitsu-logo.png" alt="" width="160" height="75"></p>
+<p>Aparatul de aer conditionat Fujitsu este un dispozitiv avansat ce ofera un mediu placut si confortabil in orice sezon. Cu tehnologia sa inovatoare, acest aparat asigura atat racirea, cat si incalzirea intr-un mod eficient, reusind sa mentina&nbsp;temperatura optima in interiorul locuintei sau spatiului de lucru.</p>
+<p>&nbsp;</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-wi-fi-ready.png" alt="" width="400px" height="215px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Wi-Fi Ready</strong></p>
+<p>Puteti controla aparatul de aer conditionat oricand si de oriunde, prin functia Wi-Fi. Functia este optionala si necesita achizitionarea unui adaptor WLAN (UTY-TFSXF2).</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Design rectangular subtire &amp; elegant</strong></p>
+<p>Designul subtire si elegant cu linii drepte, este realizat cu ajutorul schimbatorului de caldura performant cu densitate ridicata si de ventilatorul cu randament ridicat.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-kmcc-11.png" alt="" width="400px" height="315px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-KMCC-222.png" alt="" width="400px" height="148px"></p>
+<p>*1: 9000 BTU / *2: 12000 BTU</p>
+</td>
+<td style="width: 50%;">
+<p><strong>Economie de energie ridicata</strong></p>
+<p>Eficienta ridicata de inalta clasa este obtinuta de un schimbator de caldură lamda de inalta eficienta, un ventilator mare cu flux transversal si un agent frigorific nou.</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Flux de aer confortabil si functionare silentioasa</strong></p>
+<p>Flapsul de mari dimensiuni si noua structura a fantei de evacuare creaza un flux de aer care este dispersat pana la nivelul solului, in mod silentios.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-KMCC-333.png" alt="" width="400px" height="130px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-kpca-44.png" alt="" width="400px" height="149px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Functioneaza la temperaturi scazute</strong></p>
+<p>Aparatul functioneaza in parametri chiar si la temperaturi scazute, -10°C in mod de racire si -15°C in mod de incalzire.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><span style="color: #000000;"><strong>CARACTERISTICI:</strong></span></p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-functionare-economica.png" alt="" width="83px" height="83px"><strong>Functionare economica</strong></p>
+<p>Setarea termostatului este ajustata automat, functie de temperatura camerei, pentru a evita racirea sau incalzirea inutile.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-functionare-la-putere-maxima.png" alt="" width="83px" height="83px"><strong>Functionare la putere maxima</strong></p>
+<p>Aparatul functioneaza la viteza maxima a ventilatorului si a compresorului, iar temperatura camerei devine confortabila intr-un timp foarte scurt.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-functionare-pe-timpul-somnului.png" alt="" width="83px" height="83px"><strong>Functionare pe timpul somnului</strong></p>
+<p>Aparatul este programat sa modiﬁce automat temperatura camerei, pentru a favoriza un somn cat mai confortabil.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-comutare-automata.png" alt="" width="83px" height="83px"><strong>Comutare automata</strong></p>
+<p>Aparatul comuta automat intre modurile incalzire si racire, functie de temperatura setata si temperatura camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-cronometru.png" alt="" width="83px" height="83px"><strong>Cronometru</strong></p>
+<p>Timerul digital permite selectarea uneia dintre cele 4 optiuni de pornire si/sau oprire programata: ON, OFF, ON &gt;&gt; OFF sau OFF &gt;&gt; ON.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/6-oscilare-sus-jos-flaps.png" alt="" width="83px" height="83px"><strong>Oscilare sus-jos a ﬂapsului</strong></p>
+<p>Flapsul oscileaza automat pe verticala, sus-jos.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/7-atentionare-filtru.png" alt="" width="83px" height="83px"><strong>Atentionare ﬁltru</strong></p>
+<p>Aparatul indica necesitatea curatarii ﬁltrului printr-un semnal luminos.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/8-viteza-ventilatorului-automata.png" alt="" width="83px" height="83px"><strong>Viteza ventilatorului automata</strong></p>
+<p>Aparatul este programat sa ajusteze automat ﬂuxul de aer eliberat, functie de modiﬁcarea temperaturii camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/9-heat.png" alt="" width="83px" height="83px"><strong>Setare temperatura 10°C</strong></p>
+<p>Temperatura camerei poate fi setata sa nu scada de 10°C</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/10-repornire-automata.png" alt="" width="83px" height="83px"><strong>Repornire automata</strong></p>
+<p>In cazul unei caderi de tensiune, la reluarea alimentarii, aparatul va reporni automat, pastrand setarile anterioare evenimentului.</p>
+</td>
+</tr>
+</tbody>
+</table></div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Fujitsu ASYG12KMCE-AOYG12KMCC de 12000 BTU Clasa de energie A++,  WiFi - Optional si garantie 36 luni]]></denumire>
+		<codprodusclimatico><![CDATA[ASYG12KMCE-AOYG12KMCC]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[2614]]></pretfurnizor>
+		<pret><![CDATA[2999]]></pret>
+		<pretclimatico><![CDATA[3,229]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/fujitsu.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Fujitsu]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[12000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[8530 (3070.8 - 10236) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[9553.6 (3070.8 - 12965.6) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[3.65]]></eer>
+		<seer><![CDATA[7.3]]></seer>
+		<cop><![CDATA[4.17]]></cop>
+		<scop><![CDATA[4.4]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[6.5 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[9 A]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[ASYG09KMCE]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Autodiagnoza, Dezumidificare, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[1.8 l/h]]></filtru>
+		<dezumidificare><![CDATA[11.66 m³/min]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[28.33 m³/min]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[700 m³/h]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[1700 m³/h]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[40 / 35 / 30 / 20 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[58 dB]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[Perete]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[834 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[221 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[270 mm]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[AOYG09KMCC]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[20 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[15 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[1700 m³/h]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[50 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[59 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[663 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[290 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[541 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[24 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Optional]]></control_wifi>
+		<suprafata_acoperire><![CDATA[25-35 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-10°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+46°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[9.52 mm (3/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[Nu]]></teava_conexiune_condens>
+		<garantie><![CDATA[36 luni]]></garantie>
+		<garaintie_compresor><![CDATA[36 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><p><span style="font-size: 14pt;">Aparat de aer conditionat<strong><br><span style="font-size: 18pt; color: #000000;">Fujitsu ASYG12KMCE-AOYG12KMCC Inverter 12000 BTU</span><br></strong></span></p>
+<p>&nbsp;</p>
+<p><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-heron-energy-fujitsu-ASYG09KPCE-unitate-interioara_mica.jpg" alt="" width="229" height="100"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/fujitsu-logo.png" alt="" width="160" height="75"></p>
+<p>Aparatul de aer conditionat Fujitsu este un dispozitiv avansat ce ofera un mediu placut si confortabil in orice sezon. Cu tehnologia sa inovatoare, acest aparat asigura atat racirea, cat si incalzirea intr-un mod eficient, reusind sa mentina&nbsp;temperatura optima in interiorul locuintei sau spatiului de lucru.</p>
+<p>&nbsp;</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-wi-fi-ready.png" alt="" width="400px" height="215px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Wi-Fi Ready</strong></p>
+<p>Puteti controla aparatul de aer conditionat oricand si de oriunde, prin functia Wi-Fi. Functia este optionala si necesita achizitionarea unui adaptor WLAN (UTY-TFSXF2).</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Design rectangular subtire &amp; elegant</strong></p>
+<p>Designul subtire si elegant cu linii drepte, este realizat cu ajutorul schimbatorului de caldura performant cu densitate ridicata si de ventilatorul cu randament ridicat.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-kmcc-11.png" alt="" width="400px" height="315px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-KMCC-222.png" alt="" width="400px" height="148px"></p>
+<p>*1: 9000 BTU / *2: 12000 BTU</p>
+</td>
+<td style="width: 50%;">
+<p><strong>Economie de energie ridicata</strong></p>
+<p>Eficienta ridicata de inalta clasa este obtinuta de un schimbator de caldură lamda de inalta eficienta, un ventilator mare cu flux transversal si un agent frigorific nou.</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><strong>Flux de aer confortabil si functionare silentioasa</strong></p>
+<p>Flapsul de mari dimensiuni si noua structura a fantei de evacuare creaza un flux de aer care este dispersat pana la nivelul solului, in mod silentios.</p>
+</td>
+<td style="width: 50%;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-KMCC-333.png" alt="" width="400px" height="130px"></td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-kpca-44.png" alt="" width="400px" height="149px"></p>
+</td>
+<td style="width: 50%;">
+<p><strong>Functioneaza la temperaturi scazute</strong></p>
+<p>Aparatul functioneaza in parametri chiar si la temperaturi scazute, -10°C in mod de racire si -15°C in mod de incalzire.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><span style="color: #000000;"><strong>CARACTERISTICI:</strong></span></p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/1-functionare-economica.png" alt="" width="83px" height="83px"><strong>Functionare economica</strong></p>
+<p>Setarea termostatului este ajustata automat, functie de temperatura camerei, pentru a evita racirea sau incalzirea inutile.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/2-functionare-la-putere-maxima.png" alt="" width="83px" height="83px"><strong>Functionare la putere maxima</strong></p>
+<p>Aparatul functioneaza la viteza maxima a ventilatorului si a compresorului, iar temperatura camerei devine confortabila intr-un timp foarte scurt.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/3-functionare-pe-timpul-somnului.png" alt="" width="83px" height="83px"><strong>Functionare pe timpul somnului</strong></p>
+<p>Aparatul este programat sa modiﬁce automat temperatura camerei, pentru a favoriza un somn cat mai confortabil.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/4-comutare-automata.png" alt="" width="83px" height="83px"><strong>Comutare automata</strong></p>
+<p>Aparatul comuta automat intre modurile incalzire si racire, functie de temperatura setata si temperatura camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/5-cronometru.png" alt="" width="83px" height="83px"><strong>Cronometru</strong></p>
+<p>Timerul digital permite selectarea uneia dintre cele 4 optiuni de pornire si/sau oprire programata: ON, OFF, ON &gt;&gt; OFF sau OFF &gt;&gt; ON.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/6-oscilare-sus-jos-flaps.png" alt="" width="83px" height="83px"><strong>Oscilare sus-jos a ﬂapsului</strong></p>
+<p>Flapsul oscileaza automat pe verticala, sus-jos.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/7-atentionare-filtru.png" alt="" width="83px" height="83px"><strong>Atentionare ﬁltru</strong></p>
+<p>Aparatul indica necesitatea curatarii ﬁltrului printr-un semnal luminos.</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/8-viteza-ventilatorului-automata.png" alt="" width="83px" height="83px"><strong>Viteza ventilatorului automata</strong></p>
+<p>Aparatul este programat sa ajusteze automat ﬂuxul de aer eliberat, functie de modiﬁcarea temperaturii camerei.</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/9-heat.png" alt="" width="83px" height="83px"><strong>Setare temperatura 10°C</strong></p>
+<p>Temperatura camerei poate fi setata sa nu scada de 10°C</p>
+</td>
+<td style="padding: 20px; width: 50%;">
+<p><img style="float: left; padding-right: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/Fujitu/ASYG-KMCE/10-repornire-automata.png" alt="" width="83px" height="83px"><strong>Repornire automata</strong></p>
+<p>In cazul unei caderi de tensiune, la reluarea alimentarii, aparatul va reporni automat, pastrand setarile anterioare evenimentului.</p>
+</td>
+</tr>
+</tbody>
+</table></div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Yamato YW24G8 de 24000 BTU Clasa de energie A++,  WiFi - Da si garantie 36 luni]]></denumire>
+		<codprodusclimatico><![CDATA[YW24G8]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[4722]]></pretfurnizor>
+		<pret><![CDATA[5022]]></pret>
+		<pretclimatico><![CDATA[5,209]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/wysiwyg/infortis/brands/yamato.png]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Yamato]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[24000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[24200 (6800 - 30200) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[26600 (6150 - 32200) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[]]></eer>
+		<seer><![CDATA[7.00]]></seer>
+		<cop><![CDATA[]]></cop>
+		<scop><![CDATA[4.20]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[13.0 A]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[YW24G8]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Autodiagnoza, Dezumidificare, Incalzire, Ionizare, Purificare, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[Anti-alergeni, Anti-bacterian, Anti-praf]]></filtru>
+		<dezumidificare><![CDATA[2.4 l/h]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[800 / 850 / 900 / 950 / 1000 / 1100 / 1250 m³/h]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[800 / 850 / 900 / 950 / 1000 / 1100 / 1250 m³/h]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[33 / 36 / 38 / 40 / 41 / 44 / 48 dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[33 / 36 / 38 / 40 / 41 / 44 / 48 dB]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[Perete]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[1035 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[247 mm]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[328 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[16.5 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[Rotary]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[25 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[10 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[59 dB]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[70 dB]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[958 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[660 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[402 mm]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[40 Kg]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Da]]></control_wifi>
+		<suprafata_acoperire><![CDATA[60-70 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-25°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+50°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+30°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[15.88 mm (5/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[16 mm]]></teava_conexiune_condens>
+		<garantie><![CDATA[36 luni]]></garantie>
+		<garaintie_compresor><![CDATA[36 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><h3><span style="font-size: 16px; line-height: 18px; font-weight: normal; color: #333232;">Aparat de aer conditionat<br></span><span style="font-size: 24px; line-height: 24px; font-weight: bold; color: #0a3370; width: 100%; height: 100%; padding-bottom: 95px; margin-bottom: 95px;">Yamato Alpin YW24G8 Inverter 24000 BTU<br><img title="Clasa energetica A++" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/daikin/clasa-a_-eficienta-energetica-100px.png" alt="Clasa energetica A++" width="100"><br></span><img style="float: right; margin: 5px 0px 10px 0px;" title="Aparat de aer conditionat Yamato Alpin" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/Alpin_YW-G8/Aer-conditionat-Yamato-Alpin-YW09-12-18-24G8-unitatea_interna.jpg" alt="Aparat de aer conditionat Yamato Alpin" width="360">&nbsp;<span style="font-size: 14px; line-height: 18px; color: #38363c;"><span style="font-size: 16px; font-style: normal; font-weight: normal;"><br><img style="padding: 2px 10px 0 0; float: left; margin-top: -6px; margin-bottom: 20px;" title="Yamato logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/Yamato-logo-45-px_1.png" alt="Yamato logo" height="45"></span></span><span style="vertical-align: middle; text-align: left; white-space: normal; display: table; position: relative; font-size: 14px; line-height: 18px; color: #38363c;"><span style="color: #38363c; font-size: 16px; font-style: normal; font-weight: normal;">APARATELE DE AER CONDITIONAT&nbsp;</span>din gama&nbsp;<span style="color: #0a3370; font-style: normal; font-weight: normal;">Alpin</span>&nbsp;de la <span style="color: #0a3370; font-style: normal; font-weight: normal;">Yamato</span>&nbsp;sunt&nbsp;proiectate sa furnizeze climatul optim pentru tine, gratie unor tehnologii avansate precum functiile "<strong>I feel</strong>", "<strong>Racirea turbo</strong>" sau <strong>"<a href="https://www.climatico.ro/">Dezghetarea</a> inteligenta"</strong>.<br><br></span></h3>
+<p><span style="line-height: 18px;"><span style="font-size: 16px; color: #0a3370;"><img style="padding: 2px 10px 0 0; float: left; margin-top: -10px;" title="Yamato R32" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/R-32-Yamato-1.png" alt="Yamato R32" height="50"></span></span><span style="vertical-align: middle; text-align: left; white-space: normal; display: table; position: relative; line-height: 18px;"><span style="font-size: 16px; color: #0a3370;">YAMATO&nbsp;</span><span style="color: #38363c; font-size: 14px;">dovedeste responsabilitate fata de poluarea mediului, prin folosirea agentului frigorific </span><strong style="color: #38363c; font-size: 14px;">R32</strong><span style="color: #38363c; font-size: 14px;">,&nbsp;</span> <span style="color: #38363c; font-size: 14px;">in timp ce asigura un consum de energie diminuat prin utilizarea tehnologiei&nbsp;</span><strong style="color: #38363c; font-size: 14px;">Inverter.</strong></span><span style="font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; text-align: left; white-space: normal; display: table; position: relative;"><br></span></p>
+<p style="line-height: 18px;"><span style="line-height: 18px;"><span style="font-size: 16px; font-style: normal; font-weight: normal; color: #38363c;"><img style="padding: 2px 10px 0 0; float: left; margin-top: -6px;" title="GREE+ - Yamato" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/gree/generale/gree-_-logo.png" alt="GREE+ - Yamato" height="50"></span></span><span style="vertical-align: middle; text-align: left; display: table; position: relative; line-height: 18px; white-space: normal;"><span style="font-size: 16px; font-style: normal; font-weight: normal; color: #38363c;">POTI CONTROLA</span><span style="font-size: 16px; font-style: normal; font-weight: normal; color: #38363c;"><strong>&nbsp;</strong></span><span style="font-size: 14px; font-style: normal; font-weight: normal; color: #38363c;">activitatea unitatii de oriunde te-ai afla, de pe smartphone, prin intermediul</span><span style="font-size: 14px; font-style: normal; font-weight: normal; color: #38363c;">&nbsp;aplicatiei&nbsp;<strong>GREE+, </strong></span><span style="font-size: 14px; font-style: normal; font-weight: normal; color: #38363c;">pe care o poti descarca de pe App Store sau Google Play.</span></span></p>
+<p>&nbsp;<span style="font-size: 14px; font-style: normal; line-height: 18px; font-weight: normal; color: #38363c;"><br><br></span></p>
+<h2 id="mcetoc_1e0d1o9re1"><span style="font-size: 18px; color: #0a3370; line-height: 18px;">TEHNOLOGII CARE FAC DIFERENTA</span></h2>
+<p><span style="font-size: 16px; color: #0a3370;"><span style="line-height: 18px;"><strong><img style="float: right; padding: 10px 0 10px 15px; margin-top: 20px;" title="Yamato Alpin - aparat de aer conditionat - ambient interior" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/Alpin_YW-G8/Aer-conditionat-Yamato-Alpin-YW09-12-18-24G8-ambient_interior.jpg" alt="Yamato Alpin - aparat de aer conditionat - ambient interior" width="360"></strong></span></span></p>
+<p>&nbsp;</p>
+<p><img style="padding: 0 10px 0 0; float: left;" title="Yamato - DC Inverter" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/super-power-inverter-50px.png" alt="Yamato - DC Inverter" width="49"></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="font-size: 14px; line-height: 20px; color: #38363c;"><span style="color: #0a3370; font-size: 16px;">DC Inverter</span><strong>&nbsp;</strong></span></p>
+<p style="font-size: 14px; line-height: 20px;">&nbsp;T<span style="font-size: 14px; line-height: 20px; color: #38363c;">ehnologia Inverter&nbsp;reduce&nbsp;consumul de energie, datorita unui compresor mai puternic, care isi ajusteaza viteza de lucru in functie de temperatura camerei, evitandu-se astfel opririle si pornirile consumatoare de curent in exces.</span></p>
+<p><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Racirea turbo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/racire-turbo-65px.png" alt="Yamato - Racirea turbo" width="50"></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="font-size: 14px; line-height: 20px; color: #38363c;"><span style="color: #0a3370; font-size: 16px;">Racirea turbo</span><strong>&nbsp;</strong></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="font-size: 14px; line-height: 20px; color: #38363c;">Chiar si in cele mai caniculare zile, vei obtine o temperatura confortabila intr-un interval de timp foarte scurt, gratie compresorului puternic, capabil sa sustina debite mari de aer rece<a href="https://www.climatico.ro/" target="_blank" rel="noopener">.</a></span></p>
+<p><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Functia 'I-feel'" src="https://www.climatico.ro/media/wysiwyg/producatori/yamato/I-feel-yamato-50px.png" alt="Yamato - Functia &quot;I-feel&quot;" width="50"></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="color: #0a3370; font-size: 16px;">Functia "I-feel"</span><strong style="color: #38363c;">&nbsp;</strong></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="font-size: 14px; line-height: 20px; color: #38363c;">Daca doresti un climat personalizat intr-o anumita zona a camerei, plaseaza telecomanda in perimetrul respectiv, dupa care activeaza senzorul "I-feel". Gratie acestei functii, aparatul va receptiona comanda si iti va crea rapid climatul dorit in acea zona.</span></p>
+<p><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Generator Cold Plasma" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/generator-cold-plasma-50px.png" alt="Yamato - Generator Cold Plasma" width="50"></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="color: #0a3370; font-size: 16px;">Generator Cold Plasma</span><strong style="color: #38363c;">&nbsp;</strong></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="font-size: 14px; line-height: 20px; color: #38363c;">Aceasta tehnologie consta dintr-un sistem de filtrare care&nbsp;indeparteaza mirosurile neplacute si neutralizeaza bacteriile, virusurile si alergenii prin emisia controlata de ioni in atmosfera.</span></p>
+<p style="font-size: 14px; line-height: 20px; vertical-align: middle; white-space: normal;"><span style="font-size: 14px; line-height: 18px;"><span style="color: #38363c;">&nbsp;<br></span></span></p>
+<h2 id="mcetoc_1e0d1o9re2" style="font-size: 14px; line-height: 20px;"><span style="font-size: 14px; line-height: 20px; color: #38363c; text-align: left; display: table;"><span style="color: #0a3370; font-size: 18px;"><br>FUNCTII ADAPTATE STILULUI TAU</span></span>&nbsp;</h2>
+<p><strong style="font-size: 14px; line-height: 18px; color: #0a3370;"><img style="float: right; padding: 5px 0 5px 15px; margin: 25px 0px 0 15px;" title="Yamato Alpin - ambient interior" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/Alpin_YW-G8/Yamato-aparat-de-aer-conditionat-ambient-interior-1.jpg" alt="Yamato Alpin - Ambient interior" width="325"></strong></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Soft Start" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/soft-start.png" alt="Yamato - Soft Start" width="50">Soft Start</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="top: 15px; right: 15px; bottom: 15px; left: 15px; vertical-align: middle; clear: both; position: relative;">Ajustarea tensiunii de pornire permite o pornire usoara a compresorului, prelungindu-se astfel viata acestuia si limitand impactul asupra retelei electrice.</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><strong style="font-size: 14px; line-height: 18px; color: #0a3370;"><br></strong><span style="font-size: 16px; line-height: 18px; color: #0a3370; "><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Functionare la temperaturi extreme" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/functionare-la-temperaturi-extreme-minus-25-grade.png" alt="Yamato - Functionare la temperaturi extreme" width="50">Functionare la temperaturi extreme&nbsp;</span></span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; font-size: 16px; line-height: 18px; color: #0a3370; "><span style="font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;">In regim de incalzire, aparatul functioneaza la parametrii optimi chiar si la temperaturi exterioare extreme, de&nbsp;pana la&nbsp;-25°C.<br><br></span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; "><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Dezumidificare" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/dezumidificare-50px.png" alt="Yamato - Dezumidificare" width="50">Dezumidificare&nbsp;</span></span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="width: 95%; font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;">Combaterea umiditatii in spatiile interioare este o necesitate, atat pentru a inlatura disconfortul aferent, cat si pentru a preveni riscurile aparitiei afectiunilor respiratorii.<br><br><br></span></p>
+<p><img style="float: right; padding: 10px 0 10px 10px; margin: -10px 0px 0 0px;" title="Yamato Alpin - Functia Sleep" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/ig5/Yamato_functia_sleep-325px.jpg" alt="Yamato Alpin - Functia Sleep" width="325"></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><img style="padding: 0 10px 0 0; float: left; margin: 0 0px 0px 0px;" title="Yamato - Functia Sleep" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/sleep-65px.png" alt="Yamato - Functia Sleep" width="50">Functia Sleep</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="top: 15px; right: 15px; bottom: 15px; left: 15px; vertical-align: middle; clear: both; position: relative;">Vei avea un somn odihnitor&nbsp;pe timpul noptii, deoarece aparatul isi optimizeaza automat functionarea,&nbsp;astfel incat&nbsp;ventilatorul va opera la turatie redusa, rezultand o&nbsp;scadere semnificativa&nbsp;a nivelului de zgomot.</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><strong style="font-size: 14px; line-height: 18px; color: #0a3370;"><br></strong><span style="font-size: 16px; line-height: 18px; color: #0a3370; "><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Functia Timer" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/timer-50px.png" alt="Timer" width="50">Timer</span></span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="width: 95%; font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;">Poti programa aparatul sa porneasca sau sa se opreasca la&nbsp;ora dorita (Timer On / Timer Off), asigurand un climat placut inainte de ajungerea acasa.<br><br></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; "><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Modul economic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/modul-economic-50px.png" alt="Yamato - Modul economic" width="50">Modul economic&nbsp;</span></span></span></p>
+<p style="font-size: 14px; line-height: 20px;">&nbsp;<span style="vertical-align: middle; clear: both; position: relative; font-size: 16px; line-height: 18px; color: #0a3370; "><span style="font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;">Beneficiezi de un consum redus de curent, deoarece setarile termostatului se modifica automat in functie de temperatura ambientala, fiind astfel&nbsp;evitate&nbsp;racirea sau incalzirea inutila.<br><br></span></span></p>
+<p><span style="vertical-align: middle; clear: both; position: relative; font-size: 16px; line-height: 18px; color: #0a3370; "><span style="font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;">&nbsp;</span></span><img style="float: right; padding: 0px 0 10px 10px; margin: 35px 0px 0 15px;" title="Yamato Alpin - ambient interior" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/Alpin_YW-G8/Yamato-aparat-de-aer-conditionat-ambient-interior-2.jpg" alt="Yamato Alpin - ambient interior" width="325"></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; "><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Modul auto" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/modul-auto-50px.png" alt="Yamato - Modul auto" width="50">Modul auto&nbsp;</span></span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; font-size: 16px; line-height: 18px; color: #0a3370; "><span style="font-size: 14px; line-height: 18px; color: #38363c; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;">La pornirea aparatului, senzorii detecteaza temperatura incaperii si o aduc la un nivel optim de confort, potrivit modului selectat.<br><br></span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Functia Auto Restart" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/auto-restart-65px.png" alt="Yamato - Auto restart" width="50">Auto Restart</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="top: 15px; right: 15px; bottom: 15px; left: 15px; vertical-align: middle; clear: both; position: relative;">In cazul intreruperii alimentarii cu energie, aparatul va reveni la setarile initiale imediat ce pana de curent va fi remediata.</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative;"><span style="font-size: 16px; line-height: 18px; color: #0a3370; vertical-align: middle; clear: both; position: relative; top: 15px; right: 15px; bottom: 15px; left: 15px;"><br><img style="padding: 0 10px 0 0; float: left;" title="Yamato - Dezghetare inteligenta" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/dezghetare-inteligenta-65px.png" alt="Yamato - Dezghetare inteligenta" width="50">Dezghetare inteligenta</span></span></p>
+<p style="font-size: 14px; line-height: 20px;"><span style="vertical-align: middle; clear: both; position: relative; line-height: 18px; color: #38363c; font-size: 14px;"><span style="top: 15px; right: 15px; bottom: 15px; left: 15px; vertical-align: middle; clear: both; position: relative;">Noua tehnologie face posibila dezghetarea automata a&nbsp;unitatii exterioare, doar atunci cand este necesar, nu la intervale regulate de timp, de aici rezultand importante economii de energie.</span></span><span style="color: #38363c;">&nbsp;</span></p>
+<h2 id="mcetoc_1e0d1o9re3">&nbsp;</h2>
+<h4><span style="font-size: 16px; line-height: 18px; color: #0a3370;"><br>UNITATE EXTERNA&nbsp;EFICIENTA SI ECONOMICA</span></h4>
+<p><span style="font-size: 16px; color: #0a3370;"><span style="line-height: 18px;"><strong><img style="float: right; padding: 10px 0 10px 15px; margin: 10px 0px 0 0px;" title="Unitate externa - Yamato" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/yamato/Alpin_YW-G8/Aer-conditionat-Yamato-Alpin-YW09-12-18-24G8-unitatea-externa.jpg" alt="Unitate externa - Yamato" width="380"></strong></span></span></p>
+<p>&nbsp;<strong style="color: #38363c; font-size: 14px;"><img title="Ventilator cu 7 trepte de viteza" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/yamato-ventilator-cu-7-viteze.png" alt="Ventilator cu 7 trepte de viteza" width="50"></strong></p>
+<p style="font-size: 14px; line-height: 20px; font-weight: normal; color: #38363c;"><span style="white-space: normal; display: table; font-size: 14px; line-height: 19px; font-weight: normal; color: #38363c;"><strong>Ventilator cu 7 trepte de viteza</strong>&nbsp;-&nbsp; cele&nbsp;7 trepte de&nbsp;viteza ale&nbsp;ventilatorului pot fi ajustate cu usurinta din telecomanda - incepand cu <strong>treapta minima</strong> care ofera o ambianta placuta, de liniste, si terminand cu <strong>treapta Turbo</strong> care modifica rapid&nbsp;parametrii climatici ai incaperii, garantand o atmosfera relaxanta&nbsp;</span></p>
+<p><span style="white-space: normal; position: relative; display: table; font-size: 14px; line-height: 20px;"><span style="color: #38363c;"><strong>Alimentare prin unitatea externa -&nbsp;</strong>pentru cresterea sigurantei in utilizare si o estetica imbunatatita a spatiului deservit de aparatul de aer conditionat, alimentarea cestuia este realizata prin unitatea externa</span></span></p>
+<p><span style="white-space: normal; position: relative; display: table; font-size: 14px; line-height: 20px;"><strong style="color: #38363c;">Rezistente electrice suplimentare&nbsp;</strong><span style="color: #38363c;">- cele doua rezistente auxiliare adaugate pe carcasa unitatii externe si pe compresor imbunatatesc capacitatea de incalzire a aparatului, in conditii de eficienta energetica ridicata</span></span></p>
+<h4>&nbsp;</h4>
+<h2 id="mcetoc_1e0d1o9re4"><span style="font-size: 18px; text-transform: uppercase; color: #0a3370;"><br>MEREU CONECTAT LA APARATUL TAU</span></h2>
+<p><img style="padding: 10px 0 10px 10px; float: right; margin: -28px 0px 0 0px;" title="Yamato Wi-Fi Intelligent Control" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/prezentari-produse/aer-conditionat/rezidential/gree/golden/wi-fi-remote-control-gree-1.jpg" alt="Yamato Wi-Fi Intelligent Control" width="350"></p>
+<p class="p1" style="font-size: 14px; line-height: 18px; font-weight: normal; color: #38363c;"><span style="display: table; position: relative; line-height: 22px; font-size: 14px; font-weight: normal; color: #38363c;"><strong style="position: relative; top: 8px; right: 8px; bottom: 8px; left: 8px;"><img style="padding: 0 10px 0 0; float: left; margin: -8px 0 0 0;" title="Wi-Fi-Yamato" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/yamato/WiFi-intelligent-control-55px.png" alt="Wi-Fi - Yamato" width="55">WIFI Intelligent Control</strong></span></p>
+<p class="p1" style="font-size: 14px; line-height: 22px; font-weight: normal; color: #38363c;"><span style="line-height: 20px; font-size: 14px; font-weight: normal; color: #38363c; display: table; position: relative;">Daca doresti sa modifici setarile de climatizare, sa programezi temperatura pe intervale orare sau sa revizuiesti consumul de energie de oriunde te-ai afla, poti conecta simplu si rapid unitatea la WiFi, descarcand aplicatia&nbsp;<strong>GREE+</strong>.<br></span></p>
+<p class="p1" style="font-size: 14px; line-height: 22px; font-weight: normal; color: #38363c;"><span style="line-height: 20px; font-size: 14px; font-weight: normal; color: #38363c; display: table; position: relative;">Poti descarca aceasta aplicatie de pe App Store sau Google Play, accesand unul dintre linkurile urmatoare:</span></p>
+<p class="p1" style="font-size: 14px; line-height: 18px; font-weight: normal; color: #38363c;"><span style="display: table; position: relative; font-size: 14px; line-height: 18px; font-weight: normal; color: #38363c;"><a title="GREE+ Apple App Store App" href="https://itunes.apple.com/us/app/gree/id1167857672?mt=8" target="_blank" rel="noopener"><img style="margin: 0 15px 15px 0;" title="Download on the App Store" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/daikin/Download-on-the-App-Store.png" alt="Download on the App Store" width="130"></a><a title="GREE+ Google Play App" href="https://play.google.com/store/apps/details?id=com.gree.greeplus&amp;hl=en" target="_blank" rel="nofollow noopener"><img style="margin: 0 15px 15px 0;" title="Get it on Google Play" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/wysiwyg/producatori/daikin/Get-it-on-Google-Play.png" alt="Get it on Google Play" width="130"></a><br></span></p>
+<p class="p1" style="font-size: 14px; line-height: 20px; font-weight: normal; color: #38363c;">&nbsp;</p>
+<p class="p1" style="font-size: 14px; line-height: 20px; font-weight: normal; color: #38363c;"><span style="color: #0a3370; font-size: 16px;"><br>FUNCTII SUPLIMENTARE</span></p>
+<p><span style="color: #0a3370; font-size: 14px; line-height: 18px;">Incalzire la 8°C&nbsp;</span><span style="color: #38363c; font-size: 14px; line-height: 18px;">- aceasta functie permite mentinerea temperaturii ambientale interioare la 8°C, prevenindu-se astfel deteriorarea instalatiilor si a aparaturii din incapere, in perioadele reci, in care locuinta nu este folosita</span></p>
+<p><span style="color: #38363c; font-size: 14px; line-height: 18px;"><span style="color: #0a3370; font-size: 14px; line-height: 18px;">LED Display&nbsp;</span><span style="color: #38363c; font-size: 14px; line-height: 18px;">-&nbsp;poti vizualiza in permanenta temperatura setata pe displayul aparatului de aer conditionat</span></span></p>
+<p><span style="color: #38363c; font-size: 14px; line-height: 18px;"><span style="color: #0a3370; font-size: 14px; line-height: 18px;">Filtru lavabil&nbsp;</span><span style="color: #38363c; font-size: 14px; line-height: 18px;">-&nbsp;capteaza particulele de praf din aer, mentinand astfel o atmosfera curata in spatiul interior</span></span></p>
+<p><span style="color: #0a3370; font-size: 14px; line-height: 18px;">Autodiagnoza&nbsp;</span><span style="color: #38363c; font-size: 14px; line-height: 18px;">- aparatul poate depista automat erorile aparute in functionare</span></p>
+<p><span style="color: #38363c; font-size: 14px; line-height: 18px;"><span style="color: #0a3370; font-size: 14px; line-height: 18px;">Autocuratare&nbsp;</span><span style="color: #38363c; font-size: 14px; line-height: 18px;">-&nbsp;dupa utilizarea aparatului de aer conditionat in regim de racire, ventilatorul va continua sa se invarta pentru a usca schimbatorul de caldura, prevenind astfel&nbsp;aparitia mucegaiului</span></span></p>
+<p><span style="color: #38363c; font-size: 14px; line-height: 18px;"><span style="color: #38363c; font-size: 14px; line-height: 18px;">&nbsp;</span></span></p>
+
+</div></div> </div>]]></descriere>
+	</node>
+	<node>
+		<denumire><![CDATA[Aer conditionat Midea CB1-12HRFB8-I(R)/CB1-12HFNX-O(R) de 12000 BTU Clasa de energie A++,  WiFi - Da si garantie 36 luni]]></denumire>
+		<codprodusclimatico><![CDATA[CB1-12HRFB8-I(R)/CB1-12HFNX-O(R)]]></codprodusclimatico>
+		<id><![CDATA[#N/A]]></id>
+		<pretfurnizor><![CDATA[2325]]></pretfurnizor>
+		<pret><![CDATA[2625]]></pret>
+		<pretclimatico><![CDATA[2,649]]></pretclimatico>
+		<imagine_brand><![CDATA[https://www.climatico.ro/media/amasty/webp/wysiwyg/infortis/brands/midea_png.webp]]></imagine_brand>
+		<text><![CDATA[CARACTERISTICI GENERALE]]></text>
+		<producator><![CDATA[Midea]]></producator>
+		<tipprodus><![CDATA[Rezidential]]></tipprodus>
+		<capacitate_generala><![CDATA[12000 BTU]]></capacitate_generala>
+		<capacitate_racire><![CDATA[12283 (4700 - 14700) BTU]]></capacitate_racire>
+		<capacitate_incalzire><![CDATA[12965 (3700 - 15000) BTU]]></capacitate_incalzire>
+		<eer><![CDATA[]]></eer>
+		<seer><![CDATA[7.10]]></seer>
+		<cop><![CDATA[]]></cop>
+		<scop><![CDATA[4.20]]></scop>
+		<clasa_energie_racire><![CDATA[A++]]></clasa_energie_racire>
+		<clasa_energie_incalzire><![CDATA[A+]]></clasa_energie_incalzire>
+		<consum_anual_energie_electrica_racire><![CDATA[]]></consum_anual_energie_electrica_racire>
+		<consum_anual_energie_electrica_incalzire><![CDATA[]]></consum_anual_energie_electrica_incalzire>
+		<intensitate_curent_racire><![CDATA[]]></intensitate_curent_racire>
+		<intensitate_curent_incalzire><![CDATA[]]></intensitate_curent_incalzire>
+		<alimentare><![CDATA[Monofazat]]></alimentare>
+		<tensiune_alimentare><![CDATA[230 V AC]]></tensiune_alimentare>
+		<unitate><![CDATA[UNITATEA INTERNA]]></unitate>
+		<cod_unitate_interna><![CDATA[MSCB1BU-12HRFN8-QRD1GW]]></cod_unitate_interna>
+		<tip_unitate><![CDATA[Split de perete]]></tip_unitate>
+		<functii><![CDATA[Autodiagnoza, Incalzire, Racire, Ventilatie]]></functii>
+		<culoare><![CDATA[Alb]]></culoare>
+		<telecomanda><![CDATA[Da]]></telecomanda>
+		<filtru><![CDATA[Anti-praf]]></filtru>
+		<dezumidificare><![CDATA[380 / 420 / 520 m³/h]]></dezumidificare>
+		<debit_de_aer_racire><![CDATA[20 / 21 / 35.5 / 37.5 dB]]></debit_de_aer_racire>
+		<debit_de_aer_incalzire><![CDATA[56 dB]]></debit_de_aer_incalzire>
+		<nivel_de_zgomot_racire><![CDATA[56 dB]]></nivel_de_zgomot_racire>
+		<nivel_de_zgomot_incalzire><![CDATA[Perete]]></nivel_de_zgomot_incalzire>
+		<suprafata_montare><![CDATA[199 mm]]></suprafata_montare>
+		<lungime_unitate_interna><![CDATA[299 mm]]></lungime_unitate_interna>
+		<latime_unitate_interna><![CDATA[9.3 Kg]]></latime_unitate_interna>
+		<inaltime_unitate_interna><![CDATA[870 x 277 x 385 mm]]></inaltime_unitate_interna>
+		<greutate><![CDATA[12.2 Kg]]></greutate>
+		<ue><![CDATA[UNITATEA EXTERNA]]></ue>
+		<cod_unitate_externa><![CDATA[MOX103-12HFN8-QRD1GW]]></cod_unitate_externa>
+		<tip_compresor><![CDATA[Inverter]]></tip_compresor>
+		<tehnologie_compresor><![CDATA[Rotary]]></tehnologie_compresor>
+		<agent_frigorific><![CDATA[R-32]]></agent_frigorific>
+		<preincarcare_maxim><![CDATA[25 m]]></preincarcare_maxim>
+		<lungime_maxima_tevi><![CDATA[10 m]]></lungime_maxima_tevi>
+		<diferenta_de_nivel_maxima><![CDATA[56 dB]]></diferenta_de_nivel_maxima>
+		<debit_aer><![CDATA[63 dB]]></debit_aer>
+		<nivel_de_zgomot><![CDATA[720 x 270 x 495 mm]]></nivel_de_zgomot>
+		<putere_sonora><![CDATA[720 mm]]></putere_sonora>
+		<lungime_unitate_externa><![CDATA[270 mm]]></lungime_unitate_externa>
+		<latime_unitate_externa><![CDATA[495 mm]]></latime_unitate_externa>
+		<inaltime_unitate_externa><![CDATA[22.9 Kg]]></inaltime_unitate_externa>
+		<greutate_ue><![CDATA[835 x 300 x 540 mm]]></greutate_ue>
+		<alte_car><![CDATA[ALTE CARACTERISTICI]]></alte_car>
+		<control_wifi><![CDATA[Da]]></control_wifi>
+		<suprafata_acoperire><![CDATA[25-35 m²]]></suprafata_acoperire>
+		<temperatura_exterioara_minima_functionare_pe_racire><![CDATA[-15°C]]></temperatura_exterioara_minima_functionare_pe_racire>
+		<temperatura_exterioara_minima_functionare_pe_incalzire><![CDATA[-20°C]]></temperatura_exterioara_minima_functionare_pe_incalzire>
+		<temperatura_exterioara_maxima_functionare_pe_racire><![CDATA[+50°C]]></temperatura_exterioara_maxima_functionare_pe_racire>
+		<temperatura_exterioara_maxima_functionare_pe_incalzire><![CDATA[+24°C]]></temperatura_exterioara_maxima_functionare_pe_incalzire>
+		<teava_conexiune_lichid><![CDATA[6.35 mm (1/4")]]></teava_conexiune_lichid>
+		<teava_conexiune_gaz><![CDATA[9.52 mm (3/8")]]></teava_conexiune_gaz>
+		<teava_conexiune_condens><![CDATA[16 mm]]></teava_conexiune_condens>
+		<garantie><![CDATA[36 luni]]></garantie>
+		<garaintie_compresor><![CDATA[36 luni]]></garaintie_compresor>
+		<descriere><![CDATA[<h2 class="data item title" aria-labeledby="tab-label-description-title" data-role="collapsible" id="tab-label-description"><a class="data switch" tabindex="-1" data-toggle="switch" href="#description" id="tab-label-description-title"><strong>Descriere produs</strong></a></h2><div class="data item content" id="description" data-role="content">     <div class="product attribute description"> <div class="value"><div><span style="font-size: 12pt; line-height: 18px; font-weight: normal; color: #38363c;">Aparat de aer conditionat<br></span></div>
+<h3 id="mcetoc_1f64ji58m0"><span style="font-size: 22px; font-weight: bold; color: #0a3370; line-height: 8px;">Midea Breezeless E CB1-12HRFN8-CB1-12HFNX Inverter 12000 BTU</span></h3>
+<h4>&nbsp;</h4>
+<h4><span style="font-size: 12pt;"><strong><span style="text-transform: uppercase; color: #0a3370;"><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/prezentari-produse/aer-conditionat/rezidential/midea/Breezeless/breezeless-e-mica_jpg.webp" alt="" width="300" height="181">Climatizare si confort cu Midea BREEZELESS E</span></strong></span></h4>
+<p>Aparatul de aer conditionat Breezeless E de la Midea poate acoperi si cele mai exigente nevoi ale consumatorului. Acesta atinge performante maxime cu un consum minim, care ajunge pana la <strong>A++</strong> in modul racire.</p>
+<p>Datorita designului <strong>TwinFlap™</strong> cu <strong>5013 mini-orificii </strong>aparatul ofera difuzia ideala a aerului in zona Dvs. cu zgomot minim.</p>
+<p>&nbsp;</p>
+<h4><span style="font-size: 12pt;"><strong><span style="text-transform: uppercase; color: #0a3370;">CARACTERISTICI Midea BREEZELESS E</span></strong></span></h4>
+<div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-o-content-middle vc_row-flex">
+<div class="wpb_column vc_column_container vc_col-sm-8">
+<div class="vc_column-inner">
+<div class="wpb_wrapper">
+<div class="qodef-section-title-holder    qodef-st-text-available ">
+<div class="qodef-st-inner">
+<div class="qodef-st-text-holder clearfix">
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/COOL_FLASH_PLUS_jpg.webp" width="60" height="60"><strong>Cool Flash Plus – racire rapida extra</strong><br>Tehnologia Midea Cool Flash Plus iti poate conduce casa catre racire instanta. Prin eliberarea unui un volum de aer generos si a unui flux de aer amplu, temperatura intregii camere poate fi redusa cu 6.3 <sup>o</sup>C in 10 minute.<br><br><br></p>
+<h4><span style="font-size: 12pt;"><strong><span style="text-transform: uppercase; color: #0a3370;"><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/prezentari-produse/aer-conditionat/rezidential/midea/Breezeless/breezeless-e-ambient_jpg.webp" alt="" width="450" height="443"></span></strong></span></h4>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/TEHNOLOGIE_BREEZELESS_jpg.webp" width="60" height="60"><strong>Tehnologie Breezeless</strong><br>Structura Twinflap™ cu 5013 mini-orificii transforma fluxul de aer puternic in mii de fascicule de aer care dau senzatia unei atingeri usoare de racoare.</p>
+<p class="qodef-st-text">&nbsp;</p>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/HEAT_FLASH_jpg.webp" width="60" height="60"><strong>Heat Flash - incalzire rapida</strong><br>Prin fluxul de aer cald, rapid si puternic, tehnologia Heat Flash incalzeste intreaga camera intr-un timp foarte scurt. Temperatura incaperii poate creste cu 10.4 <sup>o</sup>C in 10 minute.&nbsp;</p>
+<br>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/OVER-THE-AIR_jpg.webp" width="60" height="60"><strong>Tehnologie over-the-air (OTA)</strong><br>Tehnologia OTA poate permite echipamentului sa realizeze actualizarea cu software nou, prin reteaua wireless. Astfel, Midea Breezeless E poate realiza in mod continuu imbunatatirea produsului, optimizarea functionala si mentenanta preventiva.</p>
+<p class="qodef-st-text">&nbsp;</p>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/ECONOMIE_DE_ENERGIE_jpg.webp" width="60" height="60"><strong>Tehnologie de invatare inteligenta pentru extra economie de energie</strong><br>Pentru Confort Eco, Midea Breezeless E, in mod inteligent, poate prevedea si realiza cel mai eficient program de functionare din punct de vedere energetic, cu o rata suplimentara de economisire a energiei de pana la 20%.</p>
+<p class="qodef-st-text">&nbsp;</p>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/CURBA_INTELIGENTA_jpg.webp" width="60" height="60"><strong>Curba inteligenta de functionare pe timpul somnului</strong><br>Pentru a mentine un climat confortabil in timpul somnului, Midea Breezeless E poate ajusta temperatura automat, urmarind setarile avansate din aplicatia MSmart Home.</p>
+<p class="qodef-st-text">&nbsp;</p>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/CURATARE_CU_STERILIZARE_jpg.webp" width="60" height="60"><strong>Curatare cu sterilizare</strong><br>La temperaturi de pana la 56 <sup>o</sup>C, purifica in profunzime evaporatorul aparatului de aer conditionat, pastrand aerul furnizat curat si proaspat.</p>
+<p class="qodef-st-text">&nbsp;</p>
+<h4><span style="font-size: 12pt;"><strong><span style="text-transform: uppercase; color: #0a3370;"><img style="float: right; margin: -5px 5px 7px 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/msmart_home_jpg.webp" alt="" width="150" height="150"></span></strong></span></h4>
+<p class="qodef-st-text"><img style="float: left; padding: 10px 10px 5px 0; margin-top: -8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/Midea/RAPORT_DE_ECONOMISIRE_A_ENERGIEI_jpg.webp" width="60" height="60"><strong>Raport de economisire a energiei</strong><br>Tehnologia de inalta precizie pentru detectia puterii consumate poate identifica amprentele consumului energetic, poate depista cauzele consumului ridicat de energie si poate sugera actiuni personalizate de reducere a consumului, prin <strong>aplicatia MSmart Home</strong>.<br><br></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><a title="MSmart Home" href="https://apps.apple.com/us/app/msmarthome/id1254346490" target="_blank" rel="noopener"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/descarca-de-pe-app-store_jpg.webp" alt="" width="152" height="50"></a><a title="MSmart Home" href="https://play.google.com/store/apps/details?id=com.midea.ai.overseas" target="_blank" rel="noopener"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/icons/android-store_jpg.webp" alt="" width="167" height="50"></a></p>
+<p>&nbsp;</p>
+<p class="p1" style="font-size: 14px; line-height: 22px; font-weight: normal; color: #38363c;">&nbsp;&nbsp;</p>
+<p><span style="font-size: 16px; line-height: 18px; text-transform: uppercase; font-weight: normal; color: #0a3370;"><img style="float: right; margin: 0px 0 5px 10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=" data-amsrc="https://www.climatico.ro/media/amasty/webp/wysiwyg/prezentari-produse/aer-conditionat/rezidential/midea/Breezeless/eurovent_certification_jpg.webp" alt="" width="200"><strong>PERFORMANTA CERTIFICATA EUROVENT</strong></span></p>
+<p>Certificatul Eurovent garanteaza faptul ca indicatorii de&nbsp;performanta a produsului sunt conform standardelor europene, internationale si cu declaratiile de performanta ale producatorului.</p></div></div> </div>]]></descriere>
+	</node>
+</data>

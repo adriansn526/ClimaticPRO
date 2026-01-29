@@ -57,7 +57,7 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
 
   useEffect(() => {
     if (!isAutoPlaying || displayBanners.length === 0) return;
-    
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % displayBanners.length);
     }, 5000);
@@ -99,62 +99,68 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
 
           {/* Banner Slider - Dreapta */}
           <div className="flex-1 relative overflow-hidden">
-          {displayBanners.length > 0 && displayBanners[currentSlide] && displayBanners[currentSlide].bannerSettings.imagineDesktop && (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0"
-              >
-                <NextImage
-                  src={displayBanners[currentSlide].bannerSettings.imagineDesktop.sourceUrl}
-                  alt={displayBanners[currentSlide].bannerSettings.imagineDesktop.altText || displayBanners[currentSlide].title}
-                  fill
-                  className="object-cover"
-                  priority={currentSlide === 0}
-                  sizes="100vw"
-                />
-              </motion.div>
-            </AnimatePresence>
-          )}
+            {displayBanners.length > 0 && displayBanners[currentSlide] && displayBanners[currentSlide].bannerSettings.imagineDesktop && (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0"
+                >
+                  <motion.div
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 10, ease: "linear" }}
+                    className="relative w-full h-full"
+                  >
+                    <NextImage
+                      src={displayBanners[currentSlide].bannerSettings.imagineDesktop.sourceUrl}
+                      alt={displayBanners[currentSlide].bannerSettings.imagineDesktop.altText || displayBanners[currentSlide].title}
+                      fill
+                      className="object-cover"
+                      priority={currentSlide === 0}
+                      sizes="100vw"
+                    />
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            )}
 
-          {/* Navigation Arrows */}
-          <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
-            <button
-              onClick={prevSlide}
-              className="pointer-events-auto bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-800" />
-            </button>
-            
-            <button
-              onClick={nextSlide}
-              className="pointer-events-auto bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="w-6 h-6 text-gray-800" />
-            </button>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-            {displayBanners.map((_, index) => (
+            {/* Navigation Arrows */}
+            <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
               <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === currentSlide
-                    ? 'bg-white w-8'
-                    : 'bg-white/50 hover:bg-white/75'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+                onClick={prevSlide}
+                className="pointer-events-auto bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-800" />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                className="pointer-events-auto bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-6 h-6 text-gray-800" />
+              </button>
+            </div>
+
+            {/* Dots Indicator */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+              {displayBanners.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${index === currentSlide
+                      ? 'bg-white w-8'
+                      : 'bg-white/50 hover:bg-white/75'
+                    }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

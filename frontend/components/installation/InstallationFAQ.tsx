@@ -13,7 +13,7 @@ export default function InstallationFAQ() {
       answer: 'Instalarea standard durează aproximativ 2-3 ore, în funcție de complexitatea locației. Echipa noastră lucrează eficient pentru a minimiza timpul de așteptare.',
     },
     {
-      question: 'Ce include prețul de 299 RON pentru instalare?',
+      question: 'Ce include prețul de 950 RON pentru instalare?',
       answer: 'Prețul include: kit instalare 3m (țevi cupru, cabluri, furtun condens), console fixare, bandă matisare, șuruburi, stecher, vacumare instalație, probă funcționare și garanție montaj egală cu garanția aparatului.',
     },
     {
@@ -73,9 +73,8 @@ export default function InstallationFAQ() {
                 >
                   <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-primary-600 flex-shrink-0 transition-transform ${
-                      openIndex === index ? 'rotate-180' : ''
-                    }`}
+                    className={`w-5 h-5 text-primary-600 flex-shrink-0 transition-transform ${openIndex === index ? 'rotate-180' : ''
+                      }`}
                   />
                 </button>
                 <AnimatePresence>

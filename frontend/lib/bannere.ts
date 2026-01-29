@@ -36,7 +36,7 @@ export interface Banner {
   };
 }
 
-const WORDPRESS_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://cms.climaticpro.ro/graphql';
+const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://cms.climaticpro.ro/graphql';
 
 /**
  * Obține bannere după locație
@@ -94,7 +94,7 @@ export async function getBannereByLocatie(locatie: string, limit: number = 10): 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, variables: { limit } }),
       next: { revalidate: 300 }, // Cache 5 minute
-    });
+    } as RequestInit & { next?: { revalidate?: number } });
 
     if (!response.ok) {
       console.error('WordPress API error:', response.status, response.statusText);
@@ -198,7 +198,7 @@ export async function getAllBannere(limit: number = 50): Promise<Banner[]> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, variables: { limit } }),
       next: { revalidate: 300 },
-    });
+    } as RequestInit & { next?: { revalidate?: number } });
 
     if (!response.ok) {
       console.error('WordPress API error:', response.status, response.statusText);

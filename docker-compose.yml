@@ -12,16 +12,29 @@ services:
     networks:
       - proxy
 
+  mariadb:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: XWBTMMTF0KWTEp7wVzrY
+      MYSQL_DATABASE: climaticpro_wp
+      MYSQL_USER: climaticpro_wp
+      MYSQL_PASSWORD: XWBTMMTF0KWTEp7wVzrY
+    volumes:
+      - ./mariadb:/var/lib/mysql
+    networks:
+      - proxy
+
   wordpress:
     image: wordpress:6-apache
     restart: always
     depends_on:
-      redis:
-        condition: service_started
+      - redis
+      - mariadb
     networks:
       - proxy
     environment:
-      WORDPRESS_DB_HOST: 172.18.0.1:3306
+      WORDPRESS_DB_HOST: mariadb:3306
       WORDPRESS_DB_USER: climaticpro_wp
       WORDPRESS_DB_PASSWORD: XWBTMMTF0KWTEp7wVzrY
       WORDPRESS_DB_NAME: climaticpro_wp

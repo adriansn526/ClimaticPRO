@@ -13,3 +13,9 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+# Block xmlrpc.php (security)
+<Files xmlrpc.php>
+    Order Deny,Allow
+    Deny from all
+</Files>

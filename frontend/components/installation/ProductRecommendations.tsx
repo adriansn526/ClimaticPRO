@@ -72,7 +72,7 @@ export default function ProductRecommendations() {
     },
   ];
 
-  const filteredProducts = recommendedBTU > 0 
+  const filteredProducts = recommendedBTU > 0
     ? products.filter(p => p.btu === recommendedBTU)
     : products;
 
@@ -94,11 +94,10 @@ export default function ProductRecommendations() {
           <div className="flex flex-col sm:flex-row gap-4 mb-8 max-w-2xl mx-auto">
             <button
               onClick={() => setHasOwnDevice(true)}
-              className={`flex-1 p-4 rounded-lg border-2 transition-all ${
-                hasOwnDevice
+              className={`flex-1 p-4 rounded-lg border-2 transition-all ${hasOwnDevice
                   ? 'border-primary-600 bg-primary-50'
                   : 'border-gray-200 hover:border-gray-300'
-              }`}
+                }`}
             >
               <Package className={`w-6 h-6 mx-auto mb-2 ${hasOwnDevice ? 'text-primary-600' : 'text-gray-400'}`} />
               <p className="font-semibold text-gray-900">Am deja aparat</p>
@@ -107,11 +106,10 @@ export default function ProductRecommendations() {
 
             <button
               onClick={() => setHasOwnDevice(false)}
-              className={`flex-1 p-4 rounded-lg border-2 transition-all ${
-                !hasOwnDevice
+              className={`flex-1 p-4 rounded-lg border-2 transition-all ${!hasOwnDevice
                   ? 'border-primary-600 bg-primary-50'
                   : 'border-gray-200 hover:border-gray-300'
-              }`}
+                }`}
             >
               <ShoppingCart className={`w-6 h-6 mx-auto mb-2 ${!hasOwnDevice ? 'text-primary-600' : 'text-gray-400'}`} />
               <p className="font-semibold text-gray-900">Vreau să cumpăr</p>
@@ -152,7 +150,7 @@ export default function ProductRecommendations() {
                 </div>
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <p className="text-sm text-blue-900">
-                    <strong>Preț instalare:</strong> 299 RON (include kit 3m + manoperă + garanție)
+                    <strong>Preț instalare:</strong> 950 RON (include kit 3m + manoperă + garanție)
                   </p>
                 </div>
               </div>
@@ -214,11 +212,10 @@ export default function ProductRecommendations() {
                     {/* Badge */}
                     {product.badge && (
                       <div className="absolute top-4 right-4 z-10">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          product.badge === 'Bestseller' ? 'bg-yellow-400 text-yellow-900' :
-                          product.badge === 'Eficient' ? 'bg-green-400 text-green-900' :
-                          'bg-purple-400 text-purple-900'
-                        }`}>
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${product.badge === 'Bestseller' ? 'bg-yellow-400 text-yellow-900' :
+                            product.badge === 'Eficient' ? 'bg-green-400 text-green-900' :
+                              'bg-purple-400 text-purple-900'
+                          }`}>
                           {product.badge}
                         </span>
                       </div>
@@ -266,7 +263,7 @@ export default function ProductRecommendations() {
                             {product.priceWithInstallation.toLocaleString()} RON
                           </p>
                           <p className="text-xs text-green-700 font-bold">
-                            Economie {(product.price + 1000 - product.priceWithInstallation)} RON
+                            Economie {(product.price + 950 - product.priceWithInstallation)} RON
                           </p>
                         </div>
                         <Link

@@ -52,7 +52,7 @@ export default function InstallationPricing() {
                 <div className="inline-block bg-primary-100 text-primary-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
                   Instalare Standard
                 </div>
-                <div className="text-5xl font-bold text-gray-900 mb-2">1000 RON</div>
+                <div className="text-5xl font-bold text-gray-900 mb-2">950 RON</div>
                 <p className="text-gray-600">Include tot ce ai nevoie</p>
               </div>
 

@@ -9,6 +9,9 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Set non-root user for security
+# USER node
+
 # Expose port
 EXPOSE 3000
 

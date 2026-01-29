@@ -11,3 +11,5 @@ wordpress/wp-content/cache/
 frontend/docs/uploads.zip
 frontend/docs/uploads.zip
 frontend/docs/*.zip
+mariadb/
+certs/

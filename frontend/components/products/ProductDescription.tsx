@@ -47,19 +47,22 @@ function DescriptionImage({ src, alt, caption, position = 'center' }: Descriptio
 function processDescription(html: string) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  
+
+  // Strip inline styles form all elements to ensure theme consistency
+  doc.querySelectorAll('*').forEach(el => el.removeAttribute('style'));
+
   // Extrage toate elementele în ordine (H2, H3, P, UL, OL, IMG)
   const contentBlocks: Array<{
     type: 'paragraph' | 'image' | 'h2' | 'h3' | 'list';
     content: string;
     data?: any;
   }> = [];
-  
+
   const bodyChildren = Array.from(doc.body.children);
-  
+
   bodyChildren.forEach((element) => {
     const tagName = element.tagName;
-    
+
     // Imagini
     if (tagName === 'IMG' || (tagName === 'P' && element.querySelector('img'))) {
       const img = tagName === 'IMG' ? element : element.querySelector('img');
@@ -76,7 +79,7 @@ function processDescription(html: string) {
       }
       return;
     }
-    
+
     // H2 - heading principal
     if (tagName === 'H2') {
       contentBlocks.push({
@@ -85,7 +88,7 @@ function processDescription(html: string) {
       });
       return;
     }
-    
+
     // H3 - subheading
     if (tagName === 'H3') {
       contentBlocks.push({
@@ -94,7 +97,7 @@ function processDescription(html: string) {
       });
       return;
     }
-    
+
     // Liste (UL, OL)
     if (tagName === 'UL' || tagName === 'OL') {
       contentBlocks.push({
@@ -103,7 +106,7 @@ function processDescription(html: string) {
       });
       return;
     }
-    
+
     // Paragrafe și alte elemente
     if (tagName === 'P' || tagName === 'DIV') {
       const textContent = element.textContent?.trim();
@@ -115,7 +118,7 @@ function processDescription(html: string) {
       }
     }
   });
-  
+
   return {
     contentBlocks,
   };
@@ -140,7 +143,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
   // Afișează HTML raw până când componenta este montată și procesată
   if (!isMounted || !processed) {
     return (
-      <div 
+      <div
         className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
         dangerouslySetInnerHTML={{ __html: html }}
       />
@@ -152,9 +155,9 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
     type: 'single' | 'image-group';
     blocks: typeof processed.contentBlocks;
   }> = [];
-  
+
   let currentImageGroup: typeof processed.contentBlocks = [];
-  
+
   processed.contentBlocks.forEach((block, index) => {
     if (block.type === 'image') {
       currentImageGroup.push(block);
@@ -174,7 +177,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
       });
     }
   });
-  
+
   // Adaugă ultimul grup de imagini dacă există
   if (currentImageGroup.length > 0) {
     groupedBlocks.push({
@@ -218,7 +221,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
               </div>
             );
           }
-          
+
           // O singură imagine - aliniere center (nu float)
           const block = group.blocks[0];
           return (
@@ -231,10 +234,10 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
             />
           );
         }
-        
+
         // Bloc single (non-imagine)
         const block = group.blocks[0];
-        
+
         // H2 - heading principal cu styling special
         if (block.type === 'h2') {
           return (
@@ -246,7 +249,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
             </div>
           );
         }
-        
+
         // H3 - subheading cu styling mai simplu
         if (block.type === 'h3') {
           return (
@@ -258,7 +261,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
             </div>
           );
         }
-        
+
         // Liste - spacing special
         if (block.type === 'list') {
           return (
@@ -269,7 +272,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
             />
           );
         }
-        
+
         // Paragraf - typography optimizată
         return (
           <div
@@ -279,7 +282,7 @@ export default function ProductDescription({ html }: ProductDescriptionProps) {
           />
         );
       })}
-      
+
       {/* Clear floats la final */}
       <div className="clear-both" />
     </div>

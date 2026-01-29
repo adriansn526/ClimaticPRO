@@ -24,7 +24,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const discountPercentage = calculateDiscount(product.regularPrice, product.salePrice);
 
   return (
-    <div className="group relative bg-white rounded-lg sm:rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div className="group relative bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
       {/* Badges */}
       <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 flex flex-col gap-1 sm:gap-2">
         {product.featured && (
@@ -45,21 +45,20 @@ export default function ProductCard({ product }: ProductCardProps) {
         className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-white/90 hover:bg-white p-1.5 sm:p-2 rounded-full shadow-md transition-all"
         aria-label="Add to wishlist"
       >
-        <Heart 
-          className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${
-            isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'
-          }`}
+        <Heart
+          className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'
+            }`}
         />
       </button>
 
       {/* Product Image */}
       <Link href={`/produs/${product.slug}`}>
-        <div className="relative aspect-square sm:aspect-[4/3] bg-gray-100 overflow-hidden">
+        <div className="relative aspect-square sm:aspect-[4/3] bg-gray-50 overflow-hidden rounded-t-lg sm:rounded-t-xl">
           <NextImage
             src={productImage}
             alt={product.image?.altText || product.name}
             fill
-            className="object-contain p-2 sm:p-4 group-hover:scale-110 transition-transform duration-300"
+            className="object-contain p-4 group-hover:scale-110 transition-transform duration-500 ease-in-out mix-blend-multiply"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
           />
         </div>
@@ -113,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
           )}
-          
+
           {/* Area and Features */}
           <div className="flex items-center flex-wrap gap-1 sm:gap-2 text-[9px] sm:text-xs text-gray-500">
             {specs.area && (
@@ -163,7 +162,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-1.5 sm:py-3 px-1.5 sm:px-4 rounded-md sm:rounded-lg transition-colors flex items-center justify-center gap-0.5 sm:gap-2 text-[10px] sm:text-base">
             <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Adaugă în Coș</span>
-            <span className="sm:hidden">Coș</span>
+            <span className="sm:hidden">Adaugă</span>
           </button>
           <Link
             href={`/produs/${product.slug}`}
