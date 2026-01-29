@@ -126,7 +126,9 @@ if ( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
 	$_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
 }
 
-define( 'FORCE_SSL_ADMIN', true );
+// define( 'FORCE_SSL_ADMIN', true );
+$_SERVER['HTTPS'] = 'on'; // Force HTTPS because we are behind an SSL tunnel
+
 
 if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
 	eval($configExtra);

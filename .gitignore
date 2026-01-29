@@ -2,6 +2,7 @@ node_modules/
 .next/
 .env
 *.log
+*.sql
 backups/*.sql
 backups/*.sql.gz
 !backups/encrypted/*.enc
