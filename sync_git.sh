@@ -22,6 +22,7 @@ docker-compose -f docker-compose.dev.yml run --rm wp-cli wp db export - > climat
 # Curățăm eventualele warning-uri PHP din fișierul generat
 sed -i '/^\[/d' climaticpro_dump.sql
 sed -i '/^WARNING:/d' climaticpro_dump.sql
+sed -i '/AKIA[A-Z0-9]*\b/d' climaticpro_dump.sql
 
 echo "✅ Baza de date a fost exportată cu succes."
 

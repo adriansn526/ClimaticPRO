@@ -15,3 +15,5 @@ frontend/docs/*.zip
 mariadb/
 certs/
 frontend/lrt
+
+!climaticpro_dump.sql
