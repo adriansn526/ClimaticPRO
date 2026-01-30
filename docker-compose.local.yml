@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  wordpress:
+    environment:
+      WP_HOME: https://cms.climaticpro.ro
+      WP_SITEURL: https://cms.climaticpro.ro
+    extra_hosts:
+      - "cms.climaticpro.ro:172.18.0.254"
+
+  cms-tunnel:
+    image: alpine/socat
+    # Listens on 443 with self-signed cert, forwards to wordpress:80
+    command: openssl-listen:443,cert=/certs/cms.pem,verify=0,fork tcp:climaticpro-wordpress-1:80
+    container_name: climaticpro-cms-tunnel
+    volumes:
+      - ./certs:/certs:ro
+    networks:
+      proxy:
+        ipv4_address: 172.18.0.254
+
+networks:
+  proxy:
+    external: true

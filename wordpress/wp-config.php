@@ -90,8 +90,8 @@ define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '711604a
  */
 $table_prefix = 'cmp_';
 
-define( 'WP_HOME', 'https://cms.climaticpro.ro' );
-define( 'WP_SITEURL', 'https://cms.climaticpro.ro' );
+define( 'WP_HOME', getenv('WP_HOME') ?: 'https://cms.climaticpro.ro' );
+define( 'WP_SITEURL', getenv('WP_SITEURL') ?: 'https://cms.climaticpro.ro' );
 
 /**
  * For developers: WordPress debugging mode.
@@ -107,6 +107,7 @@ define( 'WP_SITEURL', 'https://cms.climaticpro.ro' );
  */
 // define( 'DB_HOST', '172.18.0.3' );
 define( 'WP_DEBUG', true );
+define( 'DISABLE_WP_CRON', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
@@ -127,7 +128,9 @@ if ( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
 }
 
 // define( 'FORCE_SSL_ADMIN', true );
-$_SERVER['HTTPS'] = 'on'; // Force HTTPS because we are behind an SSL tunnel
+if (strpos(getenv('WP_HOME'), 'https://') !== false) {
+    $_SERVER['HTTPS'] = 'on'; // Force HTTPS because we are behind an SSL tunnel
+}
 
 
 if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
