@@ -60,7 +60,9 @@ export interface WooCommerceProduct {
   } | null;
 }
 
-const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhost:8080/graphql';
+// Hardcoding internal URL to bypass persistent env var issue (climaticpro_wordpress_1)
+const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.climaticpro.ro/graphql';
+console.log('WooCommerce API URL:', WORDPRESS_API_URL);
 
 export async function getProductBySlug(slug: string): Promise<WooCommerceProduct | null> {
   const query = `
@@ -392,9 +394,15 @@ export async function getProducts(filters: ProductFilters = {}, limit: number = 
 
   const afterArg = after ? `, after: "${after}"` : '';
 
+  // Taxonomy Filter for Brands
+  let taxonomyFilter = '';
+  if (brand) {
+    taxonomyFilter = `, taxonomyFilter: { filters: [{ taxonomy: PA_BRAND, terms: ["${brand}"] }] }`;
+  }
+
   const query = `
     query GetProducts {
-      products(first: ${limit}${afterArg}, where: { ${whereArgs.join(', ')} }, ${orderArgs}) {
+      products(first: ${limit}${afterArg}, where: { ${whereArgs.join(', ')} ${taxonomyFilter} }, ${orderArgs}) {
         pageInfo {
           hasNextPage
           endCursor
@@ -548,21 +556,20 @@ export async function getInstallationProducts(limit: number = 3): Promise<WooCom
 export async function getWooCommerceCategories(): Promise<WooCommerceCategory[]> {
   const query = `
     query GetProductCategories {
-      productCategories(first: 50, where: { parent: 0 }) {
+      productCategories(first: 100, where: { hideEmpty: false }) {
         nodes {
           id
+          databaseId
           name
           slug
           count
           image {
             sourceUrl
           }
-          children {
-            nodes {
+          parent {
+            node {
               id
-              name
               slug
-              count
             }
           }
         }
@@ -585,9 +592,211 @@ export async function getWooCommerceCategories(): Promise<WooCommerceCategory[]>
       return [];
     }
 
-    return json.data?.productCategories?.nodes || [];
+    const allNodes = json.data?.productCategories?.nodes || [];
+
+    // Manual Tree Reconstruction
+    const nodeMap = new Map<string, any>();
+    const roots: any[] = [];
+
+    // Initialize nodes with empty children array
+    allNodes.forEach((node: any) => {
+      node.children = { nodes: [] };
+      nodeMap.set(node.slug, node);
+    });
+
+    // Build hierarchy
+    allNodes.forEach((node: any) => {
+      if (node.parent?.node?.slug && nodeMap.has(node.parent.node.slug)) {
+        const parent = nodeMap.get(node.parent.node.slug);
+        parent.children.nodes.push(node);
+      } else {
+        roots.push(node);
+      }
+    });
+
+    return roots;
   } catch (error) {
     console.error('Error fetching WooCommerce categories:', error);
     return [];
+  }
+}
+
+export interface WooCommerceBrand {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  brandImage?: string;
+  count?: number;
+}
+
+export async function getAllBrands(): Promise<WooCommerceBrand[]> {
+  const query = `
+    query GetAllBrands {
+      allPaBrand(first: 50, where: { hideEmpty: true }) {
+        nodes {
+          id
+          name
+          slug
+          description
+          brandImage
+          count
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 3600 }, // Cache 1 hour
+    });
+
+    const json = await response.json();
+
+    if (json.errors) {
+      console.error('GraphQL Errors:', json.errors);
+      return [];
+    }
+
+    return json.data?.allPaBrand?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching brands:', error);
+    return [];
+  }
+}
+
+
+export interface WooCommerceAttribute {
+  id: string;
+  name: string;
+  slug: string;
+  count?: number;
+}
+
+export async function getAllCapacitate(): Promise<WooCommerceAttribute[]> {
+  const query = `
+    query GetAllCapacitate {
+      allPaCapacitate(first: 50, where: { hideEmpty: true, orderby: SLUG }) {
+        nodes {
+          id
+          name
+          slug
+          count
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 3600 },
+    });
+
+    const json = await response.json();
+    if (json.errors) return [];
+    return json.data?.allPaCapacitate?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching capacitate:', error);
+    return [];
+  }
+}
+
+export async function getAllClasaEnergie(): Promise<WooCommerceAttribute[]> {
+  const query = `
+    query GetAllClasaEnergie {
+      allPaClasaEnergie(first: 50, where: { hideEmpty: true, orderby: NAME }) {
+        nodes {
+          id
+          name
+          slug
+          count
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 3600 },
+    });
+
+    const json = await response.json();
+    if (json.errors) return [];
+    return json.data?.allPaClasaEnergie?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching clasa energie:', error);
+    return [];
+  }
+}
+
+export async function getUsedAttributeSlugs(categories: string[]): Promise<{ capacitySlugs: string[], energySlugs: string[] }> {
+  const categoryString = JSON.stringify(categories);
+  const query = `
+    query GetCategoryAttributes {
+      products(first: 50, where: { categoryIn: ${categoryString} }) {
+        nodes {
+          ... on SimpleProduct {
+            attributes {
+              nodes {
+                name
+                options
+              }
+            }
+          }
+          ... on VariableProduct {
+            attributes {
+              nodes {
+                name
+                options
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 3600 },
+    });
+
+    const json = await response.json();
+    if (json.errors) return { capacitySlugs: [], energySlugs: [] };
+
+    const products = json.data?.products?.nodes || [];
+    const capacitySet = new Set<string>();
+    const energySet = new Set<string>();
+
+    products.forEach((p: any) => {
+      p.attributes?.nodes?.forEach((attr: any) => {
+        if (attr.name === 'pa_capacitate') {
+          attr.options?.forEach((slug: string) => capacitySet.add(slug));
+        }
+        if (attr.name === 'pa_clasa-energie' || attr.name === 'pa_clasa_energie') {
+          attr.options?.forEach((slug: string) => energySet.add(slug));
+        }
+      });
+    });
+
+    return {
+      capacitySlugs: Array.from(capacitySet),
+      energySlugs: Array.from(energySet)
+    };
+  } catch (error) {
+    console.error(`Error fetching attributes for categories ${categories}:`, error);
+    return { capacitySlugs: [], energySlugs: [] };
   }
 }

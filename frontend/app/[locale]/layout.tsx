@@ -60,7 +60,7 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} className={outfit.variable}>
+    <html lang={locale} className={outfit.variable} suppressHydrationWarning>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CartProvider>

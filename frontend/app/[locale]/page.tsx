@@ -1,6 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 import { getBannereByLocatie } from '@/lib/bannere';
-import { getWooCommerceCategories, getFeaturedProducts, getBestSellingProducts } from '@/lib/woocommerce';
+import {
+  getWooCommerceCategories,
+  getFeaturedProducts,
+  getBestSellingProducts,
+  getAllBrands,
+  getAllCapacitate,
+  getAllClasaEnergie,
+  getUsedAttributeSlugs
+} from '@/lib/woocommerce';
 import HeroSection from '@/components/home/HeroSection';
 import SidebarMegaMenu from '@/components/home/SidebarMegaMenu';
 import TrustBadges from '@/components/home/TrustBadges';
@@ -45,12 +53,50 @@ export async function generateMetadata(props: PageProps) {
 }
 
 export default async function HomePage() {
-  const [banners, categories, featuredProducts, bestSellers] = await Promise.all([
+  const categories = await getWooCommerceCategories();
+
+  // Extract slugs recursively for broader product search
+  const rezCat = categories.find(c => c.slug === 'aer-conditionat-rezidential');
+  const rezSlugsList = rezCat ? [rezCat.slug, ...(rezCat.children?.nodes?.map((c: any) => c.slug) || [])] : ['aer-conditionat-rezidential'];
+
+  const comCat = categories.find(c => c.slug.includes('comercial')); // Robust finder
+  const comSlugsList = comCat ? [comCat.slug, ...(comCat.children?.nodes?.map((c: any) => c.slug) || [])] : ['aparat-de-aer-conditionat-comercial'];
+
+  // Batch 1: Core Content (Highest Priority)
+  const [banners, featuredProducts, bestSellers] = await Promise.all([
     getBannereByLocatie('homepage_hero', 5),
-    getWooCommerceCategories(),
     getFeaturedProducts(8),
     getBestSellingProducts(4),
   ]);
+
+  // Batch 2: Global Filters & Brands (Medium Priority)
+  const [brands, allCapacities, allEnergyClasses] = await Promise.all([
+    getAllBrands(),
+    getAllCapacitate(),
+    getAllClasaEnergie(),
+  ]);
+
+  // Batch 3: Dynamic Filters (Dependent Priority)
+  const [rezidentialSlugs, comercialSlugs] = await Promise.all([
+    getUsedAttributeSlugs(rezSlugsList),
+    getUsedAttributeSlugs(comSlugsList)
+  ]);
+
+
+
+
+  // Filter global lists based on category usage
+  const rezidentialFilters = {
+    capacities: allCapacities.filter(c => rezidentialSlugs.capacitySlugs.includes(c.slug)),
+    energyClasses: allEnergyClasses.filter(c => rezidentialSlugs.energySlugs.includes(c.slug))
+  };
+
+
+
+  const comercialFilters = {
+    capacities: allCapacities.filter(c => comercialSlugs.capacitySlugs.includes(c.slug)),
+    energyClasses: allEnergyClasses.filter(c => comercialSlugs.energySlugs.includes(c.slug))
+  };
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -78,7 +124,12 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <HeroSection banners={banners}>
-        <SidebarMegaMenu categories={categories} />
+        <SidebarMegaMenu
+          categories={categories}
+          brands={brands}
+          rezidentialFilters={rezidentialFilters}
+          comercialFilters={comercialFilters}
+        />
       </HeroSection>
       <TrustBadges />
       <FeaturedProducts products={featuredProducts} />

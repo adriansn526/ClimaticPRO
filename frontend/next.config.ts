@@ -4,8 +4,10 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  distDir: '.next_host',
   output: 'standalone', // Required for Docker deployment
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

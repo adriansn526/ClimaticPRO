@@ -134,6 +134,7 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
                 onClick={prevSlide}
                 className="pointer-events-auto bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
                 aria-label="Previous slide"
+                suppressHydrationWarning
               >
                 <ChevronLeft className="w-6 h-6 text-gray-800" />
               </button>
@@ -142,6 +143,7 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
                 onClick={nextSlide}
                 className="pointer-events-auto bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
                 aria-label="Next slide"
+                suppressHydrationWarning
               >
                 <ChevronRight className="w-6 h-6 text-gray-800" />
               </button>
@@ -154,10 +156,11 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
                   key={index}
                   onClick={() => goToSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all ${index === currentSlide
-                      ? 'bg-white w-8'
-                      : 'bg-white/50 hover:bg-white/75'
+                    ? 'bg-white w-8'
+                    : 'bg-white/50 hover:bg-white/75'
                     }`}
                   aria-label={`Go to slide ${index + 1}`}
+                  suppressHydrationWarning
                 />
               ))}
             </div>

@@ -44,6 +44,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         onClick={() => setIsWishlisted(!isWishlisted)}
         className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-white/90 hover:bg-white p-1.5 sm:p-2 rounded-full shadow-md transition-all"
         aria-label="Add to wishlist"
+        suppressHydrationWarning
       >
         <Heart
           className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'
@@ -159,7 +160,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Actions */}
         <div className="flex gap-1 sm:gap-2">
-          <button className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-1.5 sm:py-3 px-1.5 sm:px-4 rounded-md sm:rounded-lg transition-colors flex items-center justify-center gap-0.5 sm:gap-2 text-[10px] sm:text-base">
+          <button suppressHydrationWarning className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-1.5 sm:py-3 px-1.5 sm:px-4 rounded-md sm:rounded-lg transition-colors flex items-center justify-center gap-0.5 sm:gap-2 text-[10px] sm:text-base">
             <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Adaugă în Coș</span>
             <span className="sm:hidden">Adaugă</span>

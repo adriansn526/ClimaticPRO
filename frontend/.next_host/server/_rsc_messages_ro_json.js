@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "_rsc_messages_ro_json";
+exports.ids = ["_rsc_messages_ro_json"];
+exports.modules = {
+
+/***/ "(rsc)/./messages/ro.json":
+/*!**************************!*\
+  !*** ./messages/ro.json ***!
+  \**************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"common":{"home":"Acasă","about":"Despre","services":"Servicii","contact":"Contact","products":"Produse","readMore":"Citește mai mult","learnMore":"Află mai multe","viewAll":"Vezi toate"},"hero":{"badge":"Partener Oficial Gree, Daikin, Midea","title":"Aer Condiționat + Instalare Profesională","subtitle":"78+ Modele Premium | Instalare în 24h | Garanție 5 Ani | Livrare Gratuită","ctaPrimary":"Configurează Sistemul Tău","ctaSecondary":"Solicită Ofertă Gratuită","trustYears":"15+ Ani Experiență","trustInstallations":"2000+ Instalări","trustWarranty":"Garanție 5 Ani"},"categories":{"title":"Găsește Aerul Condiționat Perfect","subtitle":"pentru fiecare spațiu din casa sau afacerea ta","bedroom":"Dormitor","bedroomFeatures":["Silențios <25dB","Sleep Mode","Timer programabil"],"living":"Living/Salon","livingFeatures":["Putere mare","Design elegant","WiFi Smart Control"],"office":"Birou/Cabinet","officeFeatures":["WiFi Smart","Silențios","Eficiență A+++"],"commercial":"Spații Comerciale","commercialFeatures":["Profesional","Durabil","Service rapid"],"house":"Casă Întreagă","houseFeatures":["Multi-split 3-5 unități","O singură unitate exterioară","Eficient energetic"],"apartment":"Apartament","apartmentFeatures":["Multi-split 2-3 camere","Compact","Silențios"]},"products":{"title":"Produse Recomandate","subtitle":"Cele mai populare sisteme de aer condiționat","featured":"Recomandat","newArrival":"Nou","bestSeller":"Best Seller","addToCart":"Adaugă în Coș","viewDetails":"Detalii Produs","from":"de la","btu":"BTU","energyClass":"Clasa"},"services":{"title":"Servicii Profesionale de Instalare","subtitle":"Echipă certificată cu experiență de 15+ ani","standard":"Standard","standardPrice":"950 RON","standardDesc":"Instalare clasică profesională","premium":"Premium","premiumPrice":"1200 RON","premiumDesc":"Instalare profesională prioritară","vip":"VIP","vipPrice":"La cerere","vipDesc":"Servicii complete personalizate","feature1":"Montaj profesional","feature2":"Testare completă","feature3":"Garanție 2 ani","feature4":"Igienizare unitate","feature5":"Garanție 5 ani","feature6":"Suport prioritar","cta":"Programează Instalare"},"calculator":{"title":"Calculator BTU","subtitle":"Află de câți BTU ai nevoie pentru spațiul tău","area":"Suprafața camerei (m²)","roomType":"Tip cameră","roomTypeBedroom":"Dormitor","roomTypeLiving":"Living","roomTypeOffice":"Birou","roomTypeKitchen":"Bucătărie","floor":"Etaj","floorGround":"Parter","floorMiddle":"Intermediar","floorTop":"Mansardă","insulation":"Izolație","insulationGood":"Bună","insulationMedium":"Medie","insulationPoor":"Slabă","calculate":"Calculează","result":"Ai nevoie de aproximativ","recommended":"Produse Recomandate"},"whyChoose":{"title":"De Ce ClimaticPro?","subtitle":"Experiență, calitate și servicii profesionale","experience":"15+ Ani","experienceDesc":"Experiență în domeniu","installations":"2000+","installationsDesc":"Instalări realizate","warranty":"Garanție 5 Ani","warrantyDesc":"Pe toate produsele","delivery":"Livrare 24h","deliveryDesc":"În toată țara"},"brands":{"title":"Parteneri Oficiali","subtitle":"Lucrăm doar cu branduri premium"},"faq":{"title":"Întrebări Frecvente","subtitle":"Tot ce trebuie să știi despre aerul condiționat"},"cta":{"title":"Gata să îți răcorești casa?","subtitle":"Solicită o ofertă personalizată gratuită astăzi","button":"Solicită Ofertă Gratuită","phone":"Sau sună acum"}}');
+
+/***/ })
+
+};
+;

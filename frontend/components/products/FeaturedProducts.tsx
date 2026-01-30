@@ -20,12 +20,12 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   ))];
 
   // Filter products by brand
-  const filteredProducts = activeTab === 'all' 
-    ? products 
+  const filteredProducts = activeTab === 'all'
+    ? products
     : products.filter(p => {
-        const brand = extractBrand(p);
-        return brand.toLowerCase() === activeTab.toLowerCase();
-      });
+      const brand = extractBrand(p);
+      return brand.toLowerCase() === activeTab.toLowerCase();
+    });
 
   return (
     <section className="py-16 bg-gray-50">
@@ -40,7 +40,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
               Cele mai populare sisteme de aer condiționat
             </p>
           </div>
-          <Link 
+          <Link
             href="/produse"
             className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors group"
           >
@@ -56,11 +56,11 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
               <button
                 key={brand}
                 onClick={() => setActiveTab(brand)}
-                className={`px-6 py-2 rounded-full font-medium transition-all ${
-                  activeTab === brand
+                className={`px-6 py-2 rounded-full font-medium transition-all ${activeTab === brand
                     ? 'bg-primary-600 text-gray-900 shadow-md'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-                }`}
+                  }`}
+                suppressHydrationWarning
               >
                 {brand === 'all' ? 'Toate' : brand}
               </button>

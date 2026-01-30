@@ -1,0 +1,76 @@
+version: "3.8"
+
+networks:
+  proxy:
+    external: true
+
+services:
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: ["redis-server","--save","","--appendonly","no"]
+    networks:
+      - proxy
+
+  mariadb:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: XWBTMMTF0KWTEp7wVzrY
+      MYSQL_DATABASE: climaticpro_wp
+      MYSQL_USER: climaticpro_wp
+      MYSQL_PASSWORD: XWBTMMTF0KWTEp7wVzrY
+    volumes:
+      - ./mariadb:/var/lib/mysql
+    networks:
+      - proxy
+
+  wordpress:
+    image: wordpress:6-apache
+    restart: always
+    depends_on:
+      - redis
+      - mariadb
+    networks:
+      - proxy
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: climaticpro_wp
+      WORDPRESS_DB_PASSWORD: XWBTMMTF0KWTEp7wVzrY
+      WORDPRESS_DB_NAME: climaticpro_wp
+      WP_HOME: https://cms.climaticpro.ro
+      WP_SITEURL: https://cms.climaticpro.ro
+      WORDPRESS_DEBUG: '0'
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_REDIS_HOST','redis');
+        define('WP_REDIS_PORT',6379);
+        define('WP_CACHE', true);
+        define('WP_DEBUG_LOG', false);
+        define('WP_DEBUG_DISPLAY', false);
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./uploads:/var/www/html/wp-content/uploads
+      - ./php-uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.climaticpro-wp.rule=Host(`cms.climaticpro.ro`)"
+      - "traefik.http.routers.climaticpro-wp.entrypoints=websecure"
+      - "traefik.http.routers.climaticpro-wp.tls.certresolver=httpresolver"
+      - "traefik.http.services.climaticpro-wp.loadbalancer.server.port=80"
+    ports:
+      - "8092:80"
+
+  frontend:
+    # Uses the image built by GitHub Actions
+    image: ${IMAGE_NAME}
+    restart: always
+    env_file:
+      - frontend/.env.local
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.climaticpro-frontend.rule=Host(`climaticpro.asns.ro`)"
+      - "traefik.http.routers.climaticpro-frontend.entrypoints=websecure"
+      - "traefik.http.routers.climaticpro-frontend.tls.certresolver=httpresolver"
+      - "traefik.http.services.climaticpro-frontend.loadbalancer.server.port=3000"
+    networks:
+      - proxy

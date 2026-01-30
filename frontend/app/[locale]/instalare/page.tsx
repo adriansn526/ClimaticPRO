@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import InstallationHero from '@/components/installation/InstallationHero';
 import HowItWorks from '@/components/installation/HowItWorks';
-import BookingWizard from '@/components/installation/BookingWizard';
+
 import InstallationPricing from '@/components/installation/InstallationPricing';
 import InstallationProcess from '@/components/installation/InstallationProcess';
 import WhyChooseUs from '@/components/installation/WhyChooseUs';
@@ -39,8 +39,7 @@ export default function InstalarePage() {
       {/* Cum Funcționează - 3 Pași */}
       <HowItWorks />
 
-      {/* Booking Wizard - Programare în 4 Pași */}
-      <BookingWizard />
+
 
       {/* Prețuri Transparente */}
       <InstallationPricing />

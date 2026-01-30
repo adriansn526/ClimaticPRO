@@ -14,3 +14,4 @@ frontend/docs/uploads.zip
 frontend/docs/*.zip
 mariadb/
 certs/
+frontend/lrt
