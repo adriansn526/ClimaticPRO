@@ -1,120 +1,321 @@
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { NextResponse } from 'next/server';
 
 const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.climaticpro.ro/graphql';
 
+export interface BlogPost {
+  id: string;
+  databaseId: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+      altText: string;
+    };
+  };
+  categories?: {
+    nodes: {
+      name: string;
+      slug: string;
+    }[];
+  };
+  author?: {
+    node: {
+      name: string;
+      avatar: {
+        url: string;
+      };
+    };
+  };
+}
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+  count: number;
+}
+
 export interface Banner {
   id: string;
-  sourceUrl: string;
-  altText: string;
   title: string;
-  mediaDetails: {
+  sourceUrl: string;
+  altText?: string;
+  mediaDetails?: {
     width: number;
     height: number;
     file: string;
   };
 }
 
-export async function getBannereClimatizare(): Promise<Banner[]> {
+async function fetchGraphQL(query: string, variables?: any, revalidate: number = 60) {
+  try {
+    const response = await fetch(WORDPRESS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables }),
+      next: { revalidate },
+    });
+
+    if (!response.ok) {
+      console.error('GraphQL Fetch Error:', response.statusText);
+      return null;
+    }
+
+    const json = await response.json();
+    if (json.errors) {
+      console.error('GraphQL Errors:', json.errors);
+      return null;
+    }
+
+    return replaceUrlInObject(json.data);
+  } catch (error) {
+    console.error('Error fetching GraphQL:', error);
+    return null;
+  }
+}
+
+// Helper to replace old domain with new CMS domain recursively in response
+function replaceUrlInObject(obj: any): any {
+  if (typeof obj === 'string') {
+    if (obj.includes('https://climaticpro.ro/wp-content/')) {
+      return obj.replaceAll('https://climaticpro.ro/wp-content/', 'https://cms.climaticpro.ro/wp-content/');
+    }
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(replaceUrlInObject);
+  }
+
+  if (typeof obj === 'object' && obj !== null) {
+    const newObj: any = {};
+    for (const key in obj) {
+      newObj[key] = replaceUrlInObject(obj[key]);
+    }
+    return newObj;
+  }
+
+  return obj;
+}
+
+export async function getPosts(first: number = 12, after?: string, categorySlug?: string): Promise<{ posts: BlogPost[], pageInfo: any }> {
+  // If categorySlug is provided, we filter by category
+  const whereClause = categorySlug ? `, where: { categoryName: "${categorySlug}" }` : '';
+
   const query = `
-    query GetBannereClimatizare {
-      mediaItems(
-        first: 3, 
-        where: {
-          orderby: {field: DATE, order: DESC}
+    query GetPosts($first: Int!, $after: String) {
+      posts(first: $first, after: $after ${whereClause}) {
+        pageInfo {
+          hasNextPage
+          endCursor
         }
-      ) {
         nodes {
           id
-          sourceUrl
-          altText
+          databaseId
           title
-          mediaDetails {
-            width
-            height
-            file
+          slug
+          excerpt(format: RAW)
+          content(format: RENDERED)
+          date
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          categories {
+            nodes {
+              name
+              slug
+            }
+          }
+           author {
+            node {
+              name
+              avatar {
+                url
+              }
+            }
           }
         }
       }
     }
   `;
 
-  try {
-    const response = await fetch(WORDPRESS_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }),
-      next: { revalidate: 60 }, // ISR 1 minute pentru refresh mai frecvent
-    });
+  const data = await fetchGraphQL(query, { first, after });
+  const posts = data?.posts?.nodes || [];
 
-    if (!response.ok) {
-      console.error('WordPress API error:', response.status, response.statusText);
-      return [];
+  // Fallback: Extract first image from content if featuredImage is missing
+  const postsWithImages = posts.map((post: any) => {
+    if (!post.featuredImage) {
+      const imgMatch = post.content?.match(/<img[^>]+src="([^">]+)"/);
+      if (imgMatch && imgMatch[1]) {
+        return {
+          ...post,
+          featuredImage: {
+            node: {
+              sourceUrl: imgMatch[1],
+              altText: post.title
+            }
+          }
+        };
+      }
     }
+    return post;
+  });
 
-    const json = await response.json();
+  return {
+    posts: postsWithImages,
+    pageInfo: data?.posts?.pageInfo || {}
+  };
+}
 
-    if (json.errors) {
-      console.error('GraphQL Errors:', json.errors);
-      return [];
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  const query = `
+    query GetPostBySlug($id: ID!) {
+      post(id: $id, idType: SLUG) {
+        id
+        databaseId
+        title
+        slug
+        content(format: RENDERED)
+        excerpt(format: RAW)
+        date
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+        author {
+            node {
+              name
+              avatar {
+                url
+              }
+            }
+          }
+
+      }
     }
+  `;
 
-    const banners = json.data?.mediaItems?.nodes || [];
+  const data = await fetchGraphQL(query, { id: slug });
+  return data?.post || null;
+}
 
-    // Filtrează doar imaginile valide cu sourceUrl
-    const validBanners = banners.filter((banner: Banner) => banner.sourceUrl);
-
-    if (validBanners.length === 0) {
-      console.warn('No banners found in WordPress - using fallback');
-    } else {
-      console.log(`Loaded ${validBanners.length} banners from WordPress`);
+export async function getCategories(): Promise<BlogCategory[]> {
+  const query = `
+    query GetCategories {
+      categories(first: 20, where: { hideEmpty: true }) {
+        nodes {
+          id
+          name
+          slug
+          count
+        }
+      }
     }
+  `;
 
-    return validBanners;
-  } catch (error) {
-    console.error('Error fetching bannere:', error);
+  const data = await fetchGraphQL(query, {}, 3600);
+  return data?.categories?.nodes || [];
+}
+
+export async function getRecentPosts(count: number = 3): Promise<BlogPost[]> {
+  return (await getPosts(count)).posts;
+}
+
+export async function getLatestBannerGallery(): Promise<Banner[]> {
+  const query = `
+    query GetLatestBanners {
+      bannere(first: 1, where: { orderby: { field: DATE, order: DESC } }) {
+        nodes {
+          databaseId
+          title
+          bannereSlots {
+            heroImage1 {
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+                file
+              }
+            }
+            heroImage2 {
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+                file
+              }
+            }
+            heroImage3 {
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+                file
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await fetchGraphQL(query);
+  const latestBanner = data?.bannere?.nodes[0];
+
+  if (!latestBanner?.bannereSlots) {
     return [];
   }
-}
 
-const httpLink = new HttpLink({
-  uri: WORDPRESS_API_URL,
-  fetch,
-});
+  const { heroImage1, heroImage2, heroImage3 } = latestBanner.bannereSlots;
+  const banners: Banner[] = [];
 
-export const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: 'no-cache',
-    },
-    query: {
-      fetchPolicy: 'no-cache',
-    },
-  },
-});
+  if (heroImage1?.sourceUrl) {
+    banners.push({
+      id: `${latestBanner.databaseId}-1`,
+      title: latestBanner.title,
+      sourceUrl: heroImage1.sourceUrl,
+      altText: heroImage1.altText || latestBanner.title,
+      mediaDetails: heroImage1.mediaDetails
+    });
+  }
 
-// Helper function to clean Visual Composer shortcodes
-export function cleanVisualComposerShortcodes(content: string): string {
-  if (!content) return '';
+  if (heroImage2?.sourceUrl) {
+    banners.push({
+      id: `${latestBanner.databaseId}-2`,
+      title: latestBanner.title,
+      sourceUrl: heroImage2.sourceUrl,
+      altText: heroImage2.altText || latestBanner.title,
+      mediaDetails: heroImage2.mediaDetails
+    });
+  }
 
-  return content
-    .replace(/\[vc_row[^\]]*\]/g, '')
-    .replace(/\[\/vc_row\]/g, '')
-    .replace(/\[vc_column[^\]]*\]/g, '')
-    .replace(/\[\/vc_column\]/g, '')
-    .replace(/\[vc_column_text[^\]]*\]/g, '')
-    .replace(/\[\/vc_column_text\]/g, '')
-    .replace(/\[vc_[^\]]*\]/g, '')
-    .replace(/\[\/vc_[^\]]*\]/g, '')
-    .replace(/&hellip;/g, '...')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/<p>\s*<\/p>/g, '')
-    .trim();
-}
+  if (heroImage3?.sourceUrl) {
+    banners.push({
+      id: `${latestBanner.databaseId}-3`,
+      title: latestBanner.title,
+      sourceUrl: heroImage3.sourceUrl,
+      altText: heroImage3.altText || latestBanner.title,
+      mediaDetails: heroImage3.mediaDetails
+    });
+  }
 
-// Example query functions
-export async function getPageBySlug(slug: string, locale: string = 'ro') {
-  // Implement your GraphQL queries here
-  return null;
+  return banners;
 }

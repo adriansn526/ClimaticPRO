@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  wordpress:
+    ports:
+      - "8083:80"
+  mariadb:
+    ports:
+      - "3313:3306"

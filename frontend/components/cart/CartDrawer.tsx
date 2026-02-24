@@ -20,12 +20,11 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         setMounted(true);
     }, []);
 
-    const cleanPrice = (priceStr: string | undefined) => {
+    const cleanPrice = (priceStr: string) => {
         if (!priceStr) return 0;
         let cleaned = priceStr
             .replace(/&nbsp;/g, '')
             .replace(/lei/gi, '')
-            .replace(/RON/gi, '')
             .replace(/\s/g, '');
 
         if (cleaned.includes(',') && cleaned.includes('.')) {
@@ -40,6 +39,11 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 cleaned = cleaned.replace(/,/g, '');
             } else {
                 cleaned = cleaned.replace(',', '.');
+            }
+        } else if (cleaned.includes('.')) {
+            const parts = cleaned.split('.');
+            if (parts.length > 1 && parts[parts.length - 1].length === 3) {
+                cleaned = cleaned.replace(/\./g, '');
             }
         }
 
@@ -59,16 +63,17 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             {/* Drawer */}
             <div className="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl z-[9999] flex flex-col animate-slide-in-right">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between p-6 border-b">
                     <div className="flex items-center gap-2">
-                        <ShoppingCart className="w-6 h-6 text-primary-600" />
+                        <ShoppingCart className="w-6 h-6 text-blue-600" />
                         <h2 className="text-xl font-bold text-gray-900">
                             Coș de cumpărături ({totalItems})
                         </h2>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-gray-100 rounded-lg transition"
+                        suppressHydrationWarning
                     >
                         <X className="w-6 h-6 text-gray-900 font-bold" strokeWidth={2.5} />
                     </button>
@@ -82,7 +87,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             <p className="text-gray-600 mb-4">Coșul tău este gol</p>
                             <button
                                 onClick={onClose}
-                                className="text-primary-600 font-semibold hover:text-primary-700 transition-colors"
+                                className="text-blue-600 font-semibold hover:text-blue-700"
+                                suppressHydrationWarning
                             >
                                 Continuă cumpărăturile
                             </button>
@@ -90,9 +96,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     ) : (
                         <div className="space-y-4">
                             {items.map((item) => {
-                                const rawPrice = item.product.salePrice || item.product.price || item.product.regularPrice;
-                                const price = cleanPrice(rawPrice);
+                                const price = cleanPrice(item.product.price || item.product.regularPrice || '0');
                                 const itemTotal = price * item.quantity;
+                                const imageSrc = item.product.image?.sourceUrl || '';
 
                                 return (
                                     <div
@@ -101,17 +107,15 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                     >
                                         {/* Image */}
                                         <div className="w-20 h-20 bg-white rounded-lg overflow-hidden flex-shrink-0 relative">
-                                            {item.product.image?.sourceUrl ? (
+                                            {imageSrc ? (
                                                 <Image
-                                                    src={item.product.image.sourceUrl}
+                                                    src={imageSrc}
                                                     alt={item.product.name}
                                                     fill
                                                     className="object-cover"
                                                 />
                                             ) : (
-                                                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                                                    <ShoppingCart className="w-8 h-8 text-gray-400" />
-                                                </div>
+                                                <div className="w-full h-full bg-gray-200" />
                                             )}
                                         </div>
 
@@ -127,6 +131,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     <button
                                                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                                                         className="w-8 h-8 rounded-lg bg-white border-2 border-gray-400 text-gray-900 flex items-center justify-center hover:bg-gray-100 hover:border-gray-600 transition shadow-sm"
+                                                        suppressHydrationWarning
                                                     >
                                                         <Minus className="w-4 h-4" strokeWidth={2.5} />
                                                     </button>
@@ -136,6 +141,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     <button
                                                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                                                         className="w-8 h-8 rounded-lg bg-white border-2 border-gray-400 text-gray-900 flex items-center justify-center hover:bg-gray-100 hover:border-gray-600 transition shadow-sm"
+                                                        suppressHydrationWarning
                                                     >
                                                         <Plus className="w-4 h-4" strokeWidth={2.5} />
                                                     </button>
@@ -144,8 +150,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                 {/* Remove Button */}
                                                 <button
                                                     onClick={() => removeItem(item.product.id)}
-                                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
                                                     title="Șterge"
+                                                    suppressHydrationWarning
                                                 >
                                                     <Trash2 className="w-5 h-5" />
                                                 </button>
@@ -154,10 +161,10 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             {/* Price */}
                                             <div className="mt-2 flex items-center justify-between">
                                                 <span className="text-sm text-gray-600">
-                                                    {price.toLocaleString('ro-RO', { minimumFractionDigits: 2 })} Lei x {item.quantity}
+                                                    {price.toLocaleString('ro-RO', { minimumFractionDigits: 0 })} Lei x {item.quantity}
                                                 </span>
                                                 <span className="font-bold text-gray-900">
-                                                    {itemTotal.toLocaleString('ro-RO', { minimumFractionDigits: 2 })} Lei
+                                                    {itemTotal.toLocaleString('ro-RO', { minimumFractionDigits: 0 })} Lei
                                                 </span>
                                             </div>
                                         </div>
@@ -170,12 +177,12 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                 {/* Footer */}
                 {items.length > 0 && (
-                    <div className="border-t border-gray-200 p-6 space-y-4">
+                    <div className="border-t p-6 space-y-4">
                         {/* Subtotal */}
                         <div className="flex items-center justify-between text-lg">
                             <span className="font-semibold text-gray-900">Subtotal:</span>
                             <span className="font-bold text-gray-900">
-                                {totalPrice.toLocaleString('ro-RO', { minimumFractionDigits: 2 })} Lei
+                                {totalPrice.toLocaleString('ro-RO', { minimumFractionDigits: 0 })} Lei
                             </span>
                         </div>
 
@@ -189,13 +196,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             <Link
                                 href="/checkout"
                                 onClick={onClose}
-                                className="block w-full bg-primary-600 text-white py-4 px-6 rounded-lg hover:bg-primary-700 transition-colors font-bold text-center shadow-lg hover:shadow-xl"
+                                className="block w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition font-bold text-center shadow-lg hover:shadow-xl"
                             >
                                 Finalizează Comanda
                             </Link>
                             <button
                                 onClick={onClose}
-                                className="block w-full bg-gray-100 text-gray-900 py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors font-semibold text-center"
+                                className="block w-full bg-gray-100 text-gray-900 py-3 px-6 rounded-lg hover:bg-gray-200 transition font-semibold text-center"
+                                suppressHydrationWarning
                             >
                                 Continuă Cumpărăturile
                             </button>
@@ -207,7 +215,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     );
 
     // Render în portal pentru a evita stacking context issues
-    return mounted
+    if (!mounted) return null;
+    return typeof window !== 'undefined'
         ? createPortal(drawerContent, document.body)
         : null;
 }

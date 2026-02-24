@@ -1,6 +1,7 @@
 'use client';
 
 import { useWishlist } from '@/lib/hooks/useWishlist';
+import { useToast } from '@/contexts/ToastContext';
 
 // Define minimal product interface needed for wishlist
 interface Product {
@@ -29,6 +30,8 @@ export default function WishlistButton({
 
     const inWishlist = isInWishlist(product.id);
 
+    const { showToast } = useToast();
+
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
@@ -40,6 +43,12 @@ export default function WishlistButton({
             price: product.price || product.regularPrice,
             image: product.image?.sourceUrl,
         });
+
+        if (inWishlist) {
+            showToast(`${product.name} a fost eliminat din favorite.`, 'info');
+        } else {
+            showToast(`${product.name} a fost adăugat la favorite.`, 'success');
+        }
     };
 
     if (!isLoaded) {
@@ -51,8 +60,8 @@ export default function WishlistButton({
             <button
                 onClick={handleClick}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${inWishlist
-                        ? 'bg-red-50 text-red-600 border-2 border-red-600'
-                        : 'bg-white text-gray-600 border-2 border-gray-300 hover:border-red-600 hover:text-red-600'
+                    ? 'bg-red-50 text-red-600 border-2 border-red-600'
+                    : 'bg-white text-gray-600 border-2 border-gray-300 hover:border-red-600 hover:text-red-600'
                     } ${className}`}
                 title={inWishlist ? 'Elimină din favorite' : 'Adaugă la favorite'}
             >
@@ -77,8 +86,8 @@ export default function WishlistButton({
         <button
             onClick={handleClick}
             className={`relative p-2 rounded-full transition-all ${inWishlist
-                    ? 'bg-red-50 text-red-600'
-                    : 'bg-white/90 text-gray-600 hover:bg-red-50 hover:text-red-600'
+                ? 'bg-red-50 text-red-600'
+                : 'bg-white/90 text-gray-600 hover:bg-red-50 hover:text-red-600'
                 } shadow-md hover:shadow-lg ${className}`}
             title={inWishlist ? 'Elimină din favorite' : 'Adaugă la favorite'}
         >

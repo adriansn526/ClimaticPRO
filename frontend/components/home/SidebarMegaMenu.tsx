@@ -17,16 +17,10 @@ import {
 } from 'lucide-react';
 import { WooCommerceCategory, WooCommerceBrand, WooCommerceAttribute } from '@/lib/woocommerce';
 
-interface FilterSet {
-  capacities: WooCommerceAttribute[];
-  energyClasses: WooCommerceAttribute[];
-}
-
 interface SidebarMegaMenuProps {
   categories: WooCommerceCategory[];
   brands: WooCommerceBrand[];
-  rezidentialFilters: FilterSet;
-  comercialFilters: FilterSet;
+  categoryFilters?: Record<string, { capacities: WooCommerceAttribute[], energyClasses: WooCommerceAttribute[], brands: WooCommerceBrand[] }>;
 }
 
 // Map slugs to icons
@@ -43,32 +37,20 @@ const categoryIcons: Record<string, any> = {
   'servicii': Headphones,
 };
 
-// Virtual subcategories for items that rely on attributes instead of child categories
-const virtualSubcategories: Record<string, Array<{ name: string; href: string; count?: string }>> = {
-  'split-de-perete': [
-    { name: '9.000 BTU', href: '/produse?category=split-de-perete&pa_capacitate=9000-btu', count: 'Standard' },
-    { name: '12.000 BTU', href: '/produse?category=split-de-perete&pa_capacitate=12000-btu', count: 'Popular' },
-    { name: '18.000 BTU', href: '/produse?category=split-de-perete&pa_capacitate=18000-btu', count: 'Living Mare' },
-    { name: '24.000 BTU', href: '/produse?category=split-de-perete&pa_capacitate=24000-btu', count: 'Spații Mari' },
-  ],
-};
-
-export default function SidebarMegaMenu({ categories, brands, rezidentialFilters, comercialFilters }: SidebarMegaMenuProps) {
+export default function SidebarMegaMenu({ categories, brands, categoryFilters = {} }: SidebarMegaMenuProps) {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   // Filter out 'Uncategorized' and ensure we rely on the prop
   const displayCategories = categories.filter(c => c.slug !== 'uncategorized');
 
-
-
   // Helper to find the currently hovered active object (Top Level or Child)
   const activeCategory = displayCategories.find(c => c.id === hoveredCategory) ||
-    displayCategories.flatMap(c => c.flatMap ? c.flatMap(x => x) : c.children?.nodes || []).find((c: any) => c.id === hoveredCategory);
+    displayCategories.flatMap(c => Array.isArray(c) ? c : c.children?.nodes || []).find((c: any) => c.id === hoveredCategory);
 
   return (
     <>
       {/* Meniu Vertical */}
-      <div className="w-full h-full bg-white flex flex-col" suppressHydrationWarning>
+      <div className="w-full flex-1 bg-white flex flex-col min-h-0" suppressHydrationWarning>
         {/* Categories List */}
         <div className="flex-1 overflow-y-auto bg-white">
           {displayCategories.map((category) => {
@@ -76,9 +58,10 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
             const Icon = categoryIcons[category.slug] || Circle;
             const isHovered = hoveredCategory === category.id;
 
-            // Check if it has real children or if any of its children have virtual subcategories
-            const hasChildren = (category.children?.nodes && category.children.nodes.length > 0) ||
-              (category.slug === 'aer-conditionat-rezidential' || category.slug === 'aer-conditionat-comercial');
+            // Check if it has real children or if filters are available
+            const filters = categoryFilters[category.slug] || { capacities: [], energyClasses: [], brands: [] };
+            const hasFilters = filters.capacities.length > 0 || filters.energyClasses.length > 0 || filters.brands.length > 0;
+            const hasChildren = (category.children?.nodes && category.children.nodes.length > 0) || hasFilters;
 
             return (
               <div
@@ -111,42 +94,24 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
           {(() => {
             const subcats = activeCategory.children?.nodes || [];
 
-            // Logic specific pentru panou extins vs simplu
-            const isRezidential = activeCategory.slug.includes('rezidential');
-            const isComercial = activeCategory.slug.includes('comercial');
-            const isComplexCategory = isRezidential || isComercial;
+            const filters = categoryFilters[activeCategory.slug] || { capacities: [], energyClasses: [], brands: [] };
+            const displayCapacities = filters.capacities || [];
+            const displayEnergyClasses = filters.energyClasses || [];
+            const rawBrands = filters.brands || [];
 
-            const showBrands = isComplexCategory;
-            const filteredBrands = brands.filter(b => b.count && b.count > 0).slice(0, 8);
-
-
-
-            // Choose filters
-            const currentFilters = isRezidential ? rezidentialFilters : (isComercial ? comercialFilters : { capacities: [], energyClasses: [] });
-
-            console.log('DEBUG_SIDEBAR:', {
-              cat: activeCategory.slug,
-              isComplex: isComplexCategory,
-              filters: currentFilters?.capacities?.length,
-              brands: filteredBrands.length
+            // Enrich brands with images from global list
+            const displayBrands = rawBrands.map((b: any) => {
+              const fullBrand = brands.find(fb => fb.slug === b.slug);
+              return fullBrand ? { ...b, brandImage: fullBrand.brandImage } : b;
             });
 
-            // Simple sort to avoid errors
-            const displayCapacities = currentFilters.capacities || [];
-            const displayEnergyClasses = currentFilters.energyClasses || [];
+            const hasFilters = displayCapacities.length > 0 || displayEnergyClasses.length > 0 || displayBrands.length > 0;
 
-
-            // Custom simplified logic for columns
-            // Col 1: Subcats
-            // Col 2: Capacities
-            // Col 3: Energy Class
-            // Col 4: Top Brands
-
-            if (subcats.length === 0 && !showBrands) return (
+            if (subcats.length === 0 && !hasFilters) return (
               <div className="text-gray-500 italic p-4">Nicio subcategorie disponibilă.</div>
             );
 
-            if (isComplexCategory) {
+            if (hasFilters) {
               return (
                 <div className="max-w-6xl mx-auto grid grid-cols-4 gap-6">
                   {/* Col 1: Subcategorii */}
@@ -163,6 +128,9 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
                           {sub.count > 0 && <span className="text-xs text-gray-400 ml-2">({sub.count})</span>}
                         </Link>
                       ))}
+                      {subcats.length === 0 && (
+                        <p className="text-gray-400 italic text-sm">Nicio subcategorie.</p>
+                      )}
                     </div>
                   </div>
 
@@ -170,15 +138,17 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
                   <div className="col-span-1 border-l border-gray-100 pl-6">
                     <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-6">Capacitate (BTU)</h3>
                     <div className="space-y-2">
-                      {displayCapacities.map((cap) => (
+                      {displayCapacities.length > 0 ? displayCapacities.map((cap) => (
                         <Link
-                          key={cap.id}
+                          key={cap.id || cap.slug}
                           href={`/produse?category=${activeCategory.slug}&pa_capacitate=${cap.slug}`}
                           className="block px-3 py-2 rounded-lg bg-gray-50 hover:bg-primary-50 hover:text-primary-700 text-sm transition-colors text-gray-700 font-medium border border-transparent hover:border-primary-100"
                         >
                           {cap.name}
                         </Link>
-                      ))}
+                      )) : (
+                        <p className="text-gray-400 italic text-xs">Nu sunt filtre disponibile.</p>
+                      )}
                     </div>
                   </div>
 
@@ -186,16 +156,18 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
                   <div className="col-span-1 border-l border-gray-100 pl-6">
                     <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-6">Clasa Energetică</h3>
                     <div className="space-y-2">
-                      {displayEnergyClasses.map((cl) => (
+                      {displayEnergyClasses.length > 0 ? displayEnergyClasses.map((cl) => (
                         <Link
-                          key={cl.id}
+                          key={cl.id || cl.slug}
                           href={`/produse?category=${activeCategory.slug}&pa_clasa_energie=${cl.slug}`}
                           className="flex items-center justify-between px-3 py-2 rounded-lg bg-gray-50 hover:bg-green-50 hover:text-green-700 text-sm transition-colors text-gray-700 font-medium border border-transparent hover:border-green-100"
                         >
                           <span>{cl.name}</span>
-                          {cl.name.includes('A+++') && <Shield className="w-3 h-3 text-green-600" />}
+                          {cl.name?.includes('A+++') && <Shield className="w-3 h-3 text-green-600" />}
                         </Link>
-                      ))}
+                      )) : (
+                        <p className="text-gray-400 italic text-xs">Nu sunt filtre disponibile.</p>
+                      )}
                     </div>
                   </div>
 
@@ -203,9 +175,9 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
                   <div className="col-span-1 border-l border-gray-100 pl-6">
                     <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-6">Top Branduri</h3>
                     <div className="grid grid-cols-2 gap-3">
-                      {filteredBrands.map((brand) => (
+                      {displayBrands.length > 0 ? displayBrands.map((brand: any) => (
                         <Link
-                          key={brand.id}
+                          key={brand.id || brand.slug}
                           href={`/produse?category=${activeCategory.slug}&pa_brand=${brand.slug}`}
                           className="flex flex-col items-center justify-center p-3 rounded-lg border border-gray-100 hover:border-primary-500 hover:shadow-sm transition-all bg-white group text-center h-20"
                         >
@@ -215,7 +187,9 @@ export default function SidebarMegaMenu({ categories, brands, rezidentialFilters
                             <span className="text-gray-800 font-bold text-xs group-hover:text-primary-600">{brand.name}</span>
                           )}
                         </Link>
-                      ))}
+                      )) : (
+                        <p className="text-gray-400 italic text-xs col-span-2">Nu sunt branduri.</p>
+                      )}
                     </div>
                   </div>
                 </div>

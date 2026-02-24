@@ -42,10 +42,10 @@ if (!function_exists('getenv_docker')) {
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 // ** Database settings ** //
-define( 'DB_NAME', 'climaticpro_wp_new' );
-define( 'DB_USER', 'climaticpro_wp' );
-define( 'DB_PASSWORD', 'XWBTMMTF0KWTEp7wVzrY' );
-define( 'DB_HOST', '172.18.0.1:3306' );
+define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'climaticpro_wp') );
+define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'climaticpro_wp') );
+define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', 'XWBTMMTF0KWTEp7wVzrY') );
+define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'mariadb') );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', getenv_docker('WORDPRESS_DB_CHARSET', 'utf8mb4') );
@@ -110,6 +110,7 @@ define( 'WP_DEBUG', true );
 define( 'DISABLE_WP_CRON', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
+define('FS_METHOD', 'direct');
 
 // If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
 // see also https://wordpress.org/support/article/administration-over-ssl/#using-a-reverse-proxy

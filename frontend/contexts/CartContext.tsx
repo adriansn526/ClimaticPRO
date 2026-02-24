@@ -1,23 +1,10 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { WooCommerceProduct } from '@/lib/woocommerce';
 
-// Adapted Product interface for ClimaticPro
-export interface Product {
-    id: string;
-    databaseId?: number;
-    name: string;
-    slug: string;
-    price?: string;
-    regularPrice?: string;
-    salePrice?: string;
-    stockStatus: string;
-    stockQuantity?: number;
-    image?: {
-        sourceUrl: string;
-        altText?: string;
-    };
-}
+// Alias Product to WooCommerceProduct to minimize code changes
+type Product = WooCommerceProduct;
 
 export interface CartItem {
     product: Product;
@@ -32,7 +19,6 @@ interface CartContextType {
     clearCart: () => void;
     totalItems: number;
     totalPrice: number;
-    isLoaded: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -43,7 +29,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Load cart from localStorage on mount
     useEffect(() => {
-        const savedCart = localStorage.getItem('climaticpro_cart');
+        const savedCart = localStorage.getItem('cart');
         if (savedCart) {
             try {
                 setItems(JSON.parse(savedCart));
@@ -56,35 +42,39 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Save cart to localStorage whenever it changes
     useEffect(() => {
-        if (!isLoaded) return;
-        localStorage.setItem('climaticpro_cart', JSON.stringify(items));
+        if (isLoaded) {
+            localStorage.setItem('cart', JSON.stringify(items));
+        }
     }, [items, isLoaded]);
 
-    const cleanPrice = (priceStr: string | undefined): number => {
+    const cleanPrice = (priceStr: string) => {
         if (!priceStr) return 0;
         let cleaned = priceStr
             .replace(/&nbsp;/g, '')
             .replace(/lei/gi, '')
-            .replace(/RON/gi, '')
             .replace(/\s/g, '');
 
-        // Handle different number formats
+        // Handle ClimaticPRO price formats (e.g. "3.500,00" or "3,500.00")
         if (cleaned.includes(',') && cleaned.includes('.')) {
             if (cleaned.indexOf(',') < cleaned.indexOf('.')) {
-                // Format: 1,234.56
                 cleaned = cleaned.replace(/,/g, '');
             } else {
-                // Format: 1.234,56
                 cleaned = cleaned.replace(/\./g, '').replace(',', '.');
             }
         } else if (cleaned.includes(',')) {
             const parts = cleaned.split(',');
             if (parts[1] && parts[1].length > 2) {
-                // Format: 1,234 (thousands separator)
                 cleaned = cleaned.replace(/,/g, '');
             } else {
-                // Format: 12,34 (decimal separator)
                 cleaned = cleaned.replace(',', '.');
+            }
+        } else if (cleaned.includes('.')) {
+            // handle dots as thousands separator if no commas ??
+            // Actually commonly 3.500 means 3500.
+            // If there is only one dot and it's 3 decimal places from end, it's likely thousand sep
+            const parts = cleaned.split('.');
+            if (parts.length > 1 && parts[parts.length - 1].length === 3) {
+                cleaned = cleaned.replace(/\./g, '');
             }
         }
 
@@ -131,9 +121,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
     const totalPrice = items.reduce((sum, item) => {
-        // Prefer salePrice if available, otherwise regularPrice or price
-        const rawPrice = item.product.salePrice || item.product.price || item.product.regularPrice;
-        const price = cleanPrice(rawPrice);
+        const price = cleanPrice(item.product.price || item.product.regularPrice || '0');
         return sum + price * item.quantity;
     }, 0);
 
@@ -147,7 +135,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 clearCart,
                 totalItems,
                 totalPrice,
-                isLoaded,
             }}
         >
             {children}

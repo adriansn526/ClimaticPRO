@@ -67,11 +67,16 @@ function processDescription(html: string) {
     if (tagName === 'IMG' || (tagName === 'P' && element.querySelector('img'))) {
       const img = tagName === 'IMG' ? element : element.querySelector('img');
       if (img) {
+        let src = (img as HTMLImageElement).src;
+        if (src && src.includes('https://climaticpro.ro/wp-content/')) {
+          src = src.replace('https://climaticpro.ro/wp-content/', 'https://cms.climaticpro.ro/wp-content/');
+        }
+
         contentBlocks.push({
           type: 'image',
           content: '',
           data: {
-            src: (img as HTMLImageElement).src,
+            src: src,
             alt: (img as HTMLImageElement).alt || 'Imagine produs',
             caption: (img as HTMLImageElement).title || '',
           },

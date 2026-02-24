@@ -117,7 +117,7 @@ export default function InstallationPricing() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-8 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl shadow-xl p-8 text-white"
+            className="mt-8 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-xl shadow-xl p-8 text-white"
           >
             <div className="text-center">
               <h3 className="text-2xl font-bold mb-4">Pachet Special: Aparat + Instalare</h3>
@@ -137,7 +137,7 @@ export default function InstallationPricing() {
               </div>
               <a
                 href="#recomandari"
-                className="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                className="inline-block bg-white text-blue-900 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
               >
                 Vezi Aparate Recomandate
               </a>

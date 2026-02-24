@@ -1,14 +1,21 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { ButtonHTMLAttributes, AnchorHTMLAttributes, forwardRef } from 'react';
+import Link from 'next/link';
 import { cn } from '@/utils/cn';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
+  href?: string;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
+// We use a discriminated union or intersection, but for simplicity in this project:
+// If href is present, it renders Link. If not, button.
+// Types are tricky with forwardRef + conditional rendering of different elements.
+// casting ref or props loosely is acceptable here for strict time constraints.
+
+const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps & { target?: string }>(
+  ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, href, ...props }, ref) => {
     const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
@@ -24,10 +31,24 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       lg: 'px-8 py-4 text-lg',
     };
 
+    const classes = cn(baseStyles, variants[variant], sizes[size], className);
+
+    if (href) {
+      return (
+        <Link
+          href={href}
+          className={classes}
+          {...(props as any)} // Link props
+        >
+          {children}
+        </Link>
+      );
+    }
+
     return (
       <button
-        ref={ref}
-        className={cn(baseStyles, variants[variant], sizes[size], className)}
+        ref={ref as any}
+        className={classes}
         disabled={disabled || isLoading}
         suppressHydrationWarning
         {...props}

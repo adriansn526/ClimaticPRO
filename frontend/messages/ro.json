@@ -12,12 +12,12 @@
   "hero": {
     "badge": "Partener Oficial Gree, Daikin, Midea",
     "title": "Aer Condiționat + Instalare Profesională",
-    "subtitle": "78+ Modele Premium | Instalare în 24h | Garanție 5 Ani | Livrare Gratuită",
+    "subtitle": "78+ Modele Premium | Instalare Profesională | Garanție 3+3 Ani | Livrare Gratuită",
     "ctaPrimary": "Configurează Sistemul Tău",
     "ctaSecondary": "Solicită Ofertă Gratuită",
     "trustYears": "15+ Ani Experiență",
     "trustInstallations": "2000+ Instalări",
-    "trustWarranty": "Garanție 5 Ani"
+    "trustWarranty": "Garanție 3+3 Ani"
   },
   "categories": {
     "title": "Găsește Aerul Condiționat Perfect",
@@ -87,7 +87,7 @@
     "feature2": "Testare completă",
     "feature3": "Garanție 2 ani",
     "feature4": "Igienizare unitate",
-    "feature5": "Garanție 5 ani",
+    "feature5": "Garanție 3+3 ani",
     "feature6": "Suport prioritar",
     "cta": "Programează Instalare"
   },
@@ -119,10 +119,10 @@
     "experienceDesc": "Experiență în domeniu",
     "installations": "2000+",
     "installationsDesc": "Instalări realizate",
-    "warranty": "Garanție 5 Ani",
-    "warrantyDesc": "Pe toate produsele",
-    "delivery": "Livrare 24h",
-    "deliveryDesc": "În toată țara"
+    "warranty": "Garanție 3+3 Ani",
+    "warrantyDesc": "3 Ani Producător + 3 Ani Instalare",
+    "delivery": "Livrare Gratuită",
+    "deliveryDesc": "București & Ilfov*"
   },
   "brands": {
     "title": "Parteneri Oficiali",

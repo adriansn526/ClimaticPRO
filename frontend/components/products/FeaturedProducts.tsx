@@ -24,7 +24,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
     ? products
     : products.filter(p => {
       const brand = extractBrand(p);
-      return brand.toLowerCase() === activeTab.toLowerCase();
+      return brand && brand.toLowerCase() === activeTab.toLowerCase();
     });
 
   return (
@@ -55,10 +55,10 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
             {brands.map((brand) => (
               <button
                 key={brand}
-                onClick={() => setActiveTab(brand)}
+                onClick={() => setActiveTab(brand || '')}
                 className={`px-6 py-2 rounded-full font-medium transition-all ${activeTab === brand
-                    ? 'bg-primary-600 text-gray-900 shadow-md'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                  ? 'bg-primary-600 text-gray-900 shadow-md'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                   }`}
                 suppressHydrationWarning
               >
@@ -71,8 +71,8 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {filteredProducts.map((product, index) => (
+              <ProductCard key={product.id} product={product} priority={index < 4} />
             ))}
           </div>
         ) : (
@@ -83,25 +83,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
           </div>
         )}
 
-        {/* Trust Section */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">15+</div>
-            <div className="text-gray-600">Ani Experiență</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">2000+</div>
-            <div className="text-gray-600">Instalări</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">98%</div>
-            <div className="text-gray-600">Clienți Mulțumiți</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary-600 mb-2">24h</div>
-            <div className="text-gray-600">Livrare Rapidă</div>
-          </div>
-        </div>
+
       </div>
     </section>
   );

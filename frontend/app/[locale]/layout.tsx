@@ -5,6 +5,8 @@ import { Outfit } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { CartProvider } from '@/contexts/CartContext';
+import { ToastProvider } from '@/contexts/ToastContext';
+import { AuthProvider } from '@/contexts/AuthContext';
 import "@/app/globals.css";
 
 const outfit = Outfit({
@@ -45,9 +47,18 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
 };
+
+import {
+  getWooCommerceCategories,
+  getAllBrands,
+  getAllProductsCached,
+  generateCategoryFilters
+} from '@/lib/woocommerce';
 
 export default async function RootLayout({
   children,
@@ -59,15 +70,33 @@ export default async function RootLayout({
   const { locale } = await params;
   const messages = await getMessages({ locale });
 
+  // Fetch Menu Data Globally
+  const [categories, brands, allProducts] = await Promise.all([
+    getWooCommerceCategories(),
+    getAllBrands(),
+    getAllProductsCached()
+  ]);
+
+  // Derive Filters for MegaMenu (Dynamic per category)
+  const categoryFilters = generateCategoryFilters(allProducts, categories);
+
   return (
     <html lang={locale} className={outfit.variable} suppressHydrationWarning>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <CartProvider>
-            <Header />
-            {children}
-            <Footer />
-          </CartProvider>
+          <ToastProvider>
+            <AuthProvider>
+              <CartProvider>
+                <Header
+                  categories={categories}
+                  brands={brands}
+                  categoryFilters={categoryFilters}
+                />
+                {children}
+                <Footer />
+              </CartProvider>
+            </AuthProvider>
+          </ToastProvider>
         </NextIntlClientProvider>
       </body>
     </html>

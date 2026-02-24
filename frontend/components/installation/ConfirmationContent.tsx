@@ -44,7 +44,7 @@ export default function ConfirmationContent() {
             className="bg-white rounded-2xl shadow-xl p-8 mb-6"
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Ce urmează?</h2>
-            
+
             <div className="space-y-6">
               {/* Step 1 */}
               <div className="flex gap-4">
@@ -122,11 +122,11 @@ export default function ConfirmationContent() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
-                <span>Plata se poate face cash sau card la finalizarea instalării</span>
+                <span>Plata se poate face cash sau transfer bancar la finalizarea instalării</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
-                <span>Poți reprograma cu minim 24h înainte sunând la 0316 060 024</span>
+                <span>Poți reprograma cu minim 24h înainte sunând la +40 316 300 101</span>
               </li>
             </ul>
           </motion.div>
@@ -140,9 +140,9 @@ export default function ConfirmationContent() {
           >
             <h3 className="font-bold mb-4">Ai întrebări?</h3>
             <div className="space-y-3">
-              <a href="tel:+40316060024" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <a href="tel:+40316300101" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                 <Phone className="w-5 h-5" />
-                <span className="font-semibold">0316 060 024</span>
+                <span className="font-semibold">+40 316 300 101</span>
               </a>
               <a href="mailto:contact@climaticpro.ro" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                 <Mail className="w-5 h-5" />
@@ -166,7 +166,17 @@ export default function ConfirmationContent() {
               <ArrowRight className="w-5 h-5" />
             </Link>
             <button
-              onClick={() => window.print()}
+              onClick={() => {
+                const storedData = localStorage.getItem('bookingData');
+                if (storedData && orderId) {
+                  import('@/lib/pdfGenerator').then(({ generateOrderPDF }) => {
+                    const data = JSON.parse(storedData);
+                    generateOrderPDF(data, orderId);
+                  }).catch(console.error);
+                } else {
+                  alert('Datele comenzii nu au fost găsite local. Te rugăm să verifici email-ul pentru confirmare.');
+                }
+              }}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all shadow-lg"
             >
               <Download className="w-5 h-5" />

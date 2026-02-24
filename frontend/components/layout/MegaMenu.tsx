@@ -2,160 +2,54 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Home, Building2, Factory, Settings, Flame, Wrench, Shield, Wind, Headphones } from 'lucide-react';
-
-interface Category {
-  id: number;
-  name: string;
-  slug: string;
-  icon?: string;
-  subcategories?: {
-    name: string;
-    slug: string;
-    products?: string[];
-  }[];
-}
-
-const categoryIcons: { [key: number]: React.ReactNode } = {
-  1: <Home className="w-5 h-5" />,
-  2: <Building2 className="w-5 h-5" />,
-  3: <Factory className="w-5 h-5" />,
-  4: <Settings className="w-5 h-5" />,
-  5: <Flame className="w-5 h-5" />,
-  6: <Wrench className="w-5 h-5" />,
-  7: <Shield className="w-5 h-5" />,
-  8: <Wind className="w-5 h-5" />,
-  9: <Headphones className="w-5 h-5" />,
-};
-
-const categories: Category[] = [
-  {
-    id: 1,
-    name: 'Aer condiționat rezidențial',
-    slug: 'aer-conditionat-rezidential',
-    subcategories: [
-      {
-        name: 'Split de perete',
-        slug: 'split-de-perete',
-        products: ['9.000 BTU', '12.000 BTU', '18.000 BTU', '24.000 BTU'],
-      },
-      {
-        name: 'Caseta',
-        slug: 'caseta',
-        products: ['18.000 BTU', '24.000 BTU', '36.000 BTU', '48.000 BTU'],
-      },
-      {
-        name: 'Coloana',
-        slug: 'coloana',
-        products: ['24.000 BTU', '36.000 BTU', '48.000 BTU', '60.000 BTU'],
-      },
-      {
-        name: 'Duct',
-        slug: 'duct',
-        products: ['18.000 BTU', '24.000 BTU', '36.000 BTU', '48.000 BTU'],
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Aer condiționat multi-split',
-    slug: 'aer-conditionat-multi-split',
-    subcategories: [
-      {
-        name: '2 unități interioare',
-        slug: '2-unitati',
-      },
-      {
-        name: '3 unități interioare',
-        slug: '3-unitati',
-      },
-      {
-        name: '4 unități interioare',
-        slug: '4-unitati',
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: 'Aer condiționat comercial',
-    slug: 'aer-conditionat-comercial',
-    subcategories: [
-      {
-        name: 'VRF / VRV',
-        slug: 'vrf-vrv',
-      },
-      {
-        name: 'Caseta 4 căi',
-        slug: 'caseta-4-cai',
-      },
-      {
-        name: 'Duct comercial',
-        slug: 'duct-comercial',
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: 'Sisteme VRV / VRF',
-    slug: 'sisteme-vrv-vrf',
-  },
-  {
-    id: 5,
-    name: 'Încălzire și apă caldă',
-    slug: 'incalzire-apa-calda',
-    subcategories: [
-      {
-        name: 'Pompe de căldură',
-        slug: 'pompe-de-caldura',
-      },
-      {
-        name: 'Boilere',
-        slug: 'boilere',
-      },
-    ],
-  },
-  {
-    id: 6,
-    name: 'Accesorii, materiale și scule',
-    slug: 'accesorii-materiale-scule',
-  },
-  {
-    id: 7,
-    name: 'Securitate',
-    slug: 'securitate',
-  },
-  {
-    id: 8,
-    name: 'Ventilație, recuperare căldură',
-    slug: 'ventilatie-recuperare',
-  },
-  {
-    id: 9,
-    name: 'Servicii',
-    slug: 'servicii',
-  },
-];
-
-const brands = [
-  { name: 'DAIKIN', logo: '/brands/daikin.png' },
-  { name: 'GREE', logo: '/brands/gree.png' },
-  { name: 'BOSCH', logo: '/brands/bosch.png' },
-  { name: 'Midea', logo: '/brands/midea.png' },
-  { name: 'MITSUBISHI ELECTRIC', logo: '/brands/mitsubishi.png' },
-  { name: 'MITSUBISHI HEAVY', logo: '/brands/mitsubishi-heavy.png' },
-];
+import {
+  ChevronRight,
+  Home,
+  Building2,
+  Factory,
+  Settings,
+  Flame,
+  Wrench,
+  Shield,
+  Wind,
+  Headphones
+} from 'lucide-react';
+import { WooCommerceCategory, WooCommerceBrand, WooCommerceAttribute } from '@/lib/woocommerce';
 
 interface MegaMenuProps {
   alwaysOpen?: boolean;
+  categories?: WooCommerceCategory[];
+  brands?: WooCommerceBrand[];
+  categoryFilters?: Record<string, { capacities: WooCommerceAttribute[], energyClasses: WooCommerceAttribute[], brands: WooCommerceBrand[] }>;
 }
 
-export default function MegaMenu({ alwaysOpen = false }: MegaMenuProps) {
+const categoryIcons: Record<string, any> = {
+  'aer-conditionat-rezidential': Home,
+  'aer-conditionat-multi-split': Building2,
+  'aer-conditionat-comercial': Factory,
+  'sisteme-vrv-vrf': Settings,
+  'incalzire-apa-calda': Flame,
+  'accesorii-materiale-scule': Wrench,
+  'securitate': Shield,
+  'ventilatie-recuperare-caldura': Wind,
+  'ventilatie-recuperare': Wind,
+  'servicii': Headphones,
+};
+
+export default function MegaMenu({ alwaysOpen = false, categories = [], brands = [], categoryFilters = {} }: MegaMenuProps) {
   const [isOpen, setIsOpen] = useState(alwaysOpen);
-  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<WooCommerceCategory | null>(null);
+
+  // Filter out 'Uncategorized'
+  const displayCategories = categories.filter(c => c.slug !== 'uncategorized');
+
+  // Correctly identify the active category object based on hover
+  const currentCategory = displayCategories.find(c => c.id === hoveredCategory);
 
   return (
     <div className="relative">
-      {/* Trigger Button - Dark text on light background */}
+      {/* Trigger Button */}
       <button
         onClick={() => !alwaysOpen && setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-6 py-3 bg-white text-gray-800 font-semibold hover:bg-gray-50 transition-colors rounded-lg shadow-sm border border-gray-200"
@@ -170,7 +64,6 @@ export default function MegaMenu({ alwaysOpen = false }: MegaMenuProps) {
       {/* Mega Menu Dropdown */}
       {isOpen && (
         <>
-          {/* Overlay - Only show if not always open */}
           {!alwaysOpen && (
             <div
               className="fixed inset-0 bg-black/30 z-40"
@@ -178,142 +71,177 @@ export default function MegaMenu({ alwaysOpen = false }: MegaMenuProps) {
             />
           )}
 
-          {/* Menu Content */}
-          <div className={`${
-            alwaysOpen 
-              ? 'relative w-72 bg-white border border-gray-200 rounded-lg shadow-lg mt-2' 
-              : 'fixed left-0 top-[140px] w-full bg-white shadow-2xl z-50 max-h-[calc(100vh-140px)] overflow-y-auto'
-          }`}>
-            {alwaysOpen ? (
-              // Simple vertical list for homepage
+          <div className={`${alwaysOpen
+            ? 'relative w-72 bg-white border border-gray-200 rounded-lg shadow-lg mt-2'
+            : 'fixed left-0 top-[140px] w-full bg-white shadow-2xl z-50 flex h-[600px]'
+            }`}>
+            {/* Left Sidebar - Categories */}
+            <div className="w-72 bg-gradient-to-b from-gray-50 to-gray-100 border-r border-gray-200 flex-shrink-0 overflow-y-auto">
               <div className="p-4">
                 <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 px-2">Categorii Produse</h3>
-                {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    href={`/produse/${category.slug}`}
-                    className="flex items-center justify-between px-4 py-3 rounded-lg mb-1 hover:bg-primary-50 hover:shadow-sm transition-all text-gray-700 hover:text-primary-600"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-primary-600">{categoryIcons[category.id]}</span>
-                      <span className="text-sm font-medium">{category.name}</span>
-                    </div>
-                    {category.subcategories && <ChevronRight className="w-4 h-4" />}
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              // Full mega menu with subcategories
-              <div className="flex h-full">
-                {/* Left Sidebar - Vertical Categories (Fixed Width) */}
-                <div className="w-72 bg-gradient-to-b from-gray-50 to-gray-100 border-r border-gray-200 flex-shrink-0">
-                  <div className="p-4">
-                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 px-2">Categorii Produse</h3>
-                    {categories.map((category) => (
-                      <Link
-                        key={category.id}
-                        href={`/produse/${category.slug}`}
-                        className={`flex items-center justify-between px-4 py-3 rounded-lg mb-1 hover:bg-white hover:shadow-sm transition-all ${
-                          activeCategory === category.id ? 'bg-white text-primary-600 shadow-sm' : 'text-gray-700'
+                {displayCategories.map((category) => {
+                  const Icon = categoryIcons[category.slug] || Home;
+                  const isHovered = hoveredCategory === category.id;
+                  const hasChildren = (category.children?.nodes && category.children.nodes.length > 0) ||
+                    (categoryFilters?.[category.slug]?.capacities?.length > 0);
+
+                  return (
+                    <div
+                      key={category.id}
+                      className={`flex items-center justify-between px-4 py-3 rounded-lg mb-1 cursor-pointer transition-all ${isHovered ? 'bg-white text-primary-600 shadow-sm' : 'text-gray-700 hover:bg-white/50'
                         }`}
-                        onMouseEnter={() => setActiveCategory(category.id)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className={activeCategory === category.id ? 'text-primary-600' : 'text-gray-500'}>
-                            {categoryIcons[category.id]}
-                          </span>
-                          <span className="text-sm font-medium">{category.name}</span>
-                        </div>
-                        {category.subcategories && <ChevronRight className="w-4 h-4" />}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right Content - Horizontal Subcategories & Products */}
-                <div className="flex-1 p-8 bg-white">
-                  {activeCategory && (
-                    <>
-                      {/* Category Title */}
-                      <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                          {categories.find((c) => c.id === activeCategory)?.name}
-                        </h2>
-                        <p className="text-sm text-gray-600">Explorează gama completă de produse din această categorie</p>
-                      </div>
-
-                      {/* Subcategories Grid - Horizontal Layout */}
-                      <div className="grid grid-cols-5 gap-6 mb-8">
-                        {categories
-                          .find((c) => c.id === activeCategory)
-                          ?.subcategories?.map((sub, index) => (
-                            <div key={index} className="bg-gray-50 rounded-lg p-4 hover:bg-primary-50 hover:shadow-md transition-all">
-                              <Link
-                                href={`/produse/${categories.find((c) => c.id === activeCategory)?.slug}/${sub.slug}`}
-                                className="font-semibold text-gray-900 hover:text-primary-600 mb-3 block text-base"
-                              >
-                                {sub.name}
-                              </Link>
-                              {sub.products && (
-                                <ul className="space-y-2">
-                                  {sub.products.map((product, idx) => (
-                                    <li key={idx}>
-                                      <Link
-                                        href={`/produse/${categories.find((c) => c.id === activeCategory)?.slug}/${sub.slug}?capacity=${product}`}
-                                        className="text-sm text-gray-600 hover:text-primary-600 hover:underline"
-                                      >
-                                        {product}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
-                          ))}
-                      </div>
-
-                      {/* Brands Section - Horizontal */}
-                      <div className="pt-6 border-t border-gray-200">
-                        <h3 className="text-lg font-bold text-gray-900 mb-4">Branduri Premium</h3>
-                        <div className="grid grid-cols-6 gap-4">
-                          {brands.map((brand, index) => (
-                            <Link
-                              key={index}
-                              href={`/produse?brand=${brand.name.toLowerCase()}`}
-                              className="bg-white border border-gray-200 rounded-lg p-4 hover:border-primary-500 hover:shadow-md transition-all"
-                            >
-                              <div className="h-10 flex items-center justify-center mb-2">
-                                <span className="font-bold text-gray-800 hover:text-primary-600 text-sm">
-                                  {brand.name}
-                                </span>
-                              </div>
-                              <div className="text-xs text-gray-500 space-y-1">
-                                <div>• Split de perete</div>
-                                <div>• Caseta</div>
-                                <div>• Coloana</div>
-                                <div>• Duct</div>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* View All Link */}
-                      <div className="mt-8 text-center">
-                        <Link
-                          href="/produse"
-                          className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-lg"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Vezi oferta completa 
-                          <ChevronRight className="w-5 h-5" />
+                      onMouseEnter={() => setHoveredCategory(category.id)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-5 h-5 ${isHovered ? 'text-primary-600' : 'text-gray-500'}`} />
+                        <Link href={`/produse?category=${category.slug}`} className="text-sm font-medium flex-1">
+                          {category.name}
                         </Link>
                       </div>
-                    </>
-                  )}
-                </div>
+                      {hasChildren && <ChevronRight className="w-4 h-4" />}
+                    </div>
+                  );
+                })}
               </div>
-            )}
+            </div>
+
+            {/* Right Content - Details */}
+            <div className="flex-1 p-8 bg-white overflow-y-auto" onMouseLeave={() => setHoveredCategory(null)}>
+              {currentCategory ? (
+                (() => {
+                  const activeCat = currentCategory;
+                  const subcats = activeCat.children?.nodes || [];
+
+                  const filters = categoryFilters[activeCat.slug] || { capacities: [], energyClasses: [], brands: [] };
+                  const displayCapacities = filters.capacities || [];
+                  const displayEnergyClasses = filters.energyClasses || [];
+                  const rawBrands = filters.brands || [];
+
+                  // Enrich brands with images from global list
+                  const displayBrands = rawBrands.map((b: any) => {
+                    const fullBrand = brands.find(fb => fb.slug === b.slug);
+                    return fullBrand ? { ...b, brandImage: fullBrand.brandImage } : b;
+                  });
+
+                  const hasFilters = displayCapacities.length > 0 || displayEnergyClasses.length > 0 || displayBrands.length > 0;
+
+                  if (hasFilters) {
+                    return (
+                      <div className="max-w-6xl mx-auto grid grid-cols-4 gap-6">
+                        {/* Col 1: Subcategories */}
+                        <div className="col-span-1">
+                          <Link href={`/produse?category=${activeCat.slug}`} className="text-xl font-bold text-gray-900 mb-6 border-b pb-2 block hover:text-primary-600">
+                            {activeCat.name}
+                          </Link>
+                          <div className="space-y-3">
+                            {subcats.map((sub: any) => (
+                              <Link
+                                key={sub.id}
+                                href={`/produse?category=${sub.slug}`}
+                                className="block text-gray-700 hover:text-primary-600 hover:translate-x-1 transition-all"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {sub.name}
+                                {sub.count > 0 && <span className="text-xs text-gray-400 ml-2">({sub.count})</span>}
+                              </Link>
+                            ))}
+                            {subcats.length === 0 && (
+                              <p className="text-gray-400 italic text-sm">Nicio subcategorie.</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Col 2: Capacitate */}
+                        <div className="col-span-1 border-l border-gray-100 pl-6">
+                          <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-6">Capacitate (BTU)</h3>
+                          <div className="space-y-2">
+                            {displayCapacities.length > 0 ? displayCapacities.map((cap) => (
+                              <Link
+                                key={cap.id || cap.slug}
+                                href={`/produse?category=${activeCat.slug}&pa_capacitate=${cap.slug}`}
+                                className="block px-3 py-2 rounded-lg bg-gray-50 hover:bg-primary-50 hover:text-primary-700 text-sm transition-colors text-gray-700 font-medium"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {cap.name}
+                              </Link>
+                            )) : (
+                              <p className="text-gray-400 italic text-xs">Nu sunt filtre disponibile.</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Col 3: Energy */}
+                        <div className="col-span-1 border-l border-gray-100 pl-6">
+                          <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-6">Clasa Energetică</h3>
+                          <div className="space-y-2">
+                            {displayEnergyClasses.length > 0 ? displayEnergyClasses.map((cl) => (
+                              <Link
+                                key={cl.id || cl.slug}
+                                href={`/produse?category=${activeCat.slug}&pa_clasa_energie=${cl.slug}`}
+                                className="flex items-center justify-between px-3 py-2 rounded-lg bg-gray-50 hover:bg-green-50 hover:text-green-700 text-sm transition-colors text-gray-700 font-medium"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                <span>{cl.name}</span>
+                                {cl.name.includes('A+++') && <Shield className="w-3 h-3 text-green-600" />}
+                              </Link>
+                            )) : (
+                              <p className="text-gray-400 italic text-xs">Nu sunt filtre disponibile.</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Col 4: Top Brands */}
+                        <div className="col-span-1 border-l border-gray-100 pl-6">
+                          <h3 className="text-sm uppercase tracking-wider text-gray-500 font-semibold mb-6">Top Branduri</h3>
+                          <div className="grid grid-cols-2 gap-3">
+                            {displayBrands.length > 0 ? displayBrands.map((brand: any) => (
+                              <Link
+                                key={brand.id || brand.slug}
+                                href={`/produse?category=${activeCat.slug}&pa_brand=${brand.slug}`}
+                                className="flex flex-col items-center justify-center p-3 rounded-lg border border-gray-100 hover:border-primary-500 hover:shadow-sm transition-all bg-white group text-center h-20"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {brand.brandImage ? (
+                                  <img src={brand.brandImage} alt={brand.name} className="h-6 object-contain mb-1 opacity-80 group-hover:opacity-100 transition-opacity" />
+                                ) : (
+                                  <span className="text-gray-800 font-bold text-xs group-hover:text-primary-600">{brand.name}</span>
+                                )}
+                              </Link>
+                            )) : (
+                              <p className="text-gray-400 italic text-xs col-span-2">Nu sunt branduri.</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  // Simple Category Fallback (if no filters)
+                  return (
+                    <div className="max-w-6xl mx-auto">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-6">{activeCat.name}</h2>
+                      <div className="grid grid-cols-4 gap-4">
+                        {subcats.map((sub: any) => (
+                          <Link
+                            key={sub.id}
+                            href={`/produse?category=${sub.slug}`}
+                            className="p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all font-medium text-gray-800"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  );
+
+                })()
+              ) : (
+                <div className="flex h-full items-center justify-center text-gray-400 italic">
+                  Selectează o categorie din stânga pentru a vedea detaliile.
+                </div>
+              )}
+            </div>
           </div>
         </>
       )}

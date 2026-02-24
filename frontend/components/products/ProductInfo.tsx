@@ -5,33 +5,119 @@ import { ShoppingCart, Heart, Share2, Truck, Shield, Wrench, Zap, Wifi } from 'l
 import { WooCommerceProduct } from '@/lib/woocommerce';
 import { ProductSpecs } from '@/lib/productUtils';
 import { cleanPrice, calculateDiscount } from '@/lib/productUtils';
+import ProductInstallationModal from './ProductInstallationModal';
+import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
+import TBICalculatorModal from '../tbi/TBICalculatorModal';
+import AddToCartModal from '../cart/AddToCartModal';
 
 interface ProductInfoProps {
   product: WooCommerceProduct;
   specs: ProductSpecs;
-  brand: string;
+  brand: string | null;
+  standardInstallation: WooCommerceProduct | null;
+  premiumInstallation: WooCommerceProduct | null;
 }
 
-export default function ProductInfo({ product, specs, brand }: ProductInfoProps) {
+export default function ProductInfo({ product, specs, brand, standardInstallation, premiumInstallation }: ProductInfoProps) {
+
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isInstallationModalOpen, setIsInstallationModalOpen] = useState(false);
+  const [isTBIModalOpen, setIsTBIModalOpen] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const { addItem } = useCart();
+  const { isAdmin } = useAuth();
+
+  const [preSelectedInstallation, setPreSelectedInstallation] = useState<WooCommerceProduct | null>(null);
+
+  const handleAddToCart = () => {
+    addItem(product, quantity);
+    setIsCartModalOpen(true);
+  };
+
+  const handleInstallationSelectFromCart = (service: WooCommerceProduct) => {
+    setIsCartModalOpen(false);
+    setPreSelectedInstallation(service);
+    setIsInstallationModalOpen(true);
+  };
 
   const discountPercentage = calculateDiscount(product.regularPrice, product.salePrice);
   const inStock = product.stockStatus === 'IN_STOCK';
 
+
+  // Quick Estimate for Teaser (assuming 60 months, ~24% rate approx default)
+  // Ensure price is cleaned of thousands separators (e.g. 1,650.00 -> 1650.00) if assuming standard US format with dot decimal
+  // OR 1.650,00 -> 1650.00 if RO? 
+  // Given cleanPrice output is RON and screenshot showed 1,650.00 RON likely from cleanPrice:
+  // We can assume dot is decimal.
+  const rawPriceString = product.price ? product.price.replace(/[^0-9.]/g, '') : '0';
+  const currentPrice = parseFloat(rawPriceString) || 0;
+
+  // Simple PMT calc for teaser: Price * (1 + 0.24 * 5) / 60 approx? 
+  // Better to just show a generic "Start from" based on Price / 60 * 1.5 factor safe margin?
+  // Let's rely on TBI Modal for exact. For teaser, we can try a rough 2.5% monthly cost? P * 0.025?
+  // 3000 * 0.025 = 75 RON.
+  // 60 months: 3000 / 60 = 50. Interest usually doubles it over 5 years? So 50 * 1.5 = 75. 
+  // Let's use Price / 45 as a rough "low" estimate to entice properly? Or fetch?
+  // Fetching in client component is okay.
+
+  // Let's use a rough estimate logic for SSR safety then modal exact.
+  // Estimate: Total / 40 (approx 5 year with interest)
+  const estimatedRate = (currentPrice / 40).toFixed(0);
+
+  // Check if product is AC
+  // Primary check: Does it have BTU capacity? (Accessories don't)
+  const hasBTU = !!specs.btu;
+
+  // Secondary check: Category based (fallback if BTU missing in data)
+  const isCategoryAC = product.productCategories?.nodes?.some(c => {
+    const slug = c.slug.toLowerCase();
+    const name = c.name.toLowerCase();
+
+    const isRelated = slug.includes('aer') || name.includes('aer') || name.includes('condit');
+
+    const isExcluded =
+      slug.includes('accesori') || name.includes('accesori') ||
+      slug.includes('igieniz') || name.includes('igieniz') ||
+      slug.includes('curatar') || name.includes('curatar') ||
+      slug.includes('spray') || name.includes('spray') ||
+      slug.includes('montaj') || name.includes('montaj') ||
+      slug.includes('servici') || name.includes('servici');
+
+    return isRelated && !isExcluded;
+  });
+
+  const isAC = hasBTU || isCategoryAC;
+
   return (
     <div className="space-y-6">
-      {/* Brand */}
+      <TBICalculatorModal
+        isOpen={isTBIModalOpen}
+        onClose={() => setIsTBIModalOpen(false)}
+        price={currentPrice}
+        productName={product.name}
+      />
+
+      <AddToCartModal
+        isOpen={isCartModalOpen}
+        onClose={() => setIsCartModalOpen(false)}
+        product={product}
+        quantity={quantity}
+        relatedServices={[standardInstallation, premiumInstallation].filter(p => p !== null) as WooCommerceProduct[]}
+        onSelectInstallation={handleInstallationSelectFromCart}
+      />
+
+      {/* ... Brand & Title ... */}
       <div className="text-sm font-semibold text-gray-900 uppercase">
         {brand}
       </div>
 
-      {/* Product Title */}
       <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
         {product.name}
       </h1>
 
-      {/* SKU & Stock */}
+      {/* ... SKU ... */}
       <div className="flex items-center gap-4 text-sm">
         {product.sku && (
           <span className="text-gray-600">
@@ -43,27 +129,72 @@ export default function ProductInfo({ product, specs, brand }: ProductInfoProps)
         </span>
       </div>
 
-      {/* Price */}
-      <div className="bg-gray-50 rounded-lg p-4">
-        <div className="flex items-baseline gap-3">
-          <span className="text-4xl font-bold text-gray-900">
-            {cleanPrice(product.price)}
-          </span>
-          {product.onSale && product.regularPrice && (
-            <>
-              <span className="text-xl text-gray-400 line-through">
-                {cleanPrice(product.regularPrice)}
-              </span>
-              {discountPercentage && (
-                <span className="bg-red-500 text-white text-sm font-semibold px-2 py-1 rounded">
-                  -{discountPercentage}%
+      {/* Price & TBI Teaser */}
+      <div className="flex gap-4 items-stretch">
+        <div className="bg-gray-50 rounded-lg p-4 flex-1">
+          <div className="flex items-baseline gap-3">
+            <span className="text-4xl font-bold text-gray-900">
+              {cleanPrice(product.price)}
+            </span>
+            {product.onSale && product.regularPrice && (
+              <>
+                <span className="text-xl text-gray-400 line-through">
+                  {cleanPrice(product.regularPrice)}
                 </span>
-              )}
-            </>
+                {discountPercentage && (
+                  <span className="bg-red-500 text-white text-sm font-semibold px-2 py-1 rounded">
+                    -{discountPercentage}%
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+          <p className="text-sm text-gray-600 mt-2">TVA inclus</p>
+
+          {/* Admin Only: Suppliers */}
+          {isAdmin && (
+            <div className="mt-3 text-xs bg-yellow-50 border border-yellow-200 rounded p-2 text-yellow-800">
+              <div className="font-bold border-b border-yellow-200 pb-1 mb-1">Admin: Furnizori</div>
+              {(() => {
+                try {
+                  const meta = product.metaData?.find(m => m.key === 'suppliers_json');
+                  if (!meta) return <div className="italic text-gray-400">Niciun furnizor setat.</div>;
+                  const suppliers: any[] = JSON.parse(meta.value || '[]');
+                  return (
+                    <div className="space-y-1">
+                      {suppliers.map((s, i) => (
+                        <div key={i} className="flex justify-between">
+                          <span>{s.name}</span>
+                          <span className="font-mono">{s.price} {s.currency || 'RON'}</span>
+                        </div>
+                      ))}
+                      <div className="text-[10px] text-gray-400 mt-1 pt-1 border-t border-yellow-100">
+                        Actualizat: {suppliers[0]?.last_updated || '-'}
+                      </div>
+                    </div>
+                  );
+                } catch (e) {
+                  return <div className="text-red-500">Eroare parsare date furnizor.</div>;
+                }
+              })()}
+            </div>
           )}
         </div>
-        <p className="text-sm text-gray-600 mt-2">TVA inclus</p>
+
+        {/* TBI Teaser (Only if price > 1000) */}
+        {currentPrice >= 1000 && (
+          <div className="bg-white border-2 border-orange-100 rounded-lg p-4 flex flex-col justify-center cursor-pointer hover:border-orange-200 transition" onClick={() => setIsTBIModalOpen(true)}>
+            <p className="text-gray-500 text-sm">Rate lunare de la</p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-2xl font-bold text-gray-900">{estimatedRate}</span>
+              <span className="text-sm font-bold text-gray-900">Lei</span>
+            </div>
+            <p className="text-xs text-blue-600 underline mt-1">vezi detalii</p>
+          </div>
+        )}
       </div>
+
+      {/* ... rest of component ... */}
 
       {/* Specs Quick View */}
       <div className="border-t border-b py-4 space-y-3">
@@ -104,16 +235,16 @@ export default function ProductInfo({ product, specs, brand }: ProductInfoProps)
         </div>
       </div>
 
-      {/* Quantity & Add to Cart */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-4">
-          <label className="text-sm font-medium text-gray-700">Cantitate:</label>
-          <div className="flex items-center border border-gray-300 rounded-lg">
+      {/* Quantity & Actions */}
+      <div className="space-y-4">
+        {/* Row 1: Quantity + Installation Button */}
+        <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+          {/* Quantity */}
+          <div className="flex items-center border border-gray-300 rounded-lg bg-white shrink-0 self-start sm:self-auto">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="px-4 py-2 hover:bg-gray-100 transition-colors text-gray-900 font-bold text-xl"
+              className="px-3 py-3 hover:bg-gray-100 transition-colors text-gray-900 font-bold"
               disabled={!inStock}
-              suppressHydrationWarning
             >
               −
             </button>
@@ -121,23 +252,35 @@ export default function ProductInfo({ product, specs, brand }: ProductInfoProps)
               type="number"
               value={quantity}
               onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-16 text-center border-x border-gray-300 py-2 text-gray-900 font-medium"
+              className="w-12 text-center border-x border-gray-300 py-3 text-gray-900 font-medium focus:outline-none"
               disabled={!inStock}
-              suppressHydrationWarning
             />
             <button
               onClick={() => setQuantity(quantity + 1)}
-              className="px-4 py-2 hover:bg-gray-100 transition-colors text-gray-900 font-bold text-xl"
+              className="px-3 py-3 hover:bg-gray-100 transition-colors text-gray-900 font-bold"
               disabled={!inStock}
-              suppressHydrationWarning
             >
               +
             </button>
           </div>
+
+          {/* Install Button (Only for AC) */}
+          {isAC && (
+            <button
+              onClick={() => setIsInstallationModalOpen(true)}
+              className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 border border-gray-200"
+              suppressHydrationWarning
+            >
+              <Wrench className="w-5 h-5 text-gray-600" />
+              <span className="whitespace-nowrap">Solicită Instalare</span>
+            </button>
+          )}
         </div>
 
+        {/* Row 2: Add to Cart (Full Width) */}
         <button
           disabled={!inStock}
+          onClick={handleAddToCart}
           style={inStock ? { background: 'linear-gradient(to right, #0052a3, #003d7a)', color: '#ffffff' } : undefined}
           className="w-full disabled:bg-gray-300 disabled:cursor-not-allowed hover:opacity-90 font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
           suppressHydrationWarning
@@ -162,36 +305,19 @@ export default function ProductInfo({ product, specs, brand }: ProductInfoProps)
         </div>
       </div>
 
-      {/* Trust Badges */}
-      <div className="bg-blue-50 rounded-lg p-4 space-y-3">
-        <div className="flex items-start gap-3">
-          <Truck className="w-5 h-5 text-blue-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-gray-900">Livrare gratuită</p>
-            <p className="text-sm text-gray-600">În București și Ilfov pentru aparate instalate de noi</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Shield className="w-5 h-5 text-blue-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-gray-900">Garanție producător</p>
-            <p className="text-sm text-gray-600">Conform specificațiilor producătorului</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Wrench className="w-5 h-5 text-blue-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-gray-900">Instalare profesională</p>
-            <p className="text-sm text-gray-600">Standard 950 Lei | Premium 1.200 Lei</p>
-          </div>
-        </div>
-      </div>
+      {/* Trust Badges Removed */}
 
-      {/* CTA Secondary */}
-      <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2" suppressHydrationWarning>
-        <ShoppingCart className="w-5 h-5" />
-        Solicită Instalare
-      </button>
+      <ProductInstallationModal
+        isOpen={isInstallationModalOpen}
+        onClose={() => {
+          setIsInstallationModalOpen(false);
+          setPreSelectedInstallation(null);
+        }}
+        standardInstallation={standardInstallation}
+        premiumInstallation={premiumInstallation}
+        mainProduct={product}
+        preSelectedInstallation={preSelectedInstallation}
+      />
     </div>
   );
 }

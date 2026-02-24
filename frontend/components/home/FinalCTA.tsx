@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button';
 
 export default function FinalCTA() {
   const t = useTranslations('cta');
-  
+
   return (
     <section className="py-20 bg-gradient-to-br from-primary-600 via-primary-500 to-secondary-500 relative overflow-hidden">
       {/* Background pattern */}
@@ -17,7 +17,7 @@ export default function FinalCTA() {
           backgroundSize: '40px 40px'
         }} />
       </div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
@@ -29,7 +29,7 @@ export default function FinalCTA() {
           >
             {t('title')}
           </motion.h2>
-          
+
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ export default function FinalCTA() {
           >
             {t('subtitle')}
           </motion.p>
-          
+
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -49,21 +49,21 @@ export default function FinalCTA() {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-white text-primary-600 hover:bg-gray-100 shadow-xl"
             >
               {t('button')}
             </Button>
-            
+
             <div className="flex items-center text-white">
               <span className="mr-3">{t('phone')}</span>
-              <a 
-                href="tel:+40722000000" 
+              <a
+                href="tel:+40316300101"
                 className="flex items-center font-bold text-lg hover:text-white/80 transition-colors"
               >
                 <Phone className="w-5 h-5 mr-2" />
-                0722 000 000
+                +40 316 300 101
               </a>
             </div>
           </motion.div>

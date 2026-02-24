@@ -107,8 +107,8 @@ export default function CoveredAreas() {
           >
             <p className="text-gray-700">
               <strong>Nu găsești localitatea ta?</strong> Sună-ne la{' '}
-              <a href="tel:+40316060024" className="text-primary-600 font-bold hover:underline">
-                0316 060 024
+              <a href="tel:+40316300101" className="text-primary-600 font-bold hover:underline">
+                +40 316 300 101
               </a>{' '}
               pentru a verifica disponibilitatea în zona ta.
             </p>

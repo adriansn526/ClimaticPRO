@@ -38,7 +38,7 @@ export default function InstallationFAQ() {
     },
     {
       question: 'Ce fac dacă am probleme după instalare?',
-      answer: 'Contactează-ne imediat la 0316 060 024. Oferim suport tehnic permanent și intervenție rapidă în caz de probleme legate de montaj. Prima revizie în primul an este gratuită.',
+      answer: 'Contactează-ne imediat la +40 316 300 101. Oferim suport tehnic permanent și intervenție rapidă în caz de probleme legate de montaj. Prima revizie în primul an este gratuită.',
     },
   ];
 
@@ -107,10 +107,10 @@ export default function InstallationFAQ() {
               Nu ai găsit răspunsul? Suntem aici să te ajutăm!
             </p>
             <a
-              href="tel:+40316060024"
+              href="tel:+40316300101"
               className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
             >
-              Sună acum: 0316 060 024
+              Sună acum: +40 316 300 101
             </a>
           </motion.div>
         </div>

@@ -3,6 +3,8 @@ version: "3.8"
 networks:
   proxy:
     external: true
+  default:
+    driver: bridge
 
 services:
   redis:
@@ -11,6 +13,20 @@ services:
     command: ["redis-server","--save","","--appendonly","no"]
     networks:
       - proxy
+
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: climatic_app
+      POSTGRES_PASSWORD: AppPassword123!
+      POSTGRES_DB: climatic_app_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - proxy
+    ports:
+      - "5440:5432"
 
   mariadb:
     image: mariadb:10.11
@@ -47,6 +63,9 @@ services:
         define('WP_CACHE', true);
         define('WP_DEBUG_LOG', false);
         define('WP_DEBUG_DISPLAY', false);
+        if (isset($$_SERVER['HTTP_X_FORWARDED_PROTO']) && $$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            $$_SERVER['HTTPS'] = 'on';
+        }
     volumes:
       - ./wordpress:/var/www/html
       - ./uploads:/var/www/html/wp-content/uploads
@@ -62,15 +81,28 @@ services:
 
   frontend:
     # Uses the image built by GitHub Actions
-    image: ${IMAGE_NAME}
+    image: climaticpro-frontend:latest
+    pull_policy: never
+    ports:
+      - "3010:3000"
     restart: always
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     env_file:
       - frontend/.env.local
+    environment:
+      - NEXT_PUBLIC_WORDPRESS_API_URL=https://cms.climaticpro.ro/graphql
+      - NEXT_PUBLIC_SITE_URL=https://dev.climaticpro.ro
+      - WOOCOMMERCE_CONSUMER_KEY=ck_478c6b7d67abbe57217778d048b8b5b5392cda4d
+      - WOOCOMMERCE_CONSUMER_SECRET=cs_f27ad42ddb71fb5c64800be288b939598b21494f
+      - DATABASE_URL=postgresql://climatic_app:AppPassword123!@postgres:5432/climatic_app_db
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.climaticpro-frontend.rule=Host(`climaticpro.asns.ro`)"
+      - "traefik.http.routers.climaticpro-frontend.rule=Host(`dev.climaticpro.ro`)"
       - "traefik.http.routers.climaticpro-frontend.entrypoints=websecure"
       - "traefik.http.routers.climaticpro-frontend.tls.certresolver=httpresolver"
       - "traefik.http.services.climaticpro-frontend.loadbalancer.server.port=3000"
     networks:
       - proxy
+      - default

@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
 
-// WooCommerce API Client
-const WooCommerce = new WooCommerceRestApi({
-  url: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cms-climaticpro.asns.ro',
-  consumerKey: process.env.WOOCOMMERCE_CONSUMER_KEY || '',
-  consumerSecret: process.env.WOOCOMMERCE_CONSUMER_SECRET || '',
-  version: 'wc/v3',
-});
 
 export async function POST(request: NextRequest) {
+  // WooCommerce API Client
+  const WooCommerce = new WooCommerceRestApi({
+    url: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cms-climaticpro.asns.ro',
+    consumerKey: process.env.WOOCOMMERCE_CONSUMER_KEY || '',
+    consumerSecret: process.env.WOOCOMMERCE_CONSUMER_SECRET || '',
+    version: 'wc/v3',
+  });
+
   try {
     const data = await request.json();
 
@@ -107,11 +108,11 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('WooCommerce Order Error:', error.response?.data || error.message);
-    
+
     return NextResponse.json(
-      { 
+      {
         error: 'Eroare la plasarea comenzii. Te rugăm să încerci din nou sau să ne contactezi telefonic.',
-        details: error.response?.data?.message || error.message 
+        details: error.response?.data?.message || error.message
       },
       { status: 500 }
     );

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getProductBySlug, getProducts } from '@/lib/woocommerce';
+import { getProductBySlug, getProducts, getProductById } from '@/lib/woocommerce';
 import { extractProductSpecs, extractBrand, cleanPrice } from '@/lib/productUtils';
 import ProductGallery from '@/components/products/ProductGallery';
 import ProductInfo from '@/components/products/ProductInfo';
@@ -13,6 +13,9 @@ interface ProductPageProps {
     slug: string;
   };
 }
+
+export const dynamic = 'force-dynamic';
+
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const product = await getProductBySlug(params.slug);
@@ -29,8 +32,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   return {
     title: `${product.name} | ClimaticPro`,
-    description: `${brand} ${specs.btu ? specs.btu + ' BTU' : ''} ${specs.energyClass ? 'Clasa ' + specs.energyClass : ''}. Preț: ${price}. Livrare gratuită + Instalare profesională. Garanție 5 ani.`,
-    keywords: `aer conditionat ${brand.toLowerCase()}, ${specs.btu} btu, ${specs.energyClass?.toLowerCase()}, ${specs.inverter ? 'inverter' : ''}, ${specs.wifi ? 'wifi' : ''}`,
+    description: `${brand ? brand + ' ' : ''}${specs.btu ? specs.btu + ' BTU' : ''} ${specs.energyClass ? 'Clasa ' + specs.energyClass : ''}. Preț: ${price}. Livrare gratuită + Instalare profesională. Garanție 5 ani.`,
+    keywords: `aer conditionat ${brand ? brand.toLowerCase() + ', ' : ''}${specs.btu} btu, ${specs.energyClass?.toLowerCase()}, ${specs.inverter ? 'inverter' : ''}, ${specs.wifi ? 'wifi' : ''}`,
     openGraph: {
       title: product.name,
       description: product.shortDescription || product.name,
@@ -49,6 +52,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const specs = extractProductSpecs(product);
   const brand = extractBrand(product);
 
+  // Fetch installation products
+  const standardInstallation = await getProductById(11170);
+  const premiumInstallation = await getProductById(9043);
+
   // Fetch related products (same category)
   const categorySlug = product.productCategories?.nodes[0]?.slug;
   let relatedProducts: any[] = [];
@@ -64,7 +71,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const breadcrumbs = [
     { label: 'Acasă', href: '/' },
     { label: 'Produse', href: '/produse' },
-    { label: brand, href: `/produse?brand=${brand.toLowerCase()}` },
+    ...(brand ? [{ label: brand, href: `/produse?brand=${brand.toLowerCase()}` }] : []),
     { label: product.name },
   ];
 
@@ -90,7 +97,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <ProductGallery images={galleryImages} productName={product.name} />
 
           {/* Right: Product Info */}
-          <ProductInfo product={product} specs={specs} brand={brand} />
+          <ProductInfo
+            product={product}
+            specs={specs}
+            brand={brand}
+            standardInstallation={standardInstallation}
+            premiumInstallation={premiumInstallation}
+          />
         </div>
 
       </div>
@@ -125,7 +138,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             sku: product.sku || product.databaseId.toString(),
             brand: {
               '@type': 'Brand',
-              name: brand,
+              name: brand || 'Generic',
             },
             offers: {
               '@type': 'Offer',

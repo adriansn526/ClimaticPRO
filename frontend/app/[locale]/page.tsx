@@ -1,13 +1,13 @@
 import { getTranslations } from 'next-intl/server';
-import { getBannereByLocatie } from '@/lib/bannere';
+import { getLatestBannerGallery } from '@/lib/wordpress';
 import {
   getWooCommerceCategories,
   getFeaturedProducts,
   getBestSellingProducts,
   getAllBrands,
-  getAllCapacitate,
-  getAllClasaEnergie,
-  getUsedAttributeSlugs
+  getAllProductsCached,
+  generateCategoryFilters,
+  getProductsByIds
 } from '@/lib/woocommerce';
 import HeroSection from '@/components/home/HeroSection';
 import SidebarMegaMenu from '@/components/home/SidebarMegaMenu';
@@ -53,50 +53,29 @@ export async function generateMetadata(props: PageProps) {
 }
 
 export default async function HomePage() {
-  const categories = await getWooCommerceCategories();
+  const [categories, allProducts, brands] = await Promise.all([
+    getWooCommerceCategories(),
+    getAllProductsCached(),
+    getAllBrands(),
+  ]);
 
-  // Extract slugs recursively for broader product search
-  const rezCat = categories.find(c => c.slug === 'aer-conditionat-rezidential');
-  const rezSlugsList = rezCat ? [rezCat.slug, ...(rezCat.children?.nodes?.map((c: any) => c.slug) || [])] : ['aer-conditionat-rezidential'];
-
-  const comCat = categories.find(c => c.slug.includes('comercial')); // Robust finder
-  const comSlugsList = comCat ? [comCat.slug, ...(comCat.children?.nodes?.map((c: any) => c.slug) || [])] : ['aparat-de-aer-conditionat-comercial'];
+  // Generate dynamic filters
+  const categoryFilters = generateCategoryFilters(allProducts, categories);
 
   // Batch 1: Core Content (Highest Priority)
-  const [banners, featuredProducts, bestSellers] = await Promise.all([
-    getBannereByLocatie('homepage_hero', 5),
+  const [banners, featuredProducts, bestSellers, serviceProducts] = await Promise.all([
+    getLatestBannerGallery(),
     getFeaturedProducts(8),
     getBestSellingProducts(4),
+    getProductsByIds([9039, 9041])
   ]);
 
-  // Batch 2: Global Filters & Brands (Medium Priority)
-  const [brands, allCapacities, allEnergyClasses] = await Promise.all([
-    getAllBrands(),
-    getAllCapacitate(),
-    getAllClasaEnergie(),
-  ]);
+  // Extract prices
+  const igienizareProduct = serviceProducts.find(p => p.databaseId === 9039);
+  const reparatieProduct = serviceProducts.find(p => p.databaseId === 9041);
 
-  // Batch 3: Dynamic Filters (Dependent Priority)
-  const [rezidentialSlugs, comercialSlugs] = await Promise.all([
-    getUsedAttributeSlugs(rezSlugsList),
-    getUsedAttributeSlugs(comSlugsList)
-  ]);
-
-
-
-
-  // Filter global lists based on category usage
-  const rezidentialFilters = {
-    capacities: allCapacities.filter(c => rezidentialSlugs.capacitySlugs.includes(c.slug)),
-    energyClasses: allEnergyClasses.filter(c => rezidentialSlugs.energySlugs.includes(c.slug))
-  };
-
-
-
-  const comercialFilters = {
-    capacities: allCapacities.filter(c => comercialSlugs.capacitySlugs.includes(c.slug)),
-    energyClasses: allEnergyClasses.filter(c => comercialSlugs.energySlugs.includes(c.slug))
-  };
+  const igienizarePrice = igienizareProduct ? igienizareProduct.price : '';
+  const reparatiePrice = reparatieProduct ? reparatieProduct.price : '';
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -106,7 +85,7 @@ export default async function HomePage() {
     logo: 'https://climaticpro.ro/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+40700000000', // Update with real number if available
+      telephone: '+40316300101', // Updated from placeholder
       contactType: 'customer service',
       areaServed: 'RO',
       availableLanguage: 'Romanian'
@@ -127,15 +106,14 @@ export default async function HomePage() {
         <SidebarMegaMenu
           categories={categories}
           brands={brands}
-          rezidentialFilters={rezidentialFilters}
-          comercialFilters={comercialFilters}
+          categoryFilters={categoryFilters}
         />
       </HeroSection>
       <TrustBadges />
       <FeaturedProducts products={featuredProducts} />
       <CategoriesGrid />
       <BestSellers products={bestSellers} />
-      <ServicesSection />
+      <ServicesSection igienizarePrice={igienizarePrice} reparatiePrice={reparatiePrice} />
       <TestimonialsSection />
       <WhyChooseSection />
       <FinalCTA />

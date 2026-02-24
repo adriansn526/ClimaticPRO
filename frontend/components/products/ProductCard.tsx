@@ -7,24 +7,41 @@ import { ShoppingCart, Heart, Eye, Wifi, Zap } from 'lucide-react';
 import { WooCommerceProduct } from '@/lib/woocommerce';
 import { extractProductSpecs, extractBrand, cleanPrice, calculateDiscount } from '@/lib/productUtils';
 import { getBrandImage } from '@/lib/brandImages';
+import CompareButton from '@/components/products/CompareButton';
+import WishlistButton from '@/components/wishlist/WishlistButton';
 
 interface ProductCardProps {
   product: WooCommerceProduct;
+  layout?: 'grid' | 'list';
+  priority?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+export default function ProductCard({ product, layout = 'grid', priority = false }: ProductCardProps) {
 
   // Extract real product specifications
   const specs = extractProductSpecs(product);
   const brand = extractBrand(product);
-  const brandSlug = product.allPaBrand?.nodes?.[0]?.slug || brand.toLowerCase();
+  const brandSlug = product.allPaBrand?.nodes?.[0]?.slug || brand?.toLowerCase() || '';
   const brandImageInfo = getBrandImage(brandSlug);
   const productImage = product.image?.sourceUrl || '/images/product-placeholder.svg';
   const discountPercentage = calculateDiscount(product.regularPrice, product.salePrice);
 
+  // Format attributes for compare
+  const compareItem = {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    price: product.price,
+    image: productImage,
+    attributes: product.attributes?.nodes.map(n => ({
+      name: n.name,
+      options: n.options || []
+    }))
+  };
+
   return (
-    <div className="group relative bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+    <div className={`group relative bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full ${layout === 'list' ? 'flex flex-row gap-4 sm:gap-6' : 'flex flex-col'
+      }`}>
       {/* Badges */}
       <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 flex flex-col gap-1 sm:gap-2">
         {product.featured && (
@@ -39,34 +56,35 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
 
-      {/* Wishlist Button */}
-      <button
-        onClick={() => setIsWishlisted(!isWishlisted)}
-        className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-white/90 hover:bg-white p-1.5 sm:p-2 rounded-full shadow-md transition-all"
-        aria-label="Add to wishlist"
-        suppressHydrationWarning
-      >
-        <Heart
-          className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'
-            }`}
-        />
-      </button>
+      {/* Action Buttons */}
+      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 flex flex-col gap-2">
+        <div className="bg-white/90 hover:bg-white rounded-full shadow-md transition-all">
+          <WishlistButton
+            product={product}
+            className="!p-1.5 sm:!p-2 w-8 h-8 sm:w-10 sm:h-10 !shadow-none !bg-transparent"
+          />
+        </div>
+        <div className="bg-white/90 hover:bg-white rounded-full shadow-md transition-all">
+          <CompareButton product={compareItem} className="w-8 h-8 sm:w-10 sm:h-10 p-1.5 sm:p-2" />
+        </div>
+      </div>
 
       {/* Product Image */}
-      <Link href={`/produs/${product.slug}`}>
-        <div className="relative aspect-square sm:aspect-[4/3] bg-gray-50 overflow-hidden rounded-t-lg sm:rounded-t-xl">
+      <Link href={`/produs/${product.slug}`} className={`${layout === 'list' ? 'w-1/3 sm:w-1/4 min-w-[140px] relative' : ''}`}>
+        <div className={`relative aspect-square ${layout === 'list' ? 'h-full' : 'sm:aspect-[4/3]'} bg-gray-50 overflow-hidden rounded-t-lg sm:rounded-t-xl ${layout === 'list' ? 'rounded-l-lg sm:rounded-l-xl rounded-tr-none' : ''}`}>
           <NextImage
             src={productImage}
             alt={product.image?.altText || product.name}
             fill
             className="object-contain p-4 group-hover:scale-110 transition-transform duration-500 ease-in-out mix-blend-multiply"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            priority={priority}
           />
         </div>
       </Link>
 
       {/* Product Info */}
-      <div className="p-2 sm:p-4">
+      <div className={`p-2 sm:p-4 ${layout === 'list' ? 'flex-1 flex flex-col justify-center' : ''}`}>
         {/* Brand */}
         <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-3 min-h-[18px] sm:min-h-[24px]">
           {brandImageInfo?.imageUrl ? (
@@ -83,7 +101,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           ) : (
             <span className="text-[10px] sm:text-xs font-semibold text-primary-600 uppercase">
-              {brand}
+              {brand || ''}
             </span>
           )}
         </div>
@@ -94,6 +112,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
         </Link>
+
+        {layout === 'list' && product.shortDescription && (
+          <div
+            className="hidden sm:block text-sm text-gray-500 mb-3 line-clamp-2"
+            dangerouslySetInnerHTML={{ __html: product.shortDescription }}
+          />
+        )}
 
         {/* Specs */}
         <div className="space-y-1 sm:space-y-2 mb-1.5 sm:mb-3">
@@ -148,19 +173,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* Trust Badges */}
-        <div className="hidden sm:flex flex-wrap gap-2 text-xs text-gray-600 mb-4">
-          <span className="flex items-center gap-1">
-            ✓ Livrare gratuită
-          </span>
-          <span className="flex items-center gap-1">
-            ✓ Garanție 5 ani
-          </span>
-        </div>
+
 
         {/* Actions */}
         <div className="flex gap-1 sm:gap-2">
-          <button suppressHydrationWarning className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-1.5 sm:py-3 px-1.5 sm:px-4 rounded-md sm:rounded-lg transition-colors flex items-center justify-center gap-0.5 sm:gap-2 text-[10px] sm:text-base">
+          <button suppressHydrationWarning className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-1.5 sm:py-3 px-1.5 sm:px-4 rounded-md sm:rounded-lg transition-colors flex items-center justify-center gap-0.5 sm:gap-2 text-[10px] sm:text-base" aria-label={`Adaugă ${product.name} în coș`}>
             <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Adaugă în Coș</span>
             <span className="sm:hidden">Adaugă</span>

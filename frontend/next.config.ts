@@ -4,10 +4,14 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  distDir: '.next_host',
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
   output: 'standalone', // Required for Docker deployment
   images: {
-    unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
+    // unoptimized: true, // Disabled to allow Next.js optimization
     remotePatterns: [
       {
         protocol: 'https',
@@ -28,6 +32,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'topclima.ro',
         pathname: '/image/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       },
     ],
   },

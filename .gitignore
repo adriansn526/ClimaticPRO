@@ -10,10 +10,14 @@ backups/*.sql.gz
 wordpress/wp-content/uploads/
 wordpress/wp-content/cache/
 frontend/docs/uploads.zip
-frontend/docs/uploads.zip
 frontend/docs/*.zip
 mariadb/
 certs/
 frontend/lrt
-
 !climaticpro_dump.sql
+postgres_data/
+venv-scrapper/
+htmlcov/
+__pycache__/
+*.html
+!template.html

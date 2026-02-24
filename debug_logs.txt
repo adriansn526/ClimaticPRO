@@ -1,0 +1,34 @@
+   ▲ Next.js 15.5.6
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 125ms
+WooCommerce API URL: https://cms.climaticpro.ro/graphql
+Email Transporter Configured: {
+  host: 'mail.climaticpro.ro',
+  port: '465',
+  user: 'contact@climaticpro.ro',
+  passConfigured: false
+}
+WooCommerce API URL: https://cms.climaticpro.ro/graphql
+[DEBUG] getProducts called. Context: ARCHIVE_SLUG. Limit: 24. Params: {"category":"aer-conditionat-comercial"}
+[DEBUG] Fetched Total: 421 in 5 batches.
+[DEBUG] Category filter: aer-conditionat-comercial includes descendants: aer-conditionat-comercial
+[DEBUG] Total Products: 421
+[DEBUG] Category: aer-conditionat-comercial, Base Products: 0
+[DEBUG] Final Filters: {"brands":[],"btu":[],"energy":[],"categories":{}}
+[DEBUG] Final Count (after attrs & dedup): 0
+[DEBUG] Stock Distribution: {}
+[DEBUG] ArchiveSlug Rendered. Products: 0. Total: 0
+[DEBUG] getProducts called. Context: ARCHIVE_SLUG. Limit: 24. Params: {"category":"aparat-de-aer-conditionat-comercial"}
+[DEBUG] Fetched Total: 421 in 5 batches.
+[DEBUG] Category filter: aparat-de-aer-conditionat-comercial includes descendants: aparat-de-aer-conditionat-comercial, aparate-de-aer-conditionat-coloana, aparate-de-aer-conditionat-pentru-tavan
+[DEBUG] Total Products: 421
+[DEBUG] Category: aparat-de-aer-conditionat-comercial, Base Products: 7
+[DEBUG] First Product: Aer conditionat 55 000 BTU tip Caseta TCL  - Racire, Incalzire, Dezumidificare
+[DEBUG] First Product Attributes: {"nodes":[{"name":"Greutate","options":["137 kg"]},{"name":"Brand","options":["TCL"]}]}
+[DEBUG] Final Filters: {"brands":[{"term":"TCL","name":"TCL","slug":"tcl","count":4},{"term":"Gree","name":"Gree","slug":"aer-conditionat-gree","count":2}],"btu":[{"term":"24000 BTU","name":"24000 BTU","slug":"24000-btu","count":2},{"term":"48000 BTU","name":"48000 BTU","slug":"48000-btu","count":1},{"term":"48 000 BTU","name":"48 000 BTU","slug":"48-000-btu","count":1}],"energy":[],"categories":{"aparat-de-aer-conditionat-comercial":5,"aparate-de-aer-conditionat-coloana":2}}
+[DEBUG] Final Count (after attrs & dedup): 7
+[DEBUG] Stock Distribution: {"IN_STOCK":5,"ON_BACKORDER":1,"OUT_OF_STOCK":1}
+[DEBUG] ArchiveSlug Rendered. Products: 7. Total: 7

@@ -11,10 +11,25 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/page.js"
     ],
-    "/_not-found/page": [
+    "/[locale]/produs/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/[locale]/produs/[slug]/page.js"
+    ],
+    "/[locale]/produse/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/produse/page.js"
+    ],
+    "/[locale]/instalare/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/instalare/page.js"
+    ],
+    "/api/products/installation/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/products/installation/route.js"
     ]
   }
 }

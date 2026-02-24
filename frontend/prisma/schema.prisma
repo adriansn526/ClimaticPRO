@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model InstallerProfile {
+  id          Int      @id @default(autoincrement())
+  userId      String   @unique
+  companyName String?
+  cui         String?
+  regCom      String?
+  bankName    String?
+  iban        String?
+  address     String?
+  isVatPayer  Boolean  @default(false)
+  warrantyInfo String? // Custom warranty terms for the installer
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Job {
+  id          Int      @id @default(autoincrement())
+  title       String?
+  clientName  String
+  clientPhone String?
+  address     String
+  status      String   @default("new")
+  installerId String
+  metadata    Json?    // Use for storing products, verified items, etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Warranty {
+  id          Int      @id @default(autoincrement())
+  jobId       Int
+  productName String
+  serialUI    String?
+  serialUE    String?
+  createdAt   DateTime @default(now())
+}
+
+model Supplier {
+  id        Int      @id @default(autoincrement())
+  name      String
+  cui       String?
+  contact   String?
+  phone     String?
+  email     String?
+  address   String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model B2BOrder {
+  id          Int      @id @default(autoincrement())
+  installerId String   // User ID (clerk or internal)
+  status      String   @default("new") // new, processing, ordered, completed, cancelled
+  items       Json     // Array of { productId, name, quantity, price, supplierId? }
+  totalAmount Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

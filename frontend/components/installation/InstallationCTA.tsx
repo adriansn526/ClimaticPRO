@@ -5,7 +5,7 @@ import { Calendar, Phone, Mail } from 'lucide-react';
 
 export default function InstallationCTA() {
   return (
-    <section className="py-16 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -58,17 +58,24 @@ export default function InstallationCTA() {
           >
             <a
               href="#calendar"
-              className="w-full sm:w-auto bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-xl flex items-center justify-center gap-2 border-2 border-white"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('calendar');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'auto' });
+                }
+              }}
+              className="w-full sm:w-auto bg-white text-blue-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-xl flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
             >
               <Calendar className="w-5 h-5" />
               Rezervă Slot în Calendar
             </a>
             <a
-              href="tel:+40316060024"
+              href="tel:+40316300101"
               className="w-full sm:w-auto bg-white/20 backdrop-blur-md border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/30 transition-colors flex items-center justify-center gap-2 shadow-xl"
             >
               <Phone className="w-5 h-5" />
-              Sună: 0316 060 024
+              Sună: +40 316 300 101
             </a>
           </motion.div>
 
@@ -82,8 +89,8 @@ export default function InstallationCTA() {
           >
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5" />
-              <a href="tel:+40316060024" className="hover:text-white transition-colors">
-                0316 060 024
+              <a href="tel:+40316300101" className="hover:text-white transition-colors">
+                +40 316 300 101
               </a>
             </div>
             <div className="hidden sm:block w-px h-6 bg-white/50" />

@@ -11,11 +11,15 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-outfit), system-ui, sans-serif;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  /* Ensure HTML also clips */
 }
 
 /* Custom scrollbar */

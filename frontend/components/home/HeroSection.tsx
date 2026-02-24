@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import NextImage from 'next/image';
-import { Banner } from '@/lib/bannere';
+import { Banner } from '@/lib/wordpress';
 
 interface HeroSectionProps {
   banners: Banner[];
@@ -17,34 +17,21 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
     {
       id: '1',
       title: 'Banner Default 1',
-      bannerSettings: {
-        locatie: ['homepage_hero'],
-        imagineDesktop: {
-          sourceUrl: '/banners/banner-1.jpg',
-          altText: 'Banner 1',
-          mediaDetails: { width: 1920, height: 600 }
-        },
-        activ: true,
-        ordine: 0
-      }
+      sourceUrl: '/banners/banner-1.jpg',
+      altText: 'Banner 1',
+      mediaDetails: { width: 1920, height: 600, file: 'banner-1.jpg' }
     },
     {
       id: '2',
       title: 'Banner Default 2',
-      bannerSettings: {
-        locatie: ['homepage_hero'],
-        imagineDesktop: {
-          sourceUrl: '/banners/banner-2.jpg',
-          altText: 'Banner 2',
-          mediaDetails: { width: 1920, height: 600 }
-        },
-        activ: true,
-        ordine: 1
-      }
+      sourceUrl: '/banners/banner-2.jpg',
+      altText: 'Banner 2',
+      mediaDetails: { width: 1920, height: 600, file: 'banner-2.jpg' }
     },
   ];
 
-  const displayBanners = banners.length > 0 ? banners : defaultBanners;
+  const safeBanners = Array.isArray(banners) ? banners : [];
+  const displayBanners = safeBanners.length > 0 ? safeBanners : defaultBanners;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
@@ -92,18 +79,16 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
               GAMA DE PRODUSE
             </div>
             {/* Meniul propriu-zis */}
-            <div className="flex-1 overflow-y-auto">
-              {children}
-            </div>
+            {children}
           </div>
 
           {/* Banner Slider - Dreapta */}
           <div className="flex-1 relative overflow-hidden">
-            {displayBanners.length > 0 && displayBanners[currentSlide] && displayBanners[currentSlide].bannerSettings.imagineDesktop && (
+            {displayBanners.length > 0 && displayBanners[currentSlide] && (
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide}
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: currentSlide === 0 ? 1 : 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
@@ -116,12 +101,12 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
                     className="relative w-full h-full"
                   >
                     <NextImage
-                      src={displayBanners[currentSlide].bannerSettings.imagineDesktop.sourceUrl}
-                      alt={displayBanners[currentSlide].bannerSettings.imagineDesktop.altText || displayBanners[currentSlide].title}
+                      src={displayBanners[currentSlide].sourceUrl}
+                      alt={displayBanners[currentSlide].altText || displayBanners[currentSlide].title}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       priority={currentSlide === 0}
-                      sizes="100vw"
+                      sizes="(max-width: 1024px) 100vw, calc(100vw - 260px)"
                     />
                   </motion.div>
                 </motion.div>

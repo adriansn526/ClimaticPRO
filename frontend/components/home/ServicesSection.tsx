@@ -2,26 +2,54 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, Wrench, Droplets, Hammer } from 'lucide-react'; // Added icons
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import Badge from '@/components/ui/Badge';
+import Link from 'next/link';
 
-const plans = [
-  {
-    key: 'standard',
-    features: ['feature1', 'feature2', 'feature3'],
-    popular: false,
-  },
-  {
-    key: 'premium',
-    features: ['feature1', 'feature2', 'feature3', 'feature6'],
-    popular: true,
-  },
-];
+interface ServicesSectionProps {
+  igienizarePrice?: string;
+  reparatiePrice?: string;
+}
 
-export default function ServicesSection() {
+export default function ServicesSection({ igienizarePrice, reparatiePrice }: ServicesSectionProps) {
   const t = useTranslations('services');
+
+  const services = [
+    {
+      key: 'installation',
+      title: 'Instalare Aer Condiționat',
+      description: 'Montaj profesional cu echipe autorizate. Garanție pe lucrare.',
+      price: 'Vezi detalii',
+      features: ['Echipe autorizate', 'Materiale incluse', 'Garanție montaj', 'Programare rapidă'],
+      icon: Hammer,
+      cta: 'Vezi Oferta',
+      link: '/servicii/montaj-aer-conditionat',
+      popular: true,
+    },
+    {
+      key: 'cleaning',
+      title: 'Igienizare Profesională',
+      description: 'Curățare profundă pentru un aer sănătos și eficiență maximă.',
+      price: igienizarePrice || 'Cere ofertă',
+      features: ['Curățare filtre', 'Dezinfectare vaporizator', 'Verificare freon', 'Eliminare mirosuri'],
+      icon: Droplets,
+      cta: 'Adaugă în Coș',
+      link: '/produs/igienizare-aer-conditionat', // Inferring slug from ID 9039
+      popular: false,
+    },
+    {
+      key: 'repair',
+      title: 'Reparații & Mentenanță',
+      description: 'Remedierea situațiilor în care curge apă din aparat sau alte defecțiuni.',
+      price: reparatiePrice || 'Cere ofertă',
+      features: ['Diagnosticare rapidă', 'Deblocare scurgere', 'Verificare etanșeitate', 'Reparații diverse'],
+      icon: Wrench,
+      cta: 'Adaugă în Coș',
+      link: '/produs/remedierea-situatiilor-in-care-curge-apa-din-aparat', // Inferring slug from ID 9041
+      popular: false,
+    },
+  ];
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-primary-50">
@@ -34,82 +62,81 @@ export default function ServicesSection() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold mb-4 text-gray-900"
           >
-            {t('title')}
+            Servicii Profesionale
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-gray-600"
+            className="text-xl text-gray-600 max-w-2xl mx-auto"
           >
-            {t('subtitle')}
+            Oferim servicii complete de montaj, întreținere și reparații pentru sistemul tău de climatizare.
           </motion.p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {plans.map((plan, index) => (
+        {/* Service Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {services.map((service, index) => (
             <motion.div
-              key={plan.key}
+              key={service.key}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative"
+              className="relative flex"
             >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                  <Badge variant="success">⭐ Cel mai popular</Badge>
-                </div>
-              )}
-
               <Card
                 hover
-                className={`h-full border border-gray-200 flex flex-col overflow-hidden ${plan.popular ? 'ring-2 ring-primary-600 shadow-xl relative' : 'shadow-lg'}`}
+                className={`flex-1 border border-gray-200 flex flex-col overflow-hidden ${service.popular ? 'ring-2 ring-primary-600 shadow-xl relative scale-105 z-10' : 'shadow-lg'}`}
               >
                 {/* Header Section */}
-                <div className={`p-8 text-center border-b border-gray-100 ${plan.popular ? 'bg-primary-50' : 'bg-gray-50'}`}>
-                  <h3 className="text-2xl font-bold mb-2 text-gray-900">
-                    {t(plan.key)}
+                <div className={`p-6 text-center border-b border-gray-100 ${service.popular ? 'bg-primary-50' : 'bg-white'}`}>
+                  <div className={`mx-auto w-12 h-12 rounded-full flex items-center justify-center mb-4 ${service.popular ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-600'}`}>
+                    <service.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-gray-900 min-h-[56px] flex items-center justify-center">
+                    {service.title}
                   </h3>
 
                   {/* Price */}
-                  <div className="my-4">
-                    <span className="text-5xl font-extrabold text-gray-900 tracking-tight">
-                      {t(`${plan.key}Price`)}
+                  <div className="my-4 min-h-[48px] flex items-center justify-center">
+                    <span className={`font-bold text-gray-900 tracking-tight ${service.price.includes('Lei') ? 'text-3xl' : 'text-2xl'}`}>
+                      {service.price}
                     </span>
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-700 font-medium">
-                    {t(`${plan.key}Desc`)}
+                  <p className="text-gray-600 text-sm min-h-[40px]">
+                    {service.description}
                   </p>
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow">
+                <div className="p-6 flex flex-col flex-grow bg-white">
                   {/* Features List */}
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    {plan.features.map((feature) => (
+                  <ul className="space-y-3 mb-8 flex-grow">
+                    {service.features.map((feature) => (
                       <li key={feature} className="flex items-start">
-                        <div className={`p-1 rounded-full mr-3 flex-shrink-0 mt-0.5 ${plan.popular ? 'bg-primary-100' : 'bg-green-100'}`}>
-                          <Check className={`w-3 h-3 ${plan.popular ? 'text-primary-700' : 'text-green-700'}`} />
+                        <div className={`p-0.5 rounded-full mr-2 flex-shrink-0 mt-0.5 ${service.popular ? 'bg-primary-100' : 'bg-green-100'}`}>
+                          <Check className={`w-3 h-3 ${service.popular ? 'text-primary-700' : 'text-green-700'}`} />
                         </div>
-                        <span className="text-gray-900 font-medium">{t(feature)}</span>
+                        <span className="text-gray-700 text-sm font-medium">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   {/* CTA Button */}
-                  <Button
-                    variant={plan.popular ? 'primary' : 'outline'}
-                    className={`w-full py-3 font-bold text-lg ${plan.popular
+                  <Link href={service.link} className="block mt-auto">
+                    <Button
+                      variant={service.popular ? 'primary' : 'outline'}
+                      className={`w-full py-2.5 font-bold ${service.popular
                         ? '!bg-[#0052a3] !text-white hover:!bg-[#003d7a] shadow-lg hover:shadow-xl border-none ring-0'
                         : 'bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-50'
-                      }`}
-                  >
-                    {t('cta')}
-                  </Button>
+                        }`}
+                    >
+                      {service.cta}
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </motion.div>

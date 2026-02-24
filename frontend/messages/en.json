@@ -4,11 +4,52 @@
     "about": "About",
     "services": "Services",
     "contact": "Contact",
+    "products": "Products",
     "readMore": "Read more"
   },
   "hero": {
     "title": "ClimaticPro",
     "subtitle": "Short project description",
     "cta": "Contact us"
+  },
+  "categories": {
+    "title": "Find the Perfect Air Conditioner",
+    "subtitle": "for every space in your home or business",
+    "bedroom": "Bedroom",
+    "bedroomFeatures": [
+      "Silent <25dB",
+      "Sleep Mode",
+      "Programmable Timer"
+    ],
+    "living": "Living Room",
+    "livingFeatures": [
+      "High Power",
+      "Elegant Design",
+      "WiFi Smart Control"
+    ],
+    "office": "Office",
+    "officeFeatures": [
+      "WiFi Smart",
+      "Silent",
+      "Efficiency A+++"
+    ],
+    "commercial": "Commercial Spaces",
+    "commercialFeatures": [
+      "Professional",
+      "Durable",
+      "Fast Service"
+    ],
+    "house": "Whole House",
+    "houseFeatures": [
+      "Multi-split 3-5 units",
+      "Single outdoor unit",
+      "Energy Efficient"
+    ],
+    "apartment": "Apartment",
+    "apartmentFeatures": [
+      "Multi-split 2-3 rooms",
+      "Compact",
+      "Silent"
+    ]
   }
 }

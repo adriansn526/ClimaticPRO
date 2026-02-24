@@ -3,6 +3,7 @@ import { getWooCommerceCategories, getProducts } from '@/lib/woocommerce';
 import ProductCard from '@/components/products/ProductCard';
 import ProductFilter from '@/components/products/ProductFilter';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
+import Pagination from '@/components/ui/Pagination'; // Import Pagination
 
 export const metadata = {
     title: 'Produse | ClimaticPro',
@@ -23,6 +24,10 @@ export default async function ArchivePage({ params, searchParams }: ArchivePageP
     const maxPrice = typeof searchParams.maxPrice === 'string' ? Number(searchParams.maxPrice) : undefined;
     const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
     const sort = typeof searchParams.sort === 'string' ? searchParams.sort : undefined;
+    const after = typeof searchParams.after === 'string' ? searchParams.after : undefined;
+    const brand = typeof searchParams.brand === 'string' ? searchParams.brand : undefined;
+    const btuParam = typeof searchParams.btu === 'string' ? searchParams.btu : undefined;
+    const energyParam = typeof searchParams.energy === 'string' ? searchParams.energy : undefined;
 
     // Define sort order
     let orderby: { field: string; order: string } | undefined;
@@ -31,7 +36,7 @@ export default async function ArchivePage({ params, searchParams }: ArchivePageP
     if (sort === 'popularity') orderby = { field: 'TOTAL_SALES', order: 'DESC' };
     if (sort === 'newest') orderby = { field: 'DATE', order: 'DESC' };
 
-    const [categories, { products }] = await Promise.all([
+    const [categories, { products, pageInfo, filters }] = await Promise.all([
         getWooCommerceCategories(),
         getProducts({
             category,
@@ -39,8 +44,13 @@ export default async function ArchivePage({ params, searchParams }: ArchivePageP
             maxPrice,
             search,
             orderby,
-        }, 12)
+            brand: brand?.split(','),
+            btu: btuParam?.split(','),
+            energy: energyParam?.split(','),
+        }, 24, after, 'ARCHIVE_SLUG')
     ]);
+
+    console.log(`[DEBUG] ArchiveSlug Rendered. Products: ${products.length}. Total: ${pageInfo?.total}`);
 
     const breadcrumbs = [
         { label: 'Acasă', href: '/' },
@@ -57,7 +67,7 @@ export default async function ArchivePage({ params, searchParams }: ArchivePageP
         });
     } else if (category) {
         const catName = categories.find(c => c.slug === category)?.name || category;
-        breadcrumbs.push({ label: catName });
+        breadcrumbs.push({ label: catName, href: `/produse/${category}` });
     }
 
     return (
@@ -72,33 +82,47 @@ export default async function ArchivePage({ params, searchParams }: ArchivePageP
                 <div className="flex flex-col lg:flex-row gap-8">
                     {/* Sidebar */}
                     <aside className="w-full lg:w-64 flex-shrink-0">
-                        <ProductFilter categories={categories} />
+                        <ProductFilter categories={categories} filters={filters} total={pageInfo?.total} selectedCategory={category} />
                     </aside>
 
                     {/* Main Content */}
                     <div className="flex-1">
-                        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-                            <h1 className="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">
-                                {products.length} Produse găsite
+                        <div className="flex flex-col mb-6">
+                            {/* SEO Title */}
+                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                                {category ? (categories.find(c => c.slug === category)?.name || 'Produse') : 'Toate Produsele'}
                             </h1>
 
-                            {/* Sort Dropdown would go here - simplified for now */}
-                            {/* <SortDropdown /> */}
+                            <div className="flex flex-col sm:flex-row justify-between items-center">
+                                <p className="text-sm font-medium text-gray-500 mb-4 sm:mb-0">
+                                    {products.length} produse afișate
+                                </p>
+
+                                {/* Sort Dropdown would go here - simplified for now */}
+                                {/* <SortDropdown /> */}
+                            </div>
                         </div>
 
+                        {/* Semantic Section Title for Grid */}
+                        <h2 className="sr-only">Lista de produse</h2>
+
                         {products.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {products.map((product) => (
-                                    <ProductCard key={product.id} product={product} />
-                                ))}
-                            </div>
+                            <>
+                                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+                                    {products.map((product, index) => (
+                                        <ProductCard key={product.id} product={product} priority={index < 4} />
+                                    ))}
+                                </div>
+                                <div className="text-center text-sm text-gray-500 mt-4 mb-2">
+                                    Afișez {products.length} din {pageInfo?.total || '???'} produse
+                                </div>
+                                <Pagination pageInfo={pageInfo} />
+                            </>
                         ) : (
                             <div className="bg-white p-10 rounded-lg shadow-sm text-center">
                                 <p className="text-gray-500 text-lg">Nu am găsit produse care să corespundă criteriilor selectate.</p>
                             </div>
                         )}
-
-                        {/* Pagination Controls could be added here */}
                     </div>
                 </div>
             </div>

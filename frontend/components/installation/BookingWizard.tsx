@@ -60,6 +60,7 @@ interface BookingData {
   // Step 4: Confirmare
   gdprAccepted: boolean;
   marketingAccepted: boolean;
+  quantity: number;
 }
 
 
@@ -71,13 +72,14 @@ const ROOM_TYPES = [
   { value: 'other', label: 'Altele', icon: '🏠' },
 ];
 
-export default function BookingWizard({ compact = false }: { compact?: boolean }) {
+export default function BookingWizard({ compact = false, preSelectedProduct, preSelectedQuantity = 1 }: { compact?: boolean; preSelectedProduct?: Product | null, preSelectedQuantity?: number }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [bookings, setBookings] = useState<DayBooking[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [expandedCalendar, setExpandedCalendar] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState<BookingData>({
@@ -99,7 +101,10 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
     intercom: '',
     gdprAccepted: false,
     marketingAccepted: false,
+    quantity: 1,
   });
+
+  const [installationPrice, setInstallationPrice] = useState(1000); // Default fallback
 
   // Load products from API
   useEffect(() => {
@@ -108,8 +113,9 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
         const response = await fetch('/api/products/installation');
         const data = await response.json();
 
-        if (data.success && data.products) {
-          setProducts(data.products);
+        if (data.success) {
+          if (data.products) setProducts(data.products);
+          if (data.installationPrice) setInstallationPrice(data.installationPrice);
         }
       } catch (error) {
         console.error('Error loading products:', error);
@@ -121,23 +127,45 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
     fetchProducts();
   }, []);
 
-  // Load calendar data
+  // Load real calendar availability
   useEffect(() => {
-    const generateBookings = async () => {
+    const fetchAvailability = async () => {
       setLoading(true);
-      const days: DayBooking[] = [];
+      let busySlots: any[] = [];
       const today = startOfDay(new Date());
+
+      try {
+        const endDate = addDays(today, 30);
+
+        // Fetch busy slots from API
+        const response = await fetch(`/api/calendar/availability?timeMin=${today.toISOString()}&timeMax=${endDate.toISOString()}`);
+        if (response.ok) {
+          const data = await response.json();
+          busySlots = data.busySlots || [];
+        }
+      } catch (error) {
+        console.error('Error loading calendar availability:', error);
+      }
+
+      const days: DayBooking[] = [];
       const maxBookingsPerDay = 3;
 
       for (let i = 1; i <= 30; i++) {
         const date = addDays(today, i);
-        const bookingsCount = Math.floor(Math.random() * (maxBookingsPerDay + 1));
+        // Check if there are any busy slots for this day
+        const isBusy = busySlots.some((slot: any) => {
+          const slotStart = new Date(slot.start);
+          return isSameDay(date, slotStart);
+        });
+
+        // Use busy slot info mainly. 
+        const bookingsCount = isBusy ? maxBookingsPerDay : 0;
 
         days.push({
           date,
           bookingsCount,
           maxBookings: maxBookingsPerDay,
-          isAvailable: !isWeekend(date) && bookingsCount < maxBookingsPerDay,
+          isAvailable: !isWeekend(date) && !isBusy,
         });
       }
 
@@ -145,17 +173,49 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
       setLoading(false);
     };
 
-    generateBookings();
+    fetchAvailability();
   }, []);
+
+  // Handle pre-selected product
+  useEffect(() => {
+    if (preSelectedProduct) {
+      setFormData(prev => ({
+        ...prev,
+        selectedProduct: preSelectedProduct,
+        hasOwnDevice: false,
+        quantity: preSelectedQuantity
+      }));
+      // User requested to be guided to select date in calendar (Step 1)
+      // So we stay on Step 1, but we ensure formData has product.
+      // Logic in nextStep() will handle skipping Step 2.
+
+      setCurrentStep(1);
+
+      // Scroll to wizard if needed
+      const element = document.getElementById('booking-wizard');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [preSelectedProduct, preSelectedQuantity]);
 
   // Save to localStorage
   useEffect(() => {
     localStorage.setItem('bookingData', JSON.stringify(formData));
   }, [formData]);
 
-  const updateFormData = (field: keyof BookingData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    setErrors(prev => ({ ...prev, [field]: '' }));
+  const updateFormData = (field: keyof BookingData | Partial<BookingData>, value?: any) => {
+    if (typeof field === 'string') {
+      setFormData(prev => ({ ...prev, [field]: value }));
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    } else if (typeof field === 'object') {
+      setFormData(prev => ({ ...prev, ...field }));
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        Object.keys(field).forEach(k => { delete newErrors[k]; });
+        return newErrors;
+      });
+    }
   };
 
   const validateStep = (step: number): boolean => {
@@ -171,9 +231,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
       if (!formData.hasOwnDevice && !formData.selectedProduct) {
         newErrors.selectedProduct = 'Selectează un aparat sau bifează că ai deja unul';
       }
-      if (!formData.roomType) {
-        newErrors.roomType = 'Selectează tipul camerei';
-      }
+      // Moved roomType to step 3
     }
 
     if (step === 3) {
@@ -184,6 +242,11 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
       if (!formData.street.trim()) newErrors.street = 'Strada este obligatorie';
       if (!formData.number.trim()) newErrors.number = 'Numărul este obligatoriu';
       if (!formData.sector.trim()) newErrors.sector = 'Sectorul este obligatoriu';
+
+      // Added validation for moved fields
+      if (!formData.roomType) {
+        newErrors.roomType = 'Selectează tipul camerei';
+      }
     }
 
     if (step === 4) {
@@ -198,7 +261,13 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
 
   const nextStep = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => Math.min(prev + 1, 4));
+      // Logic for pre-selected product
+      if (currentStep === 1 && preSelectedProduct) {
+        // Skip Step 2 (Product Selection) if product is pre-selected from Hero
+        setCurrentStep(3);
+      } else {
+        setCurrentStep(prev => Math.min(prev + 1, 4));
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -213,19 +282,32 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
 
     setSubmitting(true);
     try {
-      const response = await fetch('/api/bookings/woocommerce', {
+      // Calculate Installation Fee
+      let installationFee = 0;
+      if (formData.hasOwnDevice) {
+        installationFee = 1000;
+      } else if (formData.selectedProduct) {
+        // Difference between Package Price and Base Product Price
+        installationFee = (formData.selectedProduct.priceWithInstallation || 0) - (formData.selectedProduct.price || 0);
+      }
+
+      const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, installationFee }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.removeItem('bookingData');
+        // Do NOT remove bookingData here, we need it for the confirmation page PDF !
+        // localStorage.removeItem('bookingData'); 
         window.location.href = `/instalare/confirmare?order=${data.orderId}`;
       } else {
-        setErrors({ submit: data.error || 'A apărut o eroare. Te rugăm să încerci din nou.' });
+        const errorMessage = data.error || 'A apărut o eroare. Te rugăm să încerci din nou.';
+        console.error('Submit Error:', errorMessage);
+        alert(`Eroare: ${errorMessage}`);
+        setErrors({ submit: errorMessage });
       }
     } catch (error) {
       setErrors({ submit: 'Eroare de conexiune. Verifică internetul și încearcă din nou.' });
@@ -248,9 +330,15 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
   };
 
   const calculateTotal = () => {
-    const installationPrice = 1000;
     const productPrice = formData.selectedProduct?.price || 0;
-    return formData.hasOwnDevice ? installationPrice : (formData.selectedProduct?.priceWithInstallation || installationPrice);
+    const qty = formData.quantity || 1;
+    // Use dynamic installation price from API
+    const basePrice = formData.hasOwnDevice ? (installationPrice * qty) : ((formData.selectedProduct?.priceWithInstallation || installationPrice) * qty + (qty > 1 ? 0 : 0));
+    // Wait, if hasOwnDevice, it's installationPrice * qty.
+    // If buying product, it's priceWithInstallation * qty.
+    // Clarification: priceWithInstallation includes installation price.
+    // So simple multiplication is correct.
+    return formData.hasOwnDevice ? (installationPrice * qty) : ((formData.selectedProduct?.priceWithInstallation || 0) * qty);
   };
 
   return (
@@ -351,7 +439,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                     </div>
                   ) : (
                     <div className={`grid ${compact ? 'grid-cols-5 gap-1 mb-1' : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6'}`}>
-                      {(compact ? bookings.slice(0, 15) : bookings).map((day, index) => {
+                      {(compact && !expandedCalendar ? bookings.slice(0, 15) : bookings).map((day, index) => {
                         const status = getDayStatus(day);
                         const isSelected = formData.selectedDate && isSameDay(day.date, formData.selectedDate);
 
@@ -368,27 +456,25 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                               ${day.isAvailable ? 'hover:scale-[1.02]' : ''}
                             `}
                           >
-                            <div className={`${compact ? 'text-[9px] uppercase tracking-tighter' : 'text-xs'} font-bold mb-0 opacity-80`}>
+                            <span className={`font-bold ${compact ? 'text-xs' : 'text-lg'} ${isSelected ? 'text-cyan-700' : ''}`}>
+                              {format(day.date, 'd', { locale: ro })}
+                            </span>
+                            <span className={`text-[10px] uppercase ${compact ? 'block text-[9px] opacity-75' : 'block'} ${isSelected ? 'text-cyan-600' : 'text-gray-500'}`}>
                               {format(day.date, 'EEE', { locale: ro })}
-                            </div>
-                            <div className={`${compact ? 'text-lg' : 'text-2xl'} font-bold leading-none`}>
-                              {format(day.date, 'd')}
-                            </div>
-
-                            {!compact && (
-                              <div className="text-xs">
-                                {format(day.date, 'MMM', { locale: ro })}
-                              </div>
-                            )}
+                            </span>
                           </button>
                         );
                       })}
                     </div>
                   )}
                   {/* Expand Button if Compact */}
-                  {compact && (
-                    <button onClick={() => { }} className="w-full text-center text-[10px] text-cyan-600 font-bold hover:underline py-1">
-                      Vezi mai multe zile...
+                  {compact && !loading && (
+                    <button
+                      type="button"
+                      onClick={() => setExpandedCalendar(!expandedCalendar)}
+                      className="w-full text-center text-[10px] text-cyan-600 font-bold hover:underline py-1"
+                    >
+                      {expandedCalendar ? 'Vezi mai puține zile...' : 'Vezi mai multe zile...'}
                     </button>
                   )}
 
@@ -399,7 +485,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                       className={`bg-cyan-50 rounded border border-cyan-200 mt-1 ${compact ? 'p-1.5' : 'p-4'}`}
                     >
                       <div className="flex items-center gap-2 justify-center">
-                        <p className={`font-bold text-cyan-800 ${compact ? 'text-xs' : ''}`}>
+                        <p className={`font-bold text-cyan-800 ${compact ? 'text-xs' : ''} `}>
                           ✅ {format(formData.selectedDate, 'd MMMM', { locale: ro })}
                         </p>
                       </div>
@@ -442,7 +528,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           updateFormData('selectedProduct', null);
                         }}
                         className={`
-                          p-4 rounded-xl border-2 transition-all font-semibold
+                        p-4 rounded-xl border-2 transition-all font-semibold
                           ${formData.hasOwnDevice
                             ? 'border-cyan-600 bg-cyan-50 text-cyan-700'
                             : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
@@ -455,7 +541,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                       <button
                         onClick={() => updateFormData('hasOwnDevice', false)}
                         className={`
-                          p-4 rounded-xl border-2 transition-all font-semibold relative
+                        p-4 rounded-xl border-2 transition-all font-semibold relative
                           ${!formData.hasOwnDevice
                             ? 'border-cyan-600 bg-cyan-50 text-cyan-700'
                             : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
@@ -504,16 +590,17 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                       ) : (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {products.map((product) => (
-                            <button
+                            <div
+                              role="button"
                               key={product.id}
                               onClick={() => updateFormData('selectedProduct', product)}
                               className={`
-                              relative p-4 rounded-xl border-2 transition-all text-left
+                              relative p-4 rounded-xl border-2 transition-all text-left cursor-pointer
                               ${formData.selectedProduct?.id === product.id
                                   ? 'border-cyan-600 bg-cyan-50 ring-4 ring-cyan-200'
                                   : 'border-gray-200 bg-white hover:border-cyan-300 hover:shadow-lg'
                                 }
-                            `}
+                        `}
                             >
                               {product.badge && (
                                 <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
@@ -521,8 +608,12 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                                 </span>
                               )}
 
-                              <div className="aspect-square bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
-                                <Zap className="w-12 h-12 text-gray-400" />
+                              <div className="aspect-square bg-gray-100 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+                                {product.image ? (
+                                  <img src={product.image} alt={product.name} className="w-full h-full object-contain p-2" />
+                                ) : (
+                                  <Zap className="w-12 h-12 text-gray-400" />
+                                )}
                               </div>
 
                               <h3 className="font-bold text-gray-900 mb-1 text-sm">{product.name}</h3>
@@ -534,21 +625,63 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                               </div>
 
                               <div className="mb-2">
-                                <p className="text-xs text-gray-500 line-through">{product.price} RON</p>
-                                <p className="text-lg font-bold text-cyan-600">
-                                  {product.priceWithInstallation.toLocaleString()} RON
+                                <p className="text-xs text-gray-500 line-through">
+                                  {formData.selectedProduct?.id === product.id ? ((product.price || 0) * (formData.quantity || 1)).toLocaleString() : product.price} RON
                                 </p>
-                                <p className="text-xs text-green-700 font-semibold">
-                                  cu instalare inclusă
-                                </p>
-                              </div>
+                                <div className="text-xl font-bold text-cyan-600 mb-2">
+                                  {formData.selectedProduct?.id === product.id
+                                    ? ((product.priceWithInstallation || 0) * (formData.quantity || 1)).toLocaleString()
+                                    : product.priceWithInstallation?.toLocaleString()
+                                  } Lei
+                                  <span className="text-xs text-gray-400 font-normal block">
+                                    TVA inclus • Montaj Standard
+                                  </span>
+                                </div>
 
+                                {/* Quantity Selector inside Product Card if selected */}
+                                {formData.selectedProduct?.id === product.id && (
+                                  <div className="flex items-center gap-3 mb-4 bg-gray-50 p-2 rounded-lg" onClick={(e) => e.stopPropagation()}>
+                                    <span className="text-sm font-semibold text-gray-700">Cantitate:</span>
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        const newQty = Math.max(1, (formData.quantity || 1) - 1);
+                                        updateFormData({ quantity: newQty });
+                                      }}
+                                      className="w-8 h-8 flex items-center justify-center bg-white border border-gray-300 rounded hover:border-cyan-500 text-gray-800"
+                                    >-</button>
+                                    <span className="font-bold w-6 text-center text-gray-900">{formData.quantity || 1}</span>
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        const newQty = (formData.quantity || 1) + 1;
+                                        updateFormData({ quantity: newQty });
+                                      }}
+                                      className="w-8 h-8 flex items-center justify-center bg-white border border-gray-300 rounded hover:border-cyan-500 text-gray-800"
+                                    >+</button>
+                                  </div>
+                                )}
+                              </div>
                               {formData.selectedProduct?.id === product.id && (
                                 <div className="absolute -top-2 -left-2 w-8 h-8 bg-cyan-600 rounded-full flex items-center justify-center">
                                   <Check className="w-5 h-5 text-white" />
                                 </div>
                               )}
-                            </button>
+
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  updateFormData({ selectedProduct: product, hasOwnDevice: false, quantity: formData.quantity || 1 });
+                                  nextStep();
+                                }}
+                                className="w-full mt-2 py-2 bg-cyan-600 text-white rounded-lg font-semibold hover:bg-cyan-700 transition"
+                              >
+                                Selectează și Continuă
+                              </button>
+                            </div>
                           ))}
                         </div>
                       )}
@@ -561,68 +694,10 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                     </div>
                   )}
 
-                  {/* Room Type */}
-                  <div className="mb-6">
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      Tipul camerei
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                      {ROOM_TYPES.map((room) => (
-                        <button
-                          key={room.value}
-                          onClick={() => updateFormData('roomType', room.value)}
-                          className={`
-                            p-3 rounded-lg border-2 transition-all
-                            ${formData.roomType === room.value
-                              ? 'border-cyan-600 bg-cyan-50 text-cyan-700'
-                              : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
-                            }
-                          `}
-                        >
-                          <div className="text-2xl mb-1">{room.icon}</div>
-                          <div className="text-xs font-semibold">{room.label}</div>
-                        </button>
-                      ))}
-                    </div>
-                    {errors.roomType && (
-                      <p className="mt-2 text-sm text-red-600 flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4" />
-                        {errors.roomType}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Floor */}
-                  <div className="mb-6">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Etaj (opțional)
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.floor}
-                      onChange={(e) => updateFormData('floor', e.target.value)}
-                      placeholder="ex: Etaj 3"
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
-                    />
-                  </div>
-
-                  {/* Observations */}
-                  <div className="mb-6">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Observații (opțional)
-                    </label>
-                    <textarea
-                      value={formData.observations}
-                      onChange={(e) => updateFormData('observations', e.target.value)}
-                      placeholder="Detalii suplimentare despre instalare..."
-                      rows={3}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all resize-none"
-                    />
-                  </div>
                 </motion.div>
               )}
 
-              {/* STEP 3: Contact */}
+              {/* STEP 3: Contact + Detalii Locație */}
               {currentStep === 3 && (
                 <motion.div
                   key="step3"
@@ -649,7 +724,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="text"
                           value={formData.firstName}
                           onChange={(e) => updateFormData('firstName', e.target.value)}
-                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all ${errors.firstName ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.firstName ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                           placeholder="Ion"
                         />
@@ -668,7 +743,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="text"
                           value={formData.lastName}
                           onChange={(e) => updateFormData('lastName', e.target.value)}
-                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all ${errors.lastName ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.lastName ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                           placeholder="Popescu"
                         />
@@ -689,7 +764,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="tel"
                           value={formData.phone}
                           onChange={(e) => updateFormData('phone', e.target.value)}
-                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all ${errors.phone ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.phone ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                           placeholder="0712 345 678"
                         />
@@ -708,12 +783,78 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="email"
                           value={formData.email}
                           onChange={(e) => updateFormData('email', e.target.value)}
-                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all ${errors.email ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.email ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                           placeholder="ion.popescu@email.ro"
                         />
                       </div>
                       {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                    </div>
+                  </div>
+
+                  <div className="border-t pt-6 mb-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <Layers className="w-5 h-5 text-cyan-600" />
+                      Detalii Locație
+                    </h3>
+
+                    {/* Room Type */}
+                    <div className="mb-6">
+                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                        Tipul camerei *
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        {ROOM_TYPES.map((room) => (
+                          <button
+                            key={room.value}
+                            onClick={() => updateFormData('roomType', room.value)}
+                            className={`
+                        p-3 rounded-lg border-2 transition-all
+                            ${formData.roomType === room.value
+                                ? 'border-cyan-600 bg-cyan-50 text-cyan-700'
+                                : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                              }
+                        `}
+                          >
+                            <div className="text-2xl mb-1">{room.icon}</div>
+                            <div className="text-xs font-semibold">{room.label}</div>
+                          </button>
+                        ))}
+                      </div>
+                      {errors.roomType && (
+                        <p className="mt-2 text-sm text-red-600 flex items-center gap-2">
+                          <AlertCircle className="w-4 h-4" />
+                          {errors.roomType}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Floor & Observations */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Etaj (opțional)
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.floor}
+                          onChange={(e) => updateFormData('floor', e.target.value)}
+                          placeholder="ex: Etaj 3"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-900 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Observații (opțional)
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.observations}
+                          onChange={(e) => updateFormData('observations', e.target.value)}
+                          placeholder="Detalii..."
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-900 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -733,7 +874,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="text"
                           value={formData.street}
                           onChange={(e) => updateFormData('street', e.target.value)}
-                          className={`w-full px-4 py-3 border-2 rounded-lg transition-all ${errors.street ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full px-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.street ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                           placeholder="Strada Aviatorilor"
                         />
@@ -748,7 +889,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="text"
                           value={formData.number}
                           onChange={(e) => updateFormData('number', e.target.value)}
-                          className={`w-full px-4 py-3 border-2 rounded-lg transition-all ${errors.number ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full px-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.number ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                           placeholder="25"
                         />
@@ -765,7 +906,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="text"
                           value={formData.building}
                           onChange={(e) => updateFormData('building', e.target.value)}
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all text-gray-900"
                           placeholder="A1"
                         />
                       </div>
@@ -778,7 +919,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                           type="text"
                           value={formData.apartment}
                           onChange={(e) => updateFormData('apartment', e.target.value)}
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all text-gray-900"
                           placeholder="12"
                         />
                       </div>
@@ -790,12 +931,12 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                         <select
                           value={formData.sector}
                           onChange={(e) => updateFormData('sector', e.target.value)}
-                          className={`w-full px-4 py-3 border-2 rounded-lg transition-all ${errors.sector ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          className={`w-full px-4 py-3 border-2 rounded-lg transition-all text-gray-900 ${errors.sector ? 'border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             } focus:ring-4 focus:ring-cyan-100`}
                         >
                           <option value="">Alege</option>
                           {[1, 2, 3, 4, 5, 6].map(s => (
-                            <option key={s} value={`Sector ${s}`}>Sector {s}</option>
+                            <option key={s} value={`Sector ${s} `}>Sector {s}</option>
                           ))}
                           <option value="Ilfov">Ilfov</option>
                         </select>
@@ -811,7 +952,7 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                         type="text"
                         value={formData.intercom}
                         onChange={(e) => updateFormData('intercom', e.target.value)}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all text-gray-900"
                         placeholder="Cod interfon sau nume"
                       />
                     </div>
@@ -858,142 +999,131 @@ export default function BookingWizard({ compact = false }: { compact?: boolean }
                         <p className="text-gray-700">Instalare aer condiționat (aparat propriu)</p>
                       ) : (
                         <>
-                          <p className="text-gray-700 font-semibold">{formData.selectedProduct?.name}</p>
-                          <p className="text-sm text-gray-600">Include instalare completă</p>
+                          <div className="text-center mb-8">
+                            <div className="w-16 h-16 bg-blue-50 text-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                              <Shield className="w-8 h-8" />
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                              Sumar Programare
+                            </h2>
+                            <p className="text-gray-600">
+                              Verifică detaliile și confirmă programarea.
+                            </p>
+                          </div>
+
+                          <div className="bg-gray-50 rounded-xl p-6 mb-6">
+                            <h3 className="font-bold text-gray-900 mb-4 border-b pb-2">Detalii Comandă</h3>
+
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-gray-600">Dată Instalare:</span>
+                              <span className="font-bold text-gray-900">
+                                {formData.selectedDate && format(formData.selectedDate, 'dd MMMM yyyy', { locale: ro })}
+                              </span>
+                            </div>
+
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-gray-600">Aparat:</span>
+                              <span className="font-bold text-gray-900 text-right">
+                                {formData.hasOwnDevice ? 'Am deja aparat' : formData.selectedProduct?.name}
+                              </span>
+                            </div>
+
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-gray-600">Locație:</span>
+                              <span className="font-bold text-gray-900 text-right">
+                                {ROOM_TYPES.find(r => r.value === formData.roomType)?.label || formData.roomType}
+                                {formData.floor && `, ${formData.floor} `}
+                              </span>
+                            </div>
+
+                            <div className="border-t pt-3 mt-3 flex justify-between items-center text-lg">
+                              <span className="font-bold text-gray-900">Total Estimativ:</span>
+                              <span className="font-bold text-cyan-600">
+                                {calculateTotal().toLocaleString()} RON
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Terms & GDPR */}
+                          <div className="mb-8 space-y-3">
+                            <label className="flex items-start gap-3 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                              <div className={`
+                        w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 mt-0.5
+                        ${formData.gdprAccepted ? 'bg-cyan-600 border-cyan-600' : 'border-gray-300'}
+                        `}>
+                                {formData.gdprAccepted && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                              <input
+                                type="checkbox"
+                                className="hidden"
+                                checked={formData.gdprAccepted}
+                                onChange={(e) => updateFormData('gdprAccepted', e.target.checked)}
+                              />
+                              <span className="text-sm text-gray-600">
+                                Sunt de acord cu <a href="/termeni" className="text-cyan-600 hover:underline">Termenii și Condițiile</a> și prelucrarea datelor personale.
+                              </span>
+                            </label>
+                            {errors.gdprAccepted && (
+                              <p className="text-sm text-red-600 flex items-center gap-2 pl-2">
+                                <AlertCircle className="w-4 h-4" />
+                                {errors.gdprAccepted}
+                              </p>
+                            )}
+
+                            <label className="flex items-start gap-3 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                              <div className={`
+                        w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 mt-0.5
+                        ${formData.marketingAccepted ? 'bg-cyan-600 border-cyan-600' : 'border-gray-300'}
+                        `}>
+                                {formData.marketingAccepted && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                              <input
+                                type="checkbox"
+                                className="hidden"
+                                checked={formData.marketingAccepted}
+                                onChange={(e) => updateFormData('marketingAccepted', e.target.checked)}
+                              />
+                              <span className="text-sm text-gray-600">
+                                Doresc să primesc oferte speciale și noutăți pe email (opțional).
+                              </span>
+                            </label>
+                          </div>
                         </>
                       )}
-                      <p className="text-sm text-gray-600 mt-1">
-                        Camera: {ROOM_TYPES.find(r => r.value === formData.roomType)?.label}
-                        {formData.floor && ` • ${formData.floor}`}
-                      </p>
-                    </div>
-
-                    {/* Contact */}
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                        <User className="w-5 h-5 text-cyan-600" />
-                        Date Contact
-                      </h3>
-                      <p className="text-gray-700">{formData.firstName} {formData.lastName}</p>
-                      <p className="text-sm text-gray-600">{formData.phone}</p>
-                      <p className="text-sm text-gray-600">{formData.email}</p>
-                    </div>
-
-                    {/* Address */}
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-cyan-600" />
-                        Adresa Instalării
-                      </h3>
-                      <p className="text-gray-700">
-                        {formData.street} {formData.number}
-                        {formData.building && `, Bl. ${formData.building}`}
-                        {formData.apartment && `, Ap. ${formData.apartment}`}
-                      </p>
-                      <p className="text-sm text-gray-600">{formData.sector}, București</p>
-                    </div>
-
-                    {/* Total */}
-                    <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl border-2 border-cyan-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-lg font-semibold text-gray-900">Total de plată:</span>
-                        <span className="text-3xl font-bold text-cyan-600">{calculateTotal().toLocaleString()} RON</span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        {formData.hasOwnDevice
-                          ? 'Include: Kit instalare 3m + Manoperă + Garanție montaj'
-                          : 'Include: Aparat + Kit instalare 3m + Manoperă + Garanție montaj'
-                        }
-                      </p>
                     </div>
                   </div>
-
-                  {/* GDPR */}
-                  <div className="space-y-3 mb-6">
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.gdprAccepted}
-                        onChange={(e) => updateFormData('gdprAccepted', e.target.checked)}
-                        className="mt-1 w-5 h-5 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
-                      />
-                      <span className="text-sm text-gray-700">
-                        Accept <a href="/termeni" className="text-cyan-600 hover:underline">termenii și condițiile</a> și <a href="/confidentialitate" className="text-cyan-600 hover:underline">politica de confidențialitate</a> *
-                      </span>
-                    </label>
-                    {errors.gdprAccepted && (
-                      <p className="text-sm text-red-600 flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4" />
-                        {errors.gdprAccepted}
-                      </p>
-                    )}
-
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.marketingAccepted}
-                        onChange={(e) => updateFormData('marketingAccepted', e.target.checked)}
-                        className="mt-1 w-5 h-5 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
-                      />
-                      <span className="text-sm text-gray-700">
-                        Doresc să primesc oferte și promoții pe email
-                      </span>
-                    </label>
-                  </div>
-
-                  {errors.submit && (
-                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                      <p className="text-sm text-red-700 flex items-center gap-2">
-                        <AlertCircle className="w-5 h-5" />
-                        {errors.submit}
-                      </p>
-                    </div>
-                  )}
                 </motion.div>
               )}
             </AnimatePresence>
 
             {/* Navigation Buttons */}
-            <div className="flex items-center justify-between mt-8 pt-6 border-t">
-              {currentStep > 1 ? (
+            <div className="flex justify-between mt-8 pt-6 border-t">
+              {currentStep > 1 && (
                 <button
                   onClick={prevStep}
-                  className="flex items-center gap-2 px-6 py-3 text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+                  className="px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-bold hover:bg-gray-50 transition-all flex items-center gap-2"
                 >
                   <ChevronLeft className="w-5 h-5" />
                   Înapoi
                 </button>
-              ) : (
-                <div />
               )}
 
-              {currentStep < 4 ? (
-                <button
-                  onClick={nextStep}
-                  className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-xl"
-                >
-                  Continuă
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  disabled={submitting}
-                  className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-lg hover:from-green-600 hover:to-emerald-600 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {submitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Se trimite...
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle2 className="w-5 h-5" />
-                      Finalizează Comanda
-                    </>
-                  )}
-                </button>
-              )}
+              <button
+                onClick={currentStep === 4 ? handleSubmit : nextStep}
+                disabled={submitting}
+                className={`
+                        px-8 py-3 rounded-xl bg-cyan-600 text-white font-bold hover:bg-cyan-500 transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/20 ml-auto
+                          ${submitting ? 'opacity-70 cursor-not-allowed' : ''}
+                        `}
+              >
+                {submitting ? (
+                  <>Se trimite...</>
+                ) : currentStep === 4 ? (
+                  <>Confirmă Programarea <CheckCircle2 className="w-5 h-5" /></>
+                ) : (
+                  <>Pasul Următor <ChevronRight className="w-5 h-5" /></>
+                )}
+              </button>
             </div>
           </motion.div>
 

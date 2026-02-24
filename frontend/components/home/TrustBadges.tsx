@@ -1,12 +1,12 @@
 'use client';
 
-import { Truck, Shield, Headphones, RotateCcw } from 'lucide-react';
+import { Truck, Shield, Headphones, Wrench } from 'lucide-react';
 
 const badges = [
   {
     icon: Truck,
-    title: 'Livrare gratuita',
-    subtitle: 'pentru comenzi mai mari de 1000 LEI cu exceptia produselor care necesita transport special',
+    title: 'Livrare gratuită București & Ilfov',
+    subtitle: '*Pentru aparatele instalate de noi',
   },
   {
     icon: Shield,
@@ -18,8 +18,9 @@ const badges = [
     title: 'Suport telefonic si online',
   },
   {
-    icon: RotateCcw,
-    title: '30 de zile drept de retur',
+    icon: Wrench,
+    title: 'Instalare Profesională',
+    subtitle: 'Montaj rapid și curat',
   },
 ];
 

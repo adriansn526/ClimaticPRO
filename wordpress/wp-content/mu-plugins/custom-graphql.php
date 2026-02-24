@@ -82,13 +82,54 @@ add_action( 'graphql_register_types', function() {
         'type' => 'BannerSettings',
         'resolve' => function( $post ) {
             if ( function_exists('get_field') ) {
-                // Try typical field names if exact key is unknown
                 $data = get_field('banner_settings', $post->ID);
                 if ( ! $data ) $data = get_field('settings', $post->ID);
-                
                 return $data;
             }
             return null;
+        }
+    ]);
+
+    // MANUALLY REGISTER BANNERE SLOTS (Alternative Fix)
+    register_graphql_object_type( 'BannereSlots', [
+        'description' => 'Manual Slots for Banners',
+        'fields' => [
+            'heroImage1' => [ 'type' => 'MediaItem' ],
+            'heroImage2' => [ 'type' => 'MediaItem' ],
+            'heroImage3' => [ 'type' => 'MediaItem' ],
+            'heroImage4' => [ 'type' => 'MediaItem' ],
+            'heroImage5' => [ 'type' => 'MediaItem' ],
+            'isActive' => [ 'type' => 'Boolean' ],
+        ]
+    ]);
+
+    register_graphql_field( 'Banner', 'bannereSlots', [
+        'type' => 'BannereSlots',
+        'resolve' => function( $post ) {
+            $resolve_image = function($field_name, $post_id) {
+                $img = get_field($field_name, $post_id);
+                $id = is_array($img) ? ($img['ID'] ?? null) : $img;
+                
+                if ( ! $id ) return null;
+
+                $post_object = get_post($id);
+                if ( ! $post_object ) return null;
+
+                // Return Model
+                if ( class_exists( '\WPGraphQL\Model\Post' ) ) {
+                    return new \WPGraphQL\Model\Post( $post_object );
+                }
+                return null;
+            };
+
+            return [
+                'heroImage1' => $resolve_image('hero_image_1', $post->ID),
+                'heroImage2' => $resolve_image('hero_image_2', $post->ID),
+                'heroImage3' => $resolve_image('hero_image_3', $post->ID),
+                'heroImage4' => $resolve_image('hero_image_4', $post->ID),
+                'heroImage5' => $resolve_image('hero_image_5', $post->ID),
+                'isActive'   => get_field('is_active', $post->ID),
+            ];
         }
     ]);
 }, 100);
