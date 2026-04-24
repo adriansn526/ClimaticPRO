@@ -4,9 +4,11 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import NextImage from 'next/image';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { usePostHog } from 'posthog-js/react';
 
 export default function Footer() {
   const t = useTranslations('common');
+  const posthog = usePostHog();
 
   const currentYear = new Date().getFullYear();
 
@@ -73,15 +75,15 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  <a href="tel:+40316300101" className="hover:text-primary-400 transition-colors">
-                    +40 316 300 101
+                  <a href="tel:+40316060050" onClick={() => posthog?.capture('phone_number_clicked', { source: 'footer' })} className="hover:text-primary-400 transition-colors">
+                    +40 316 060 050
                   </a>
                   <p className="text-xs text-gray-400">Luni - Vineri: 9:00 - 18:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
-                <a href="mailto:contact@climaticpro.ro" className="hover:text-primary-400 transition-colors">
+                <a href="mailto:contact@climaticpro.ro" onClick={() => posthog?.capture('email_link_clicked', { source: 'footer' })} className="hover:text-primary-400 transition-colors">
                   contact@climaticpro.ro
                 </a>
               </li>
@@ -100,10 +102,10 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
             <p>© {currentYear} ClimaticPro. Toate drepturile rezervate.</p>
             <div className="flex gap-6">
-              <Link href="/returnari" className="hover:text-primary-400 transition-colors">Politica de Retur</Link>
-              <Link href="/termeni" className="hover:text-primary-400 transition-colors">Termeni și Condiții</Link>
-              <Link href="/confidentialitate" className="hover:text-primary-400 transition-colors">Politică de Confidențialitate</Link>
-              <Link href="/gdpr" className="hover:text-primary-400 transition-colors">GDPR</Link>
+              <Link href="/returnari" onClick={() => posthog?.capture('footer_link_clicked', { link_text: 'Politica de Retur' })} className="hover:text-primary-400 transition-colors">Politica de Retur</Link>
+              <Link href="/termeni" onClick={() => posthog?.capture('footer_link_clicked', { link_text: 'Termeni și Condiții' })} className="hover:text-primary-400 transition-colors">Termeni și Condiții</Link>
+              <Link href="/confidentialitate" onClick={() => posthog?.capture('footer_link_clicked', { link_text: 'Politică de Confidențialitate' })} className="hover:text-primary-400 transition-colors">Politică de Confidențialitate</Link>
+              <Link href="/gdpr" onClick={() => posthog?.capture('footer_link_clicked', { link_text: 'GDPR' })} className="hover:text-primary-400 transition-colors">GDPR</Link>
             </div>
           </div>
         </div>

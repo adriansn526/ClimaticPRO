@@ -29,19 +29,18 @@ export function extractProductSpecs(product: WooCommerceProduct): ProductSpecs {
       attr.name.toLowerCase().includes('energy') ||
       attr.name.toLowerCase().includes('clasa')
   );
-  if (energyAttr && energyAttr.options.length > 0) {
-    let rawClass = energyAttr.options[0];
-    // Fix slug-like values
-    if (rawClass === 'a-a-3') energyClass = 'A+++';
-    else if (rawClass === 'a-a-2') energyClass = 'A++';
-    else if (rawClass === 'a-a-1' || rawClass === 'a-a') energyClass = 'A+';
-    else energyClass = rawClass.replace('plus', '+').toUpperCase();
+  if (energyAttr) {
+    if (energyAttr.terms?.nodes && energyAttr.terms.nodes.length > 0) {
+      energyClass = energyAttr.terms.nodes[0].name.toUpperCase();
+    } else if (energyAttr.options && energyAttr.options.length > 0) {
+      let rawClass = energyAttr.options[0];
+      energyClass = formatAttributeValue(rawClass);
+    }
   }
-
 
   // If not in attributes, try to extract from name or description
   if (!energyClass) {
-    const energyMatch = (name + ' ' + shortDesc).match(/\b(A\+{1,3}|A|B|C|D)\b/);
+    const energyMatch = (name + ' ' + shortDesc).match(/\b(A\+{1,3}|A\+{1,3}\s*\/\s*A\+{1,3}|A|B|C|D)\b/);
     if (energyMatch) {
       energyClass = energyMatch[1];
     }
@@ -193,9 +192,12 @@ export function formatAttributeValue(value: string): string {
   const v = value.toLowerCase().trim();
 
   // Energy classes
-  if (v === 'a-a-3' || v === 'a-plus-plus-plus') return 'A+++';
-  if (v === 'a-a-2' || v === 'a-plus-plus') return 'A++';
-  if (v === 'a-a-1' || v === 'a-plus' || v === 'a-a') return 'A+';
+  if (v === 'a-a-3') return 'A+++ / A++';
+  if (v === 'a-a-2') return 'A++ / A+';
+  if (v === 'a-a') return 'A+++ / A+++';
+  if (v === 'a-plus-plus-plus') return 'A+++';
+  if (v === 'a-plus-plus' || v === 'a') return 'A++';
+  if (v === 'a-a-1' || v === 'a-plus') return 'A+';
   if (v === 'b' || v === 'c' || v === 'd' || v === 'e' || v === 'f' || v === 'g') return value.toUpperCase();
 
   // Boolean-ish

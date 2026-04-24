@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createWooCommerceOrder } from '@/lib/woocommerce';
 import { sendOrderConfirmationEmail } from '@/lib/email';
+import { getPostHogClient } from '@/lib/posthog-server';
 
 export async function POST(request: Request) {
     try {
@@ -73,8 +74,8 @@ export async function POST(request: Request) {
 
         // Construct WooCommerce Order Payload
         const orderPayload = {
-            payment_method: paymentMethod === 'cash' ? 'cod' : 'bacs', // cod = Cash on Delivery, bacs = Direct Bank Transfer
-            payment_method_title: paymentMethod === 'cash' ? 'Plata la Livrare' : 'Transfer Bancar',
+            payment_method: paymentMethod === 'cash' ? 'cod' : paymentMethod === 'transfer' ? 'bacs' : 'netopia',
+            payment_method_title: paymentMethod === 'cash' ? 'Plata la Livrare' : paymentMethod === 'transfer' ? 'Transfer Bancar' : 'Plata Online cu Cardul',
             set_paid: false,
             billing,
             shipping,
@@ -83,17 +84,20 @@ export async function POST(request: Request) {
             customer_note: notes || ''
         };
 
-        // If payment is card, we might need other logic, but for now we set it as Pending
         if (paymentMethod === 'card') {
-            // Placeholder: usually you redirect to Stripe/Netopia here.
-            // For now, treat as order created but pending payment.
-            orderPayload.payment_method = 'card';
-            orderPayload.payment_method_title = 'Card Bancar';
+             orderPayload.meta_data.push({ key: '_hardware_total', value: String(body.hardwareTotal || 0) });
+             orderPayload.meta_data.push({ key: '_service_total', value: String(body.serviceTotal || 0) });
+             orderPayload.customer_note += `\n[NOTE: Plata Card pentru echipamente: ${body.hardwareTotal} RON. De încasat cash la instalare: ${body.serviceTotal} RON.]`;
         }
 
         const result = await createWooCommerceOrder(orderPayload);
 
         if (result.success) {
+            // Generate payment URL if card was selected
+            let paymentUrl = null;
+            if (paymentMethod === 'card') {
+                paymentUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://climaticpro.ro'}/api/order/pay/${result.order.id}`;
+            }
             // Send confirmation email
             await sendOrderConfirmationEmail({
                 orderId: result.order.id,
@@ -111,10 +115,28 @@ export async function POST(request: Request) {
                 isInstallationOnly: false
             });
 
+            const posthog = getPostHogClient();
+            posthog.capture({
+                distinctId: email,
+                event: 'order_created',
+                properties: {
+                    order_id: result.order.id,
+                    total: parseFloat(result.order.total || '0'),
+                    currency: 'RON',
+                    payment_method: paymentMethod,
+                    shipping_method: shippingMethod,
+                    person_type: personType,
+                    item_count: items.length,
+                    source: 'api',
+                },
+            });
+            await posthog.shutdown();
+
             return NextResponse.json({
                 success: true,
                 orderId: result.order.id,
                 wooOrderId: result.order.id,
+                paymentUrl: paymentUrl,
                 message: 'Order created successfully'
             });
         } else {

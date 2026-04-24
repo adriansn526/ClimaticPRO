@@ -26,7 +26,7 @@ export async function getWooCommerceOrders(params: any = {}) {
                 'Host': 'cms.climaticpro.ro',
                 'X-Forwarded-Proto': 'https'
             },
-            next: { revalidate: 60 } // Cache 60s
+            next: { revalidate: 60, tags: ['woo-orders'] } // Cache 60s, tagged for on-demand revalidation
         });
 
         if (!response.ok) {
@@ -65,6 +65,33 @@ export async function updateWooCommerceOrder(orderId: number, data: any) {
         return json;
     } catch (error) {
         console.error(`Error updating order ${orderId}:`, error);
+        throw error;
+    }
+}
+
+export async function deleteWooCommerceOrder(orderId: number) {
+    try {
+        const baseUrl = getBaseUrl();
+        const auth = getAuthParams();
+        const url = `${baseUrl}/wc/v3/orders/${orderId}?${auth}`;
+
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Host': 'cms.climaticpro.ro',
+                'X-Forwarded-Proto': 'https'
+            }
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(json.message || 'Delete failed');
+        }
+
+        return json;
+    } catch (error) {
+        console.error(`Error deleting order ${orderId}:`, error);
         throw error;
     }
 }

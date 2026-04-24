@@ -3,12 +3,37 @@ import { getPrisma } from '@/lib/prisma';
 
 const prisma = getPrisma();
 
+// GET: Single Supplier Details
+export async function GET(request: Request, context: { params: Promise<{ id: string }> }) {
+    try {
+        const { id } = await context.params;
+        const supplier = await prisma.supplier.findUnique({
+            where: { id: parseInt(id) },
+            include: {
+                products: {
+                    include: { product: true }
+                },
+                unmapped: {
+                    orderBy: { lastScrapedAt: 'desc' }
+                }
+            }
+        });
+
+        if (!supplier) {
+            return NextResponse.json({ success: false, error: 'Furnizorul nu există' }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, supplier });
+    } catch (e) {
+        return NextResponse.json({ success: false, error: 'Failed' }, { status: 500 });
+    }
+}
+
 // PUT: Update Supplier
 export async function PUT(request: Request, context: { params: Promise<{ id: string }> }) {
     try {
         const { id } = await context.params;
         const body = await request.json();
-        const { name, cui, contact, phone, email, address, active } = body;
+        const { name, cui, contact, phone, email, address, active, websiteUrl, crawlerConfig, defaultMarginValue, defaultMarginType, supplierRole, competitorUndercut } = body;
 
         const updated = await prisma.supplier.update({
             where: { id: parseInt(id) },
@@ -19,7 +44,13 @@ export async function PUT(request: Request, context: { params: Promise<{ id: str
                 phone,
                 email,
                 address,
-                active
+                websiteUrl,
+                crawlerConfig,
+                active,
+                supplierRole: supplierRole || "CORE",
+                competitorUndercut: competitorUndercut !== undefined && competitorUndercut !== '' ? parseFloat(competitorUndercut) : 0.50,
+                defaultMarginValue: defaultMarginValue !== undefined && defaultMarginValue !== '' ? parseFloat(defaultMarginValue) : null,
+                defaultMarginType: defaultMarginType || "PERCENT"
             }
         });
 

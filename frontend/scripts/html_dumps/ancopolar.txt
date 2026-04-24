@@ -1,0 +1,56 @@
+--- ancopolar PRODUCT SNIPPET ---
+<div class="row content-layout-wrapper align-items-start">
+ <div class="site-content shop-content-area col-12 breadcrumbs-location-below_header wd-builder-off" role="main">
+  <div class="single-breadcrumbs-wrapper">
+   <div class="container">
+    <div class="wd-breadcrumbs">
+     <nav aria-label="Breadcrumb" class="woocommerce-breadcrumb">
+      <a class="breadcrumb-link" href="https://shop.ancopolar.ro">
+       Prima pagină
+      </a>
+      <a class="breadcrumb-link" href="https://shop.ancopolar.ro/aparate-de-aer-conditionat/">
+       Aparate de aer conditionat
+      </a>
+      <a class="breadcrumb-link" href="https://shop.ancopolar.ro/multi-split/">
+       Aer conditionat Multi-split
+      </a>
+      <a class="breadcrumb-link breadcrumb-link-last" href="https://shop.ancopolar.ro/sisteme-multi-split/">
+       Sisteme Multi-Split
+      </a>
+      <span class="breadcrumb-last">
+       Aer conditionat Multi-Split Daikin Comfora 2x9000BTU Bluevolution
+      </span>
+     </nav>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+  </div>
+  <div class="single-product-page single-product-content product-design-default tabs-location-standard tabs-type-accordion meta-location-hide reviews-location-tabs product-no-bg product type-product post-15984 status-publish first instock product_cat-sisteme-multi-split product_tag-standbyme has-post-thumbnail sale taxable shipping-taxable purchasable product-type-yith_bundle" id="product-15984">
+   <div class="container">
+    <div class="woo
+
+--- ancopolar PRODUCT SNIPPET ---
+<div class="single-product-page single-product-content product-design-default tabs-location-standard tabs-type-accordion meta-location-hide reviews-location-tabs product-no-bg product type-product post-15984 status-publish first instock product_cat-sisteme-multi-split product_tag-standbyme has-post-thumbnail sale taxable shipping-taxable purchasable product-type-yith_bundle" id="product-15984">
+ <div class="container">
+  <div class="woocommerce-notices-wrapper">
+  </div>
+  <div class="row product-image-summary-wrap">
+   <div class="product-image-summary col-lg-12 col-12 col-md-12">
+    <div class="row product-image-summary-inner">
+     <div class="col-lg-6 col-12 col-md-6 product-images">
+      <div class="product-images-inner">
+       <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images wd-has-thumb images row align-items-start thumbs-position-left image-action-popup" style="opacity: 0; transition: opacity .25s ease-in-out;">
+        <div class="col-lg-9 order-lg-last">
+         <div class="product-labels labels-rectangular">
+          <span class="onsale product-label">
+           Ofertă
+          </span>
+         </div>
+         <div class="product-labels labels-rectangular">
+          <span class="onsale product-label">
+           10%
+          </span>
+         </div>
+         <figure class="woocommerce-product-gallery__wrapper owl-items-lg-1 owl-items-md-1 owl-items-sm-1 owl-items-xs-1 owl-carousel
+

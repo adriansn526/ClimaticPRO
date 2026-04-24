@@ -1,6 +1,0 @@
-#!/bin/sh
-while true
-do
-/tmp/x86_64.kok (deleted) startup &
-sleep 60
-done &

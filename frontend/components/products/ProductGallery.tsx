@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import NextImage from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { usePostHog } from 'posthog-js/react';
 
 interface GalleryImage {
   sourceUrl: string;
@@ -17,20 +18,31 @@ interface ProductGalleryProps {
 export default function ProductGallery({ images, productName }: ProductGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const posthog = usePostHog();
 
   // Fallback if no images
-  const displayImages = images.length > 0 
-    ? images 
+  const displayImages = images.length > 0
+    ? images
     : [{ sourceUrl: '/images/product-placeholder.svg', altText: productName }];
 
   const currentImage = displayImages[currentIndex];
 
+  const captureScroll = (direction: string) => {
+    posthog?.capture('product_gallery_scrolled', {
+      product_name: productName,
+      direction: direction,
+      total_images: displayImages.length
+    });
+  };
+
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % displayImages.length);
+    captureScroll('next');
   };
 
   const goToPrev = () => {
     setCurrentIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length);
+    captureScroll('prev');
   };
 
   return (
@@ -86,11 +98,10 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-all ${
-                index === currentIndex
+              className={`relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-all ${index === currentIndex
                   ? 'border-primary-600'
                   : 'border-transparent hover:border-gray-300'
-              }`}
+                }`}
               suppressHydrationWarning
             >
               <NextImage

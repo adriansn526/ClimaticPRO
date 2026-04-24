@@ -15,6 +15,7 @@ import {
   Headphones
 } from 'lucide-react';
 import { WooCommerceCategory, WooCommerceBrand, WooCommerceAttribute } from '@/lib/woocommerce';
+import { usePostHog } from 'posthog-js/react';
 
 interface MegaMenuProps {
   alwaysOpen?: boolean;
@@ -40,6 +41,7 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
   const [isOpen, setIsOpen] = useState(alwaysOpen);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<WooCommerceCategory | null>(null);
+  const posthog = usePostHog();
 
   // Filter out 'Uncategorized'
   const displayCategories = categories.filter(c => c.slug !== 'uncategorized');
@@ -52,7 +54,7 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
       {/* Trigger Button */}
       <button
         onClick={() => !alwaysOpen && setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-6 py-3 bg-white text-gray-800 font-semibold hover:bg-gray-50 transition-colors rounded-lg shadow-sm border border-gray-200"
+        className="flex items-center gap-2 px-6 py-3 bg-white text-gray-800 font-semibold hover:bg-gray-50 transition-colors rounded-lg shadow-sm border border-gray-200 whitespace-nowrap"
         suppressHydrationWarning
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +96,11 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
                     >
                       <div className="flex items-center gap-3">
                         <Icon className={`w-5 h-5 ${isHovered ? 'text-primary-600' : 'text-gray-500'}`} />
-                        <Link href={`/produse?category=${category.slug}`} className="text-sm font-medium flex-1">
+                        <Link
+                          href={`/produse?category=${category.slug}`}
+                          onClick={() => posthog?.capture('mega_menu_category_clicked', { category: category.name, location: 'sidebar' })}
+                          className="text-sm font-medium flex-1"
+                        >
                           {category.name}
                         </Link>
                       </div>
@@ -139,7 +145,10 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
                                 key={sub.id}
                                 href={`/produse?category=${sub.slug}`}
                                 className="block text-gray-700 hover:text-primary-600 hover:translate-x-1 transition-all"
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                  setIsOpen(false);
+                                  posthog?.capture('mega_menu_category_clicked', { category: sub.name, location: 'subcategory' });
+                                }}
                               >
                                 {sub.name}
                                 {sub.count > 0 && <span className="text-xs text-gray-400 ml-2">({sub.count})</span>}
@@ -160,7 +169,10 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
                                 key={cap.id || cap.slug}
                                 href={`/produse?category=${activeCat.slug}&pa_capacitate=${cap.slug}`}
                                 className="block px-3 py-2 rounded-lg bg-gray-50 hover:bg-primary-50 hover:text-primary-700 text-sm transition-colors text-gray-700 font-medium"
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                  setIsOpen(false);
+                                  posthog?.capture('mega_menu_category_clicked', { category: cap.name, location: 'capacity_filter' });
+                                }}
                               >
                                 {cap.name}
                               </Link>
@@ -179,7 +191,10 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
                                 key={cl.id || cl.slug}
                                 href={`/produse?category=${activeCat.slug}&pa_clasa_energie=${cl.slug}`}
                                 className="flex items-center justify-between px-3 py-2 rounded-lg bg-gray-50 hover:bg-green-50 hover:text-green-700 text-sm transition-colors text-gray-700 font-medium"
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                  setIsOpen(false);
+                                  posthog?.capture('mega_menu_category_clicked', { category: cl.name, location: 'energy_class_filter' });
+                                }}
                               >
                                 <span>{cl.name}</span>
                                 {cl.name.includes('A+++') && <Shield className="w-3 h-3 text-green-600" />}
@@ -199,7 +214,10 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
                                 key={brand.id || brand.slug}
                                 href={`/produse?category=${activeCat.slug}&pa_brand=${brand.slug}`}
                                 className="flex flex-col items-center justify-center p-3 rounded-lg border border-gray-100 hover:border-primary-500 hover:shadow-sm transition-all bg-white group text-center h-20"
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                  setIsOpen(false);
+                                  posthog?.capture('mega_menu_category_clicked', { category: brand.name, location: 'brand_filter' });
+                                }}
                               >
                                 {brand.brandImage ? (
                                   <img src={brand.brandImage} alt={brand.name} className="h-6 object-contain mb-1 opacity-80 group-hover:opacity-100 transition-opacity" />
@@ -226,7 +244,10 @@ export default function MegaMenu({ alwaysOpen = false, categories = [], brands =
                             key={sub.id}
                             href={`/produse?category=${sub.slug}`}
                             className="p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-primary-300 hover:shadow-md transition-all font-medium text-gray-800"
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                              setIsOpen(false);
+                              posthog?.capture('mega_menu_category_clicked', { category: sub.name, location: 'subcategory_fallback' });
+                            }}
                           >
                             {sub.name}
                           </Link>

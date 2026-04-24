@@ -3,12 +3,21 @@ import { getPrisma } from '@/lib/prisma';
 
 const prisma = getPrisma();
 
-// GET: List all suppliers
+export const dynamic = 'force-dynamic';
+
+// GET: List all suppliers with relation bounds
 export async function GET(request: Request) {
     try {
         const suppliers = await prisma.supplier.findMany({
-            orderBy: {
-                name: 'asc'
+            orderBy: { name: 'asc' },
+            include: {
+                _count: {
+                    select: { products: true, unmapped: true }
+                },
+                scraperJobs: {
+                    orderBy: { updatedAt: 'desc' },
+                    take: 1
+                }
             }
         });
         return NextResponse.json({ success: true, suppliers });
@@ -22,7 +31,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { name, cui, contact, phone, email, address } = body;
+        const { name, cui, contact, phone, email, address, websiteUrl, crawlerConfig, defaultMarginValue, defaultMarginType, supplierRole, competitorUndercut } = body;
 
         if (!name) {
             return NextResponse.json({ success: false, message: 'Missing Name' }, { status: 400 });
@@ -36,7 +45,13 @@ export async function POST(request: Request) {
                 phone,
                 email,
                 address,
-                active: true
+                websiteUrl,
+                crawlerConfig: crawlerConfig ? crawlerConfig : {},
+                active: true,
+                supplierRole: supplierRole || "CORE",
+                competitorUndercut: competitorUndercut !== undefined && competitorUndercut !== '' ? parseFloat(competitorUndercut) : 0.50,
+                defaultMarginValue: defaultMarginValue !== undefined && defaultMarginValue !== '' ? parseFloat(defaultMarginValue) : 10,
+                defaultMarginType: defaultMarginType || "PERCENT"
             }
         });
 

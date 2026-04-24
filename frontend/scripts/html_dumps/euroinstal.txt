@@ -1,0 +1,28 @@
+NO PRODUCTS FOUND. HTML SNAPSHOT:
+
+<!doctype html>
+<html class="use-header8" lang="ro">
+    <head >
+        <script>
+	var BASE_URL = WEB_URL = 'https://euro-instal.ro/';
+	var RTL = false;
+    var require = {
+        "baseUrl": "https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO"
+    };
+        var CATALOG_CHECK = 0;
+        </script>
+        <meta charset="utf-8"/>
+<meta name="title" content="404 Not Found"/>
+<meta name="description" content="Page description"/>
+<meta name="keywords" content="Page keywords"/>
+<meta name="robots" content="NOINDEX,NOFOLLOW"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+<title>404 Not Found</title>
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/mage/calendar.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/Amasty_Base/vendor/slick/amslick.min.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/MGS_Lookbook/css/styles.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/MGS_Mmegamenu/css/megamenu.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/MGS_Promobanners/css/promobanners.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/Magefan_Blog/css/blog-m.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/Magefan_Blog/css/blog-custom.css" />
+<link  rel="stylesheet" type="text/css"  media="all" href="https://euro-instal.ro/static/version1772139389/frontend/Mgs/claue/ro_RO/Meetanshi_CookieNotice/cs

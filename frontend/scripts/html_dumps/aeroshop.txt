@@ -1,0 +1,54 @@
+--- aeroshop PRODUCT SNIPPET ---
+<div class="search_widget_block stsearchbar_builder top_bar_item">
+ <div class="search_widget" data-search-controller-url="//aero-shop.ro/cautare">
+  <form action="//aero-shop.ro/cautare" class="search_widget_form" method="get">
+   <input name="controller" type="hidden" value="search"/>
+   <div class="search_widget_form_inner input-group round_item js-parent-focus input-group-with-border">
+    <input class="form-control search_widget_text js-child-focus" name="s" placeholder="Incepe cautarea" type="text" value=""/>
+    <span class="input-group-btn">
+     <button class="btn btn-search btn-no-padding btn-spin search_widget_btn link_color icon_btn" type="submit">
+      <i class="fto-search-1">
+      </i>
+     </button>
+    </span>
+   </div>
+  </form>
+  <div class="search_results search_show_img search_show_name search_show_price">
+  </div>
+  <a class="display_none search_more_products go" href="javascript:;" rel="nofollow" title="Mai multe produse.">
+   Faceți clic pentru mai multe produse.
+  </a>
+  <div class="display_none search_no_products">
+   Nu au fost găsite produse.
+  </div>
+ </div>
+</div>
+
+
+--- aeroshop PRODUCT SNIPPET ---
+<div class="search_widget_block stsearchbar_builder top_bar_item">
+ <div class="search_widget" data-search-controller-url="//aero-shop.ro/cautare">
+  <form action="//aero-shop.ro/cautare" class="search_widget_form" method="get">
+   <input name="controller" type="hidden" value="search"/>
+   <div class="search_widget_form_inner input-group round_item js-parent-focus input-group-with-border">
+    <input class="form-control search_widget_text js-child-focus" name="s" placeholder="Incepe cautarea" type="text" value=""/>
+    <span class="input-group-btn">
+     <button class="btn btn-search btn-no-padding btn-spin search_widget_btn link_color icon_btn" type="submit">
+      <i class="fto-search-1">
+      </i>
+     </button>
+    </span>
+   </div>
+  </form>
+  <div class="search_results search_show_img search_show_name search_show_price">
+  </div>
+  <a class="display_none search_more_products go" href="javascript:;" rel="nofollow" title="Mai multe produse.">
+   Faceți clic pentru mai multe produse.
+  </a>
+  <div class="display_none search_no_products">
+   Nu au fost găsite produse.
+  </div>
+ </div>
+</div>
+
+

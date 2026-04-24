@@ -1,0 +1,5 @@
+postgres_data/
+frontend/
+docker-compose.yml
+.git/
+node_modules/

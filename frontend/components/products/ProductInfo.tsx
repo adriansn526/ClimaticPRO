@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart, Heart, Share2, Truck, Shield, Wrench, Zap, Wifi } from 'lucide-react';
 import { WooCommerceProduct } from '@/lib/woocommerce';
 import { ProductSpecs } from '@/lib/productUtils';
@@ -8,8 +8,9 @@ import { cleanPrice, calculateDiscount } from '@/lib/productUtils';
 import ProductInstallationModal from './ProductInstallationModal';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
-import TBICalculatorModal from '../tbi/TBICalculatorModal';
+import TBICalculatorModal, { calculateTBIRate } from '../tbi/TBICalculatorModal';
 import AddToCartModal from '../cart/AddToCartModal';
+import { usePostHog } from 'posthog-js/react';
 
 interface ProductInfoProps {
   product: WooCommerceProduct;
@@ -17,23 +18,57 @@ interface ProductInfoProps {
   brand: string | null;
   standardInstallation: WooCommerceProduct | null;
   premiumInstallation: WooCommerceProduct | null;
+  b2bSuppliers?: any[];
+  isMandatoryInstall?: boolean;
 }
 
-export default function ProductInfo({ product, specs, brand, standardInstallation, premiumInstallation }: ProductInfoProps) {
+export default function ProductInfo({ product, specs, brand, standardInstallation, premiumInstallation, b2bSuppliers = [], isMandatoryInstall = false }: ProductInfoProps) {
 
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    if (product?.id) {
+      posthog?.capture('product_viewed', {
+        product_id: product.id,
+        product_name: product.name,
+        product_sku: product.sku,
+        brand: brand || 'N/A',
+        price: product.price ? parseFloat(product.price.replace(/[^0-9.]/g, '')) : 0,
+        currency: 'RON'
+      });
+    }
+  }, [product?.id, posthog]);
   const [isInstallationModalOpen, setIsInstallationModalOpen] = useState(false);
   const [isTBIModalOpen, setIsTBIModalOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [tbiParams, setTbiParams] = useState<any>(null);
   const { addItem } = useCart();
   const { isAdmin } = useAuth();
 
   const [preSelectedInstallation, setPreSelectedInstallation] = useState<WooCommerceProduct | null>(null);
 
   const handleAddToCart = () => {
-    addItem(product, quantity);
-    setIsCartModalOpen(true);
+    if (isMandatoryInstall) {
+        setIsInstallationModalOpen(true);
+        posthog.capture('installation_forced_flow_started', {
+            product_id: product.id,
+            quantity
+        });
+    } else {
+        addItem(product, quantity);
+        setIsCartModalOpen(true);
+        posthog.capture('product_added_to_cart', {
+          product_id: product.id,
+          product_name: product.name,
+          product_sku: product.sku,
+          brand,
+          price: currentPrice,
+          quantity,
+          currency: 'RON',
+        });
+    }
   };
 
   const handleInstallationSelectFromCart = (service: WooCommerceProduct) => {
@@ -46,25 +81,23 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
   const inStock = product.stockStatus === 'IN_STOCK';
 
 
-  // Quick Estimate for Teaser (assuming 60 months, ~24% rate approx default)
-  // Ensure price is cleaned of thousands separators (e.g. 1,650.00 -> 1650.00) if assuming standard US format with dot decimal
-  // OR 1.650,00 -> 1650.00 if RO? 
-  // Given cleanPrice output is RON and screenshot showed 1,650.00 RON likely from cleanPrice:
-  // We can assume dot is decimal.
   const rawPriceString = product.price ? product.price.replace(/[^0-9.]/g, '') : '0';
   const currentPrice = parseFloat(rawPriceString) || 0;
 
-  // Simple PMT calc for teaser: Price * (1 + 0.24 * 5) / 60 approx? 
-  // Better to just show a generic "Start from" based on Price / 60 * 1.5 factor safe margin?
-  // Let's rely on TBI Modal for exact. For teaser, we can try a rough 2.5% monthly cost? P * 0.025?
-  // 3000 * 0.025 = 75 RON.
-  // 60 months: 3000 / 60 = 50. Interest usually doubles it over 5 years? So 50 * 1.5 = 75. 
-  // Let's use Price / 45 as a rough "low" estimate to entice properly? Or fetch?
-  // Fetching in client component is okay.
+  // Fetch TBI params for real rate calculation on product teaser
+  useEffect(() => {
+    if (currentPrice >= 1000 && !tbiParams) {
+      fetch('/api/tbi/params')
+        .then(res => res.json())
+        .then(data => setTbiParams(data))
+        .catch(() => {});
+    }
+  }, [currentPrice, tbiParams]);
 
-  // Let's use a rough estimate logic for SSR safety then modal exact.
-  // Estimate: Total / 40 (approx 5 year with interest)
-  const estimatedRate = (currentPrice / 40).toFixed(0);
+  // Calculate real TBI monthly rate using exact PHP formula
+  const tbiResult = tbiParams ? calculateTBIRate(tbiParams, currentPrice) : null;
+  const estimatedRate = tbiResult ? tbiResult.monthlyRate.toFixed(0) : (currentPrice / 40).toFixed(0);
+  const estimatedMonths = tbiResult?.months ?? null;
 
   // Check if product is AC
   // Primary check: Does it have BTU capacity? (Accessories don't)
@@ -88,7 +121,10 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
     return isRelated && !isExcluded;
   });
 
-  const isAC = hasBTU || isCategoryAC;
+  // Strict check: we only show installation if the product definitively has a cooling capacity (BTU)
+  const isAC = hasBTU;
+
+  // The isMandatoryInstall is now passed as a direct Prop from the B2B prisma side
 
   return (
     <div className="space-y-6">
@@ -113,69 +149,81 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
         {brand}
       </div>
 
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
+      <h1 className="text-xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
         {product.name}
       </h1>
 
       {/* ... SKU ... */}
-      <div className="flex items-center gap-4 text-sm">
+      <div className="flex items-center gap-4 text-sm font-medium">
         {product.sku && (
-          <span className="text-gray-600">
-            Cod produs: <span className="font-medium">{product.sku}</span>
+          <span className="text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
+            Cod: <span className="text-gray-800">{product.sku}</span>
           </span>
         )}
-        <span className={`font-medium ${inStock ? 'text-green-600' : 'text-red-600'}`}>
+        <span className={`px-2 py-1 rounded-md bg-opacity-10 ${inStock ? 'text-green-700 bg-green-500' : 'text-red-700 bg-red-500'}`}>
           {inStock ? '✓ În stoc' : '✗ Stoc epuizat'}
         </span>
       </div>
 
       {/* Price & TBI Teaser */}
-      <div className="flex gap-4 items-stretch">
-        <div className="bg-gray-50 rounded-lg p-4 flex-1">
-          <div className="flex items-baseline gap-3">
-            <span className="text-4xl font-bold text-gray-900">
+      <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+        <div className="bg-gray-50 rounded-2xl p-5 sm:p-6 flex-1 shadow-sm border border-gray-100">
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <span className="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">
               {cleanPrice(product.price)}
             </span>
             {product.onSale && product.regularPrice && (
               <>
-                <span className="text-xl text-gray-400 line-through">
+                <span className="text-xl text-gray-400 line-through font-medium">
                   {cleanPrice(product.regularPrice)}
                 </span>
                 {discountPercentage && (
-                  <span className="bg-red-500 text-white text-sm font-semibold px-2 py-1 rounded">
+                  <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-sm">
                     -{discountPercentage}%
                   </span>
                 )}
               </>
             )}
           </div>
-          <p className="text-sm text-gray-600 mt-2">TVA inclus</p>
+          <p className="text-sm text-gray-500 mt-2 font-medium">TVA inclus</p>
+          
+          {isMandatoryInstall && (
+             <div className="mt-5 bg-orange-50/80 border border-orange-200/60 rounded-xl p-4 text-sm flex items-start gap-3 shadow-sm">
+                 <div className="bg-orange-100 p-2 rounded-lg shrink-0">
+                    <Wrench className="w-5 h-5 text-orange-600" />
+                 </div>
+                 <div>
+                     <p className="font-bold text-orange-800 text-base">Preț exclusiv cu instalare</p>
+                     <p className="text-orange-700/80 mt-1 leading-snug">Pentru a beneficia de acest preț promoțional, achiziția se face împreună cu pachetul de instalare ClimaticPRO.</p>
+                 </div>
+             </div>
+          )}
 
           {/* Admin Only: Suppliers */}
           {isAdmin && (
-            <div className="mt-3 text-xs bg-yellow-50 border border-yellow-200 rounded p-2 text-yellow-800">
-              <div className="font-bold border-b border-yellow-200 pb-1 mb-1">Admin: Furnizori</div>
+            <div className="mt-4 text-xs bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-yellow-800 shadow-sm relative overflow-hidden">
+              <div className="absolute right-0 top-0 w-16 h-16 bg-yellow-200 opacity-20 -mr-4 -mt-4 rounded-full"></div>
+              <div className="font-bold border-b border-yellow-200 pb-1.5 mb-2 flex items-center justify-between">
+                  <span>Admin: Furnizori B2B</span>
+                  <span className="bg-yellow-200 text-yellow-900 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider">Internal</span>
+              </div>
               {(() => {
-                try {
-                  const meta = product.metaData?.find(m => m.key === 'suppliers_json');
-                  if (!meta) return <div className="italic text-gray-400">Niciun furnizor setat.</div>;
-                  const suppliers: any[] = JSON.parse(meta.value || '[]');
-                  return (
-                    <div className="space-y-1">
-                      {suppliers.map((s, i) => (
-                        <div key={i} className="flex justify-between">
-                          <span>{s.name}</span>
-                          <span className="font-mono">{s.price} {s.currency || 'RON'}</span>
+                if (!b2bSuppliers || b2bSuppliers.length === 0) {
+                     return <div className="italic text-gray-400">Niciun furnizor setat în B2B.</div>;
+                }
+                return (
+                    <div className="space-y-1.5 relative z-10">
+                      {b2bSuppliers.map((s, i) => (
+                        <div key={i} className="flex justify-between items-center bg-white/50 px-2 py-1 rounded">
+                          <span className="font-medium">{s.name}</span>
+                          <span className="font-mono text-green-700 font-bold">{s.price} {s.currency || 'RON'}</span>
                         </div>
                       ))}
-                      <div className="text-[10px] text-gray-400 mt-1 pt-1 border-t border-yellow-100">
-                        Actualizat: {suppliers[0]?.last_updated || '-'}
+                      <div className="text-[9px] text-gray-500 mt-2 pt-2 border-t border-yellow-200/50">
+                        Date sincronizate (ultima verif. {new Date(Math.max(...b2bSuppliers.map(s => new Date(s.last_updated || Date.now()).getTime()))).toLocaleDateString('ro-RO')})
                       </div>
                     </div>
-                  );
-                } catch (e) {
-                  return <div className="text-red-500">Eroare parsare date furnizor.</div>;
-                }
+                );
               })()}
             </div>
           )}
@@ -183,18 +231,52 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
 
         {/* TBI Teaser (Only if price > 1000) */}
         {currentPrice >= 1000 && (
-          <div className="bg-white border-2 border-orange-100 rounded-lg p-4 flex flex-col justify-center cursor-pointer hover:border-orange-200 transition" onClick={() => setIsTBIModalOpen(true)}>
-            <p className="text-gray-500 text-sm">Rate lunare de la</p>
-            <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-gray-900">{estimatedRate}</span>
-              <span className="text-sm font-bold text-gray-900">Lei</span>
+          <div 
+             className="relative overflow-hidden bg-gradient-to-br from-white to-gray-50 border border-orange-200 sm:w-1/3 rounded-2xl p-5 flex sm:flex-col justify-between sm:justify-center items-center sm:items-start cursor-pointer hover:border-orange-400 hover:shadow-lg transition-all duration-300 shadow-sm group" 
+             onClick={() => {
+                setIsTBIModalOpen(true);
+                posthog.capture('tbi_calculator_opened', {
+                  product_id: product.id,
+                  product_name: product.name,
+                  brand,
+                  price: currentPrice,
+                });
+             }}
+          >
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-orange-100 rounded-full opacity-40 group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+            
+            <div className="relative z-10">
+                <p className="text-orange-600 text-[10px] sm:text-xs font-black uppercase tracking-wider mb-0.5">Cumpără în rate</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl sm:text-3xl font-black text-gray-900">{estimatedRate}</span>
+                  <span className="text-sm font-bold text-gray-500">Lei/lună</span>
+                </div>
+                {estimatedMonths && (
+                  <p className="text-[10px] text-gray-400 mt-0.5">{estimatedMonths} rate</p>
+                )}
             </div>
-            <p className="text-xs text-blue-600 underline mt-1">vezi detalii</p>
+
+            <div className="relative z-10 bg-white sm:bg-transparent mt-0 sm:mt-4 px-3 py-1.5 sm:px-0 sm:py-0 rounded-lg shadow-sm border border-gray-100 sm:shadow-none sm:border-none flex items-center text-sm font-bold text-orange-600 group-hover:text-orange-700 transition-colors">
+                <span className="hidden sm:inline">Simulare credit</span>
+                <span className="sm:hidden">Aplică acum</span>
+                <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 sm:group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+            </div>
           </div>
         )}
       </div>
 
-      {/* ... rest of component ... */}
+      {/* Delivery Info Box */}
+      <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex gap-3 text-sm">
+        <Truck className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+        <div className="space-y-1">
+            <p className="text-blue-900 leading-snug font-medium">
+              Transport Gratuit în București și Ilfov
+            </p>
+            <p className="text-blue-800/80 leading-snug">
+              Valabil exclusiv pentru aparatele care beneficiază de montaj realizat de echipele ClimaticPRO. Pentru restul județelor sau comenzilor fără montaj, se aplică o taxă de transport de <strong className="text-blue-900">120 Lei / aparat</strong>.
+            </p>
+        </div>
+      </div>
 
       {/* Specs Quick View */}
       <div className="border-t border-b py-4 space-y-3">
@@ -264,10 +346,18 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
             </button>
           </div>
 
-          {/* Install Button (Only for AC) */}
-          {isAC && (
+          {/* Install Button (Only for AC that is not forced to install) */}
+          {isAC && !isMandatoryInstall && (
             <button
-              onClick={() => setIsInstallationModalOpen(true)}
+              onClick={() => {
+                setIsInstallationModalOpen(true);
+                posthog.capture('installation_requested', {
+                  product_id: product.id,
+                  product_name: product.name,
+                  brand,
+                  price: currentPrice,
+                });
+              }}
               className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 border border-gray-200"
               suppressHydrationWarning
             >
@@ -281,12 +371,21 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
         <button
           disabled={!inStock}
           onClick={handleAddToCart}
-          style={inStock ? { background: 'linear-gradient(to right, #0052a3, #003d7a)', color: '#ffffff' } : undefined}
-          className="w-full disabled:bg-gray-300 disabled:cursor-not-allowed hover:opacity-90 font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+          className={`w-full relative overflow-hidden disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed font-bold py-4 sm:py-5 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0.5 group ${inStock && isMandatoryInstall ? 'bg-gradient-to-r from-blue-700 to-blue-900 text-white' : (inStock ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-200')}`}
           suppressHydrationWarning
         >
-          <ShoppingCart className="w-6 h-6" />
-          {inStock ? 'Adaugă în coș' : 'Stoc epuizat'}
+          {inStock && (
+            <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+          )}
+          {isMandatoryInstall ? <Wrench className="w-6 h-6 sm:w-7 sm:h-7" /> : <ShoppingCart className="w-6 h-6 sm:w-7 sm:h-7" />}
+          
+          <span className="tracking-wide">
+             {inStock ? (isMandatoryInstall ? 'Alege montajul și continuă' : 'Adaugă în coș') : 'Stoc epuizat'}
+          </span>
+          
+          {inStock && (
+            <svg className="w-5 h-5 ml-1 transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          )}
         </button>
 
         <div className="grid grid-cols-2 gap-3">
@@ -316,6 +415,7 @@ export default function ProductInfo({ product, specs, brand, standardInstallatio
         standardInstallation={standardInstallation}
         premiumInstallation={premiumInstallation}
         mainProduct={product}
+        mainProductQuantity={quantity}
         preSelectedInstallation={preSelectedInstallation}
       />
     </div>

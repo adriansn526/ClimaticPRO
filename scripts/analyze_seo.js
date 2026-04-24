@@ -1,7 +1,7 @@
 const https = require('https');
 
 const API_KEY = 'AIzaSyBOACFtHGK0Fe-i3gPn2PbRJTRKZjsPe8E';
-const TARGET_URL = 'https://climaticpro.asns.ro';
+const TARGET_URL = 'https://climaticpro.ro';
 
 function runAnalysis(strategy) {
     const url = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(TARGET_URL)}&strategy=${strategy}&category=seo&category=performance&category=best-practices&category=accessibility`;

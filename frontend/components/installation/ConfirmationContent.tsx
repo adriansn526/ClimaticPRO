@@ -1,13 +1,31 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useSearchParams } from 'next/navigation';
+import * as gtag from '@/lib/gtag';
 import { motion } from 'framer-motion';
 import { CheckCircle, Calendar, Package, MapPin, Phone, Mail, ArrowRight, Download } from 'lucide-react';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 
 export default function ConfirmationContent() {
   const searchParams = useSearchParams();
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    const orderId = searchParams.get('order');
+    if (orderId) {
+      gtag.trackConversion({
+        sendTo: 'AW-10907184537/_iVICKaPgYQcEJnb-dAo',
+        transactionId: orderId,
+      });
+    }
+  }, [searchParams]);
+  
   const orderId = searchParams.get('order');
+  const mode = searchParams.get('mode') || 'installation';
+  const isMaintenance = mode === 'maintenance';
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-16">
@@ -67,7 +85,7 @@ export default function ConfirmationContent() {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">2. Confirmare telefonică</h3>
                   <p className="text-gray-600 text-sm">
-                    Echipa noastră te va contacta în următoarele 24h pentru a confirma detaliile instalării.
+                    Echipa noastră te va contacta în următoarele 24h pentru a confirma detaliile {isMaintenance ? 'intervenției' : 'instalării'}.
                   </p>
                 </div>
               </div>
@@ -114,7 +132,7 @@ export default function ConfirmationContent() {
             <ul className="space-y-2 text-sm text-gray-700">
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
-                <span>Asigură-te că locația este accesibilă și pregătită pentru instalare</span>
+                <span>Asigură-te că locația este accesibilă și pregătită pentru {isMaintenance ? 'intervenție' : 'instalare'}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
@@ -122,11 +140,11 @@ export default function ConfirmationContent() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
-                <span>Plata se poate face cash sau transfer bancar la finalizarea instalării</span>
+                <span>Plata se poate face cash sau transfer bancar la finalizarea {isMaintenance ? 'intervenției' : 'instalării'}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
-                <span>Poți reprograma cu minim 24h înainte sunând la +40 316 300 101</span>
+                <span>Poți reprograma cu minim 24h înainte sunând la +40 316 060 050</span>
               </li>
             </ul>
           </motion.div>
@@ -140,9 +158,11 @@ export default function ConfirmationContent() {
           >
             <h3 className="font-bold mb-4">Ai întrebări?</h3>
             <div className="space-y-3">
-              <a href="tel:+40316300101" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <Phone className="w-5 h-5" />
-                <span className="font-semibold">+40 316 300 101</span>
+              <a href="tel:+40316060050" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5 text-white" />
+                </div>
+                <span className="font-semibold">+40 316 060 050</span>
               </a>
               <a href="mailto:contact@climaticpro.ro" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                 <Mail className="w-5 h-5" />
@@ -165,23 +185,26 @@ export default function ConfirmationContent() {
               Înapoi la pagina principală
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <button
-              onClick={() => {
-                const storedData = localStorage.getItem('bookingData');
-                if (storedData && orderId) {
-                  import('@/lib/pdfGenerator').then(({ generateOrderPDF }) => {
-                    const data = JSON.parse(storedData);
-                    generateOrderPDF(data, orderId);
-                  }).catch(console.error);
-                } else {
-                  alert('Datele comenzii nu au fost găsite local. Te rugăm să verifici email-ul pentru confirmare.');
-                }
-              }}
-              className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all shadow-lg"
-            >
-              <Download className="w-5 h-5" />
-              Descarcă confirmare (PDF)
-            </button>
+            {!isMaintenance && (
+              <button
+                onClick={() => {
+                  const storedData = localStorage.getItem('bookingData');
+                  if (storedData && orderId) {
+                    posthog?.capture('quote_pdf_downloaded', { order_id: orderId });
+                    import('@/lib/pdfGenerator').then(({ generateOrderPDF }) => {
+                      const data = JSON.parse(storedData);
+                      generateOrderPDF(data, orderId);
+                    }).catch(console.error);
+                  } else {
+                    alert('Datele comenzii nu au fost găsite local. Te rugăm să verifici email-ul pentru confirmare.');
+                  }
+                }}
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-cyan-600 text-white font-semibold rounded-lg shadow-lg hover:bg-cyan-700 hover:shadow-cyan-500/25 transition-all"
+              >
+                <Download className="w-5 h-5" />
+                Descarcă PDF Confirmare
+              </button>
+            )}
           </motion.div>
 
           {/* Trust Badges */}
@@ -194,10 +217,6 @@ export default function ConfirmationContent() {
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-600" />
               <span>Garanție montaj</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600" />
-              <span>Echipă autorizată RAR</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-600" />

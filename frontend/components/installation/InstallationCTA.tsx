@@ -71,11 +71,11 @@ export default function InstallationCTA() {
               Rezervă Slot în Calendar
             </a>
             <a
-              href="tel:+40316300101"
+              href="tel:+40316060050"
               className="w-full sm:w-auto bg-white/20 backdrop-blur-md border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/30 transition-colors flex items-center justify-center gap-2 shadow-xl"
             >
               <Phone className="w-5 h-5" />
-              Sună: +40 316 300 101
+              Sună: +40 316 060 050
             </a>
           </motion.div>
 
@@ -89,8 +89,8 @@ export default function InstallationCTA() {
           >
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5" />
-              <a href="tel:+40316300101" className="hover:text-white transition-colors">
-                +40 316 300 101
+              <a href="tel:+40316060050" className="hover:text-white transition-colors">
+                +40 316 060 050
               </a>
             </div>
             <div className="hidden sm:block w-px h-6 bg-white/50" />

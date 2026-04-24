@@ -2,6 +2,7 @@
 
 import { useWishlist } from '@/lib/hooks/useWishlist';
 import { useToast } from '@/contexts/ToastContext';
+import posthog from 'posthog-js';
 
 // Define minimal product interface needed for wishlist
 interface Product {
@@ -46,8 +47,19 @@ export default function WishlistButton({
 
         if (inWishlist) {
             showToast(`${product.name} a fost eliminat din favorite.`, 'info');
+            posthog.capture('product_removed_from_wishlist', {
+                product_id: product.id,
+                product_name: product.name,
+                product_slug: product.slug,
+            });
         } else {
             showToast(`${product.name} a fost adăugat la favorite.`, 'success');
+            posthog.capture('product_added_to_wishlist', {
+                product_id: product.id,
+                product_name: product.name,
+                product_slug: product.slug,
+                price: product.price || product.regularPrice,
+            });
         }
     };
 

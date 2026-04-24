@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import { getPostHogClient } from '@/lib/posthog-server';
 
 const TBI_LIVE_URL = 'https://tbicp.com';
 const PUBLIC_KEY_PATH = path.join(process.cwd(), 'lib/tbi/public.key');
@@ -169,6 +170,20 @@ export async function POST(request: Request) {
         const location = finalResponse.headers.get('location');
 
         if (location) {
+            const posthog = getPostHogClient();
+            posthog.capture({
+                distinctId: customer?.email || `order_${orderId}`,
+                event: 'tbi_financing_initiated',
+                properties: {
+                    order_id: orderId,
+                    total,
+                    currency: 'RON',
+                    item_count: items?.length || 0,
+                    source: 'api',
+                },
+            });
+            await posthog.shutdown();
+
             return NextResponse.json({ redirectUrl: location });
         } else {
             // Sometimes it might return content if not redirecting?

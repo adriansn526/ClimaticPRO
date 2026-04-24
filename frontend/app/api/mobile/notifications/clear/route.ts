@@ -1,0 +1,41 @@
+import { NextResponse } from 'next/server';
+import { getPrisma } from '@/lib/prisma';
+import jwt from 'jsonwebtoken';
+
+const prisma = getPrisma();
+
+export const dynamic = 'force-dynamic';
+
+export async function DELETE(request: Request) {
+    try {
+        const authHeader = request.headers.get('authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return NextResponse.json({ success: false, message: 'Neautorizat' }, { status: 401 });
+        }
+
+        const token = authHeader.split(' ')[1];
+        const secret = process.env.JWT_SECRET || 'secret';
+        
+        let decoded: any;
+        try {
+            decoded = jwt.verify(token, secret);
+        } catch {
+            return NextResponse.json({ success: false, message: 'Token invalid' }, { status: 401 });
+        }
+
+        const installerId = decoded.userId || decoded.id;
+
+        await (prisma as any).appNotification.deleteMany({
+            where: { 
+                installerId: installerId,
+                isRead: true
+            }
+        });
+
+        return NextResponse.json({ success: true });
+        
+    } catch (error) {
+        console.error('Clear Read Notifications Error:', error);
+        return NextResponse.json({ success: false, message: 'Eroare la ștergere' }, { status: 500 });
+    }
+}

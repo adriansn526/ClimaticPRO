@@ -7,7 +7,8 @@
     "products": "Produse",
     "readMore": "Citește mai mult",
     "learnMore": "Află mai multe",
-    "viewAll": "Vezi toate"
+    "viewAll": "Vezi toate",
+    "search": "Caută"
   },
   "hero": {
     "badge": "Partener Oficial Gree, Daikin, Midea",
@@ -119,8 +120,8 @@
     "experienceDesc": "Experiență în domeniu",
     "installations": "2000+",
     "installationsDesc": "Instalări realizate",
-    "warranty": "Garanție 3+3 Ani",
-    "warrantyDesc": "3 Ani Producător + 3 Ani Instalare",
+    "warranty": "Garanție Extinsă",
+    "warrantyDesc": "Garanție Producător & Garanție Instalare ClimaticPRO",
     "delivery": "Livrare Gratuită",
     "deliveryDesc": "București & Ilfov*"
   },

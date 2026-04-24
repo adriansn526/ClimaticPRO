@@ -1,15 +1,31 @@
 import { NextResponse } from 'next/server';
 import { createWooCommerceOrder } from '@/lib/woocommerce';
 import { sendOrderConfirmationEmail } from '@/lib/email';
-
+import { createCalendarEvent } from '@/lib/google-calendar';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
         const {
             firstName, lastName, email, phone,
             street, number, building, apartment, sector, intercom,
-            selectedDate, selectedProduct, quantity: rawQuantity
+            selectedDate, selectedProduct, quantity: rawQuantity,
+            billingType, companyName, cui, regCom, installationFee, selectedService
         } = body;
+
+        let displayDate = 'Urmează să stabilim';
+        if (selectedDate) {
+            try {
+                const d = new Date(selectedDate);
+                displayDate = d.toLocaleDateString('ro-RO', {
+                    timeZone: 'Europe/Bucharest',
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            } catch (e) {
+                displayDate = selectedDate;
+            }
+        }
 
         const quantity = rawQuantity || 1;
 
@@ -21,6 +37,7 @@ export async function POST(request: Request) {
             billing: {
                 first_name: firstName,
                 last_name: lastName,
+                company: billingType === 'juridica' ? `${companyName} (CUI: ${cui}${regCom ? ', RegCom: ' + regCom : ''})` : '',
                 address_1: `${street} ${number}, ${building ? 'Bl. ' + building : ''} ${apartment ? 'Ap. ' + apartment : ''}`,
                 address_2: `Interfon: ${intercom || '-'}`,
                 city: 'București',
@@ -84,11 +101,8 @@ export async function POST(request: Request) {
         if (result.success) {
             // Send Confirmation Email (Non-blocking)
             const productPrice = selectedProduct?.price || 0;
-            // Installation price mock or fetched? We know product 11170 is used.
-            // For email display we can approximate or use logic. 
-            // Let's use the total calculated or simple sum.
-            const installPrice = 1000; // Fallback or dynamic value if we had it here.
-            // Better: selectedProduct.priceWithInstallation includes both?
+            const installPrice = installationFee || 1000;
+            
             // Calculate total for email
             const total = selectedProduct
                 ? (selectedProduct.priceWithInstallation || (productPrice + installPrice)) * quantity
@@ -100,14 +114,23 @@ export async function POST(request: Request) {
                 email: email,
                 phone: phone,
                 address: `${street} ${number}, ${sector}`,
-                date: selectedDate,
+                date: displayDate,
                 products: [
                     ...(selectedProduct ? [{ name: selectedProduct.name, quantity: quantity, price: selectedProduct.price }] : []),
-                    { name: 'Servicii Instalare Standard', quantity: quantity, price: installPrice } // Not perfect but informative
+                    { name: `Servicii Instalare ${selectedService === 'premium' ? 'Premium' : 'Standard'}`, quantity: quantity, price: installPrice }
                 ],
                 total: total,
                 isInstallationOnly: !selectedProduct
             }).catch(err => console.error('Background Email Error:', err));
+
+            if (selectedDate) {
+                createCalendarEvent({
+                    summary: `Instalare AC - ${firstName} ${lastName}`,
+                    description: `Comanda #${result.order.id}\nTelefon: ${phone}\nEmail: ${email}\nProdus: ${selectedProduct ? selectedProduct.name : 'Doar instalare'}\nAdresa: ${street} ${number}, ${building ? 'Bl. ' + building : ''} ${apartment ? 'Ap. ' + apartment : ''}, Interfon: ${intercom || '-'}\nEtaj: ${body.floor || '-'}\nCamera: ${body.roomType || '-'}\nObservatii: ${body.observations || '-'}`,
+                    location: `${street} ${number}, ${sector}, București`,
+                    date: selectedDate
+                }).catch(err => console.error('Background Calendar Sync Error:', err));
+            }
 
             return NextResponse.json({ success: true, orderId: result.order.id });
         } else {

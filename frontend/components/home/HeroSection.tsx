@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import NextImage from 'next/image';
+import Link from 'next/link';
 import { Banner } from '@/lib/wordpress';
+import { usePostHog } from 'posthog-js/react';
 
 interface HeroSectionProps {
   banners: Banner[];
@@ -12,6 +14,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ banners, children }: HeroSectionProps) {
+  const posthog = usePostHog();
   // Fallback la imagini locale dacă WordPress nu returnează bannere
   const defaultBanners: Banner[] = [
     {
@@ -98,16 +101,22 @@ export default function HeroSection({ banners, children }: HeroSectionProps) {
                     initial={{ scale: 1.1 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 10, ease: "linear" }}
-                    className="relative w-full h-full"
+                    className="relative w-full h-full cursor-pointer"
                   >
-                    <NextImage
-                      src={displayBanners[currentSlide].sourceUrl}
-                      alt={displayBanners[currentSlide].altText || displayBanners[currentSlide].title}
-                      fill
-                      className="object-contain"
-                      priority={currentSlide === 0}
-                      sizes="(max-width: 1024px) 100vw, calc(100vw - 260px)"
-                    />
+                    <Link
+                      href="/instalare"
+                      onClick={() => posthog?.capture('homepage_banner_clicked', { banner_name: displayBanners[currentSlide].title, banner_id: displayBanners[currentSlide].id })}
+                      className="block w-full h-full relative z-10"
+                    >
+                      <NextImage
+                        src={displayBanners[currentSlide].sourceUrl}
+                        alt={displayBanners[currentSlide].altText || displayBanners[currentSlide].title}
+                        fill
+                        className="object-contain"
+                        priority={currentSlide === 0}
+                        sizes="(max-width: 1024px) 100vw, calc(100vw - 260px)"
+                      />
+                    </Link>
                   </motion.div>
                 </motion.div>
               </AnimatePresence>

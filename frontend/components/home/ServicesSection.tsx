@@ -8,11 +8,12 @@ import Button from '@/components/ui/Button';
 import Link from 'next/link';
 
 interface ServicesSectionProps {
+  instalarePrice?: string;
   igienizarePrice?: string;
   reparatiePrice?: string;
 }
 
-export default function ServicesSection({ igienizarePrice, reparatiePrice }: ServicesSectionProps) {
+export default function ServicesSection({ instalarePrice, igienizarePrice, reparatiePrice }: ServicesSectionProps) {
   const t = useTranslations('services');
 
   const services = [
@@ -20,33 +21,33 @@ export default function ServicesSection({ igienizarePrice, reparatiePrice }: Ser
       key: 'installation',
       title: 'Instalare Aer Condiționat',
       description: 'Montaj profesional cu echipe autorizate. Garanție pe lucrare.',
-      price: 'Vezi detalii',
+      price: instalarePrice || 'De la 950 RON',
       features: ['Echipe autorizate', 'Materiale incluse', 'Garanție montaj', 'Programare rapidă'],
       icon: Hammer,
       cta: 'Vezi Oferta',
-      link: '/servicii/montaj-aer-conditionat',
+      link: '/instalare',
       popular: true,
     },
     {
       key: 'cleaning',
       title: 'Igienizare Profesională',
       description: 'Curățare profundă pentru un aer sănătos și eficiență maximă.',
-      price: igienizarePrice || 'Cere ofertă',
+      price: igienizarePrice || 'De la 150 RON',
       features: ['Curățare filtre', 'Dezinfectare vaporizator', 'Verificare freon', 'Eliminare mirosuri'],
       icon: Droplets,
-      cta: 'Adaugă în Coș',
-      link: '/produs/igienizare-aer-conditionat', // Inferring slug from ID 9039
+      cta: 'Programează',
+      link: '/mentenanta',
       popular: false,
     },
     {
       key: 'repair',
       title: 'Reparații & Mentenanță',
       description: 'Remedierea situațiilor în care curge apă din aparat sau alte defecțiuni.',
-      price: reparatiePrice || 'Cere ofertă',
+      price: reparatiePrice || 'De la 150 RON',
       features: ['Diagnosticare rapidă', 'Deblocare scurgere', 'Verificare etanșeitate', 'Reparații diverse'],
       icon: Wrench,
-      cta: 'Adaugă în Coș',
-      link: '/produs/remedierea-situatiilor-in-care-curge-apa-din-aparat', // Inferring slug from ID 9041
+      cta: 'Programează',
+      link: '/mentenanta',
       popular: false,
     },
   ];

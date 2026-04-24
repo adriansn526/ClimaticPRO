@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { WooCommerceProduct } from '@/lib/woocommerce';
 import { useCart } from '@/contexts/CartContext';
 import { cleanPrice } from '@/lib/productUtils';
+import { usePostHog } from 'posthog-js/react';
 
 interface AddToCartModalProps {
     isOpen: boolean;
@@ -18,8 +19,19 @@ interface AddToCartModalProps {
 }
 
 export default function AddToCartModal({ isOpen, onClose, product, quantity, relatedServices = [], onSelectInstallation }: AddToCartModalProps) {
-    const { addItem } = useCart();
+    const { addItem, totalItems, totalPrice } = useCart();
     const [selectedWarranty, setSelectedWarranty] = useState<number | null>(null); // null = standard, 1 = +1yr, 2 = +2yr
+    const posthog = usePostHog();
+
+    useEffect(() => {
+        if (isOpen) {
+            posthog?.capture('cart_viewed', {
+                total_items: totalItems,
+                total_price: totalPrice,
+                source: 'add_to_cart_modal'
+            });
+        }
+    }, [isOpen, totalItems, totalPrice, posthog]);
 
     if (!isOpen) return null;
 
@@ -205,6 +217,14 @@ export default function AddToCartModal({ isOpen, onClose, product, quantity, rel
                         <div className="space-y-3 mt-8">
                             <Link
                                 href="/checkout"
+                                onClick={() => {
+                                    posthog?.capture('checkout_started', {
+                                        total_items: totalItems,
+                                        total_price: totalPrice,
+                                        currency: 'RON'
+                                    });
+                                    onClose();
+                                }}
                                 className="block w-full bg-orange-500 text-white text-center py-3 rounded-lg font-bold hover:bg-orange-600 transition flex items-center justify-center gap-2"
                             >
                                 Vezi detalii coș <ArrowRight className="w-4 h-4" />

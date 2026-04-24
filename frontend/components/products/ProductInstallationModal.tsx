@@ -15,6 +15,7 @@ interface DayBooking {
     bookingsCount: number;
     maxBookings: number;
     isAvailable: boolean;
+    isScarce?: boolean;
 }
 
 interface ProductInstallationModalProps {
@@ -23,6 +24,7 @@ interface ProductInstallationModalProps {
     standardInstallation: WooCommerceProduct | null;
     premiumInstallation: WooCommerceProduct | null;
     mainProduct: WooCommerceProduct;
+    mainProductQuantity?: number;
     preSelectedInstallation?: WooCommerceProduct | null;
 }
 
@@ -32,6 +34,7 @@ export default function ProductInstallationModal({
     standardInstallation,
     premiumInstallation,
     mainProduct,
+    mainProductQuantity = 1,
     preSelectedInstallation
 }: ProductInstallationModalProps) {
     const router = useRouter();
@@ -52,24 +55,28 @@ export default function ProductInstallationModal({
                     const endDate = addDays(today, 30);
                     const response = await fetch(`/api/calendar/availability?timeMin=${today.toISOString()}&timeMax=${endDate.toISOString()}`);
                     let busySlots: any[] = [];
+                    let scarceSlots: any[] = [];
 
                     if (response.ok) {
                         const data = await response.json();
                         busySlots = data.busySlots || [];
+                        scarceSlots = data.scarceSlots || [];
                     }
 
                     const days: DayBooking[] = [];
                     for (let i = 0; i < 30; i++) {
                         const date = addDays(today, i);
-                        const bookingsCount = busySlots.filter((slot: any) => isSameDay(new Date(slot.start), date)).length;
+                        const isBusy = busySlots.some((slot: any) => isSameDay(new Date(slot.start), date));
+                        const isScarce = scarceSlots.some((slot: any) => isSameDay(new Date(slot.start), date));
                         const maxBookings = 3;
                         const isDayWeekend = isWeekend(date);
 
                         days.push({
                             date,
-                            bookingsCount,
+                            bookingsCount: isBusy ? maxBookings : 0,
                             maxBookings,
-                            isAvailable: !isDayWeekend && bookingsCount < maxBookings
+                            isAvailable: !isDayWeekend && !isBusy,
+                            isScarce: isScarce && !isBusy
                         });
                     }
                     setBookings(days);
@@ -108,7 +115,7 @@ export default function ProductInstallationModal({
         return parseFloat((product.salePrice || product.price || '0').replace(/[^0-9.]/g, ''));
     };
 
-    const { addItem } = useCart();
+    const { addItem, setIsCartOpen } = useCart();
 
 
 
@@ -118,11 +125,11 @@ export default function ProductInstallationModal({
         // If NOT pre-selected (Standard flow from product page), add main product.
         // If pre-selected (Upsell flow from Cart Modal), main product is ALREADY in cart.
         if (!preSelectedInstallation) {
-            addItem(mainProduct, 1);
+            addItem(mainProduct, mainProductQuantity);
         }
 
-        // Add installation product
-        addItem(installProduct, 1);
+        // Add installation product matching the equipment quantity
+        addItem(installProduct, mainProductQuantity);
 
         // Show success message
         setSuccessMessage('Produsele au fost adăugate în coș!');
@@ -132,6 +139,8 @@ export default function ProductInstallationModal({
             onClose();
             if (preSelectedInstallation) {
                 router.push('/checkout');
+            } else {
+                setIsCartOpen(true);
             }
         }, 1000);
     };
@@ -213,9 +222,14 @@ export default function ProductInstallationModal({
                                                         <span className="text-[10px] text-gray-500 capitalize">
                                                             {format(day.date, 'MMMM', { locale: ro })}
                                                         </span>
-                                                        {day.isAvailable && (
+                                                        {day.isAvailable && !day.isScarce && (
                                                             <span className="text-[10px] text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded-full mt-1">
                                                                 Liber
+                                                            </span>
+                                                        )}
+                                                        {day.isAvailable && day.isScarce && (
+                                                            <span className="text-[10px] text-orange-600 font-medium bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full mt-1">
+                                                                1 Loc
                                                             </span>
                                                         )}
                                                     </button>

@@ -8,18 +8,72 @@ datasource db {
 }
 
 model InstallerProfile {
-  id          Int      @id @default(autoincrement())
-  userId      String   @unique
-  companyName String?
-  cui         String?
-  regCom      String?
-  bankName    String?
-  iban        String?
-  address     String?
-  isVatPayer  Boolean  @default(false)
+  id           Int     @id @default(autoincrement())
+  userId       String  @unique
+  email        String? @unique
+  name         String?
+  phone        String?
+  status       String  @default("pending") // pending, approved, rejected, suspended
+  password     String?
+  companyName  String?
+  cui          String?
+  regCom       String?
+  bankName     String?
+  iban         String?
+  address      String?
+  county       String?
+  city         String?
+  isVatPayer   Boolean @default(false)
   warrantyInfo String? // Custom warranty terms for the installer
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  // Invoicing & SPV Integrations
+  billingProvider String? // "smartbill", "fgo", "oblio", etc.
+  billingToken    String? @db.Text
+  billingSeries   String? // Series to use for generated invoices
+  spvToken        String? @db.Text
+
+  // Coverage Area
+  coverageLat     Float? // Latitude of the center of coverage
+  coverageLng     Float? // Longitude of the center of coverage
+  coverageRadius  Float?  @default(50) // Radius in kilometers
+  coverageRegions String? // JSON string array e.g. ["Bucuresti", "Ilfov"]
+
+  // Push Notifications
+  expoPushToken String? @db.Text
+
+  // Payments (Netopia Tokenization)
+  netopiaToken String? @db.Text
+
+  // Auto-Assign Option (1 installer at most for new orders)
+  isAutoAssignEnabled Boolean @default(false)
+
+  // Internal Role Flag
+  isInternal Boolean @default(false)
+
+  // Pricing
+  basePrice12k  Float?
+  basePrice18k  Float?
+  basePrice24k  Float?
+  extraServices Json?
+
+  // Premium Margin Setting
+  premiumType  String? // 'fixed' or 'percentage'
+  premiumValue Float?
+
+  // Capacity & Schedule
+  dailyCapacity    Int   @default(3)
+  unavailableDates Json? // Array of 'YYYY-MM-DD' strings
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OtpVerification {
+  id        Int      @id @default(autoincrement())
+  phone     String   @unique
+  code      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Job {
@@ -30,9 +84,21 @@ model Job {
   address     String
   status      String   @default("new")
   installerId String
-  metadata    Json?    // Use for storing products, verified items, etc.
+  isManual    Boolean  @default(false)
+  metadata    Json? // Use for storing products, verified items, etc.
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model AppNotification {
+  id          String   @id @default(uuid())
+  installerId String
+  title       String
+  message     String   @db.Text
+  type        String   @default("GENERAL") // INVOICE, B2B_ORDER, JOB, PROMO
+  isRead      Boolean  @default(false)
+  link        String? // Optional route path or ID to jump to.
+  createdAt   DateTime @default(now())
 }
 
 model Warranty {
@@ -45,24 +111,305 @@ model Warranty {
 }
 
 model Supplier {
+  id            Int      @id @default(autoincrement())
+  name          String
+  cui           String?
+  contact       String?
+  phone         String?
+  email         String?
+  address       String?
+  websiteUrl    String?  @db.Text
+  crawlerConfig Json? // CSS selectors and URLs configuration for bots
+  active             Boolean  @default(true)
+  autoSync           Boolean  @default(false) // Whether to automatically run scraper via cron
+  supplierRole       String   @default("CORE") // "CORE" or "COMPETITOR"
+  competitorUndercut Float    @default(0.50) // Absolute value to undercut the competitor by
+  defaultMarginValue Float?   @default(10)
+  defaultMarginType  String?  @default("PERCENT") // PERCENT or FIXED
+  useProxy           Boolean  @default(false) // Whether to route scraper through residential proxy
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  products     ProductSupplier[]
+  unmapped     UnmappedSupplierProduct[]
+  scraperJobs  ScraperJob[]
+  categoryMaps SupplierCategoryMap[]
+}
+
+model ScraperJob {
+  id          Int      @id @default(autoincrement())
+  supplierId  Int
+  status      String   @default("running") // running, completed, error
+  progress    String? // Ex: "Se extrag produsele..." sau "Salvare în Bază..."
+  resultStats Json? // { total: 100, mapped: 50, unmapped: 50 }
+  errorLog    String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+}
+
+model ProductSupplier {
+  id                  Int      @id @default(autoincrement())
+  productId           Int
+  supplierId          Int
+  supplierProductCode String?
+  supplierProductUrl  String?  @db.Text
+  supplierPrice       Float
+  supplierStock       String   @default("in_stock") // in_stock, out_of_stock, preorder
+  lastScrapedAt       DateTime @default(now())
+  priceLastChangedAt  DateTime? // Set when price actually changes
+
+  product      B2BProduct             @relation(fields: [productId], references: [id], onDelete: Cascade)
+  supplier     Supplier               @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  priceHistory SupplierPriceHistory[]
+
+  @@unique([productId, supplierId])
+  @@index([supplierStock, supplierPrice])
+}
+
+model SupplierPriceHistory {
+  id                Int      @id @default(autoincrement())
+  productSupplierId Int
+  oldPrice          Float
+  newPrice          Float
+  recordedAt        DateTime @default(now())
+
+  productSupplier ProductSupplier @relation(fields: [productSupplierId], references: [id], onDelete: Cascade)
+
+  @@index([productSupplierId])
+}
+
+model UnmappedSupplierProduct {
+  id                 Int      @id @default(autoincrement())
+  supplierId         Int
+  supplierProductUrl String   @unique @db.Text
+  extractedName      String   @db.Text
+  extractedPrice     Float
+  extractedSku       String?
+  extractedStock     String   @default("unknown")
+  lastScrapedAt      DateTime @default(now())
+  status             String   @default("pending") // pending, mapped, ignored
+
+  suggestedProductId Int? // Smart Match ID propus automat
+  similarityScore    Float? // Procentul de potrivire calculat (ex. 87.5)
+
+  supplier         Supplier    @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  suggestedProduct B2BProduct? @relation(fields: [suggestedProductId], references: [id], onDelete: SetNull)
+}
+
+model SupplierCategoryMap {
+  id                   Int    @id @default(autoincrement())
+  supplierId           Int
+  supplierCategoryName String
+  internalCategoryId   Int
+
+  supplier Supplier    @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  category B2BCategory @relation(fields: [internalCategoryId], references: [id], onDelete: Cascade)
+
+  @@unique([supplierId, supplierCategoryName])
+}
+
+model AppSetting {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model SavedAddress {
+  id          Int      @id @default(autoincrement())
+  installerId String // userId of the installer
+  title       String // e.g. "Sediul Principal"
+  address     String   @db.Text
+  city        String?
+  county      String?
+  phone       String?
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model B2BOrder {
+  id              Int     @id @default(autoincrement())
+  installerId     String // User ID
+  status          String  @default("new") // new, processing, shipped, delivered, cancelled
+  items           Json // Array of { productId, name, quantity, price, image }
+  totalAmount     Float
+  deliveryAddress String? @db.Text
+  contactPhone    String?
+  jobId           Int? // Link to specific job if requested
+  notes           String? @db.Text
+  authorName      String? // Exact team member or admin who placed it
+  authorPhone     String? // Phone of the exact app user 
+
+  // Payment Tracking
+  paymentMethod   String  @default("termen") // termen, card, ramburs, netopia
+  paymentStatus   String  @default("unpaid") // unpaid, paid, failed
+  paymentIntentId String? // ID from Stripe for tracking
+
+  documentUrls Json? // Array of generated PDF URLs (Proformă/Factură)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SocialAccount {
+  id           Int       @id @default(autoincrement())
+  platform     String // facebook, instagram, tiktok, linkedin
+  accessToken  String    @db.Text
+  refreshToken String?   @db.Text
+  tokenExpires DateTime?
+  accountId    String? // The ID of the page/user on the platform
+  accountName  String? // Human readable name
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([platform, accountId])
+}
+
+model SocialPost {
+  id              Int      @id @default(autoincrement())
+  text            String?  @db.Text
+  mediaUrl        String?  @db.Text
+  mediaType       String? // image, video, none
+  scheduledDate   DateTime // The day it is scheduled for
+  scheduledTime   String // e.g. "14:30"
+  platforms       Json // Array of platform strings e.g. ["facebook", "tiktok"]
+  status          String   @default("draft") // draft, scheduled, published, failed
+  facebookPostId  String?  @db.VarChar(255)
+  instagramPostId String?  @db.VarChar(255)
+  tiktokPostId    String?  @db.VarChar(255)
+  errorLogs       String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model TeamMember {
+  id          Int      @id @default(autoincrement())
+  installerId String // The userId of the main installer profile (admin)
+  name        String
+  phone       String
+  role        String   @default("tehnician") // admin, tehnician, montator
+  status      String   @default("pending") // pending, active
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([installerId, phone])
+}
+
+model StockItem {
+  id          Int      @id @default(autoincrement())
+  installerId String // The admin ID owning the stock
+  name        String
+  type        String   @default("material") // echipament, material
+  stock       Float    @default(0)
+  unit        String   @default("buc") // buc, ml, set
+  price       Float    @default(0) // Retail / Unit price scanned from supplier
+  minStock    Float    @default(0) // Used for internal low-stock threshold warning
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([installerId, name])
+}
+
+model StockTransaction {
+  id          Int      @id @default(autoincrement())
+  installerId String
+  stockItemId Int
+  type        String // "in" (addition from SPV/OCR), "out" (usage on job), "adjustment" (manual)
+  quantity    Float
+  unitPrice   Float    @default(0) // Price recorded at the time of transaction
+  source      String? // "spv", "ocr", "manual", "job_123"
+  documentRef String? // Invoice number or Job ID
+  documentUrl String? // Link to uploaded receipt if OCR
+  createdAt   DateTime @default(now())
+}
+
+model B2BCategory {
+  id           Int                   @id @default(autoincrement())
+  name         String                @unique
+  slug         String                @unique
+  description  String?               @db.Text
+  supplierMaps SupplierCategoryMap[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model B2BProduct {
+  id             Int     @id @default(autoincrement())
+  sku            String? @unique
+  name           String
+  slug           String  @unique
+  description    String? @db.Text
+  attributes     Json?
+  capacity       String? // e.g. "12000 BTU" or "1/4\" - 3/8\""
+  priceB2B       Float // Dedicated price for installers
+  priceRetail    Float? // Recommended retail price for end customers
+  stock          Float   @default(0)
+  unit           String  @default("buc")
+  image          String? @db.Text
+  wooCategoryIds Json? // Replaces categoryId, stores array of Woo Category IDs
+
+  active            Boolean @default(true)
+  isPriceOverridden Boolean @default(false)
+  marginValue       Float   @default(10) // 10% or 10 RON default markup
+  marginType        String  @default("PERCENT") // "PERCENT" or "FIXED"
+  syncToWooCommerce Boolean @default(false) // Auto-push to WP Public Site
+  manageStock       Boolean @default(true)
+  forceInstallation Boolean @default(false)
+
+  suppliers        ProductSupplier[] // Multiple supplier connections
+  unmappedProducts UnmappedSupplierProduct[] // Mapped back relations pt review carantina
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AppBanner {
+  id        Int      @id @default(autoincrement())
+  title     String
+  imageUrl  String   @db.Text
+  linkUrl   String?  @db.Text
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model SupportTicket {
+  id          Int      @id @default(autoincrement())
+  installerId String
+  category    String
+  message     String   @db.Text
+  status      String   @default("OPEN") // OPEN, RESOLVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AdminUser {
   id        Int      @id @default(autoincrement())
   name      String
-  cui       String?
-  contact   String?
-  phone     String?
-  email     String?
-  address   String?
+  email     String   @unique
+  password  String
+  role      String   @default("DISPECER") // EX: SUPER_ADMIN, DISPECER, MARKETING, CONTABILITATE
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model B2BOrder {
-  id          Int      @id @default(autoincrement())
-  installerId String   // User ID (clerk or internal)
-  status      String   @default("new") // new, processing, ordered, completed, cancelled
-  items       Json     // Array of { productId, name, quantity, price, supplierId? }
-  totalAmount Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model ShortLink {
+  id        String   @id @default(uuid())
+  shortCode String   @unique // The chosen code (e.g. ig26)
+  targetUrl String   @db.Text
+  clicks    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ShippingZoneRule {
+  id                     Int      @id @default(autoincrement())
+  countyCode             String   @unique // We will just use the name of the county/city (e.g., 'Bucuresti', 'Ilfov')
+  standardShippingFee    Float    @default(120) // Standard tax
+  hasLocalInstallers     Boolean  @default(false)
+  waiveShippingIfInstalled Boolean @default(false)
+  active                 Boolean  @default(true)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }

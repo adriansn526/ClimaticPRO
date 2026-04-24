@@ -8,6 +8,7 @@ import { ProductSpecs } from '@/lib/productUtils';
 import StickyProductBar from './StickyProductBar';
 import ProductDescription from './ProductDescription';
 import ProductComparison from './ProductComparison';
+import { usePostHog } from 'posthog-js/react';
 
 interface ProductSectionsProps {
   product: WooCommerceProduct;
@@ -29,9 +30,9 @@ export default function ProductSections({ product, specs }: ProductSectionsProps
   const formatAttributeValue = (value: string): string => {
     // Map pentru valori speciale
     const specialMappings: Record<string, string> = {
-      'a-a-2': 'A++',
-      'a-a-3': 'A+++',
-      'a-a': 'A++',
+      'a-a-2': 'A++ / A+',
+      'a-a-3': 'A+++ / A++',
+      'a-a': 'A+++ / A+++',
       'a-plus': 'A+',
       'a-2': 'A++',
       'a-3': 'A+++',
@@ -93,7 +94,7 @@ export default function ProductSections({ product, specs }: ProductSectionsProps
         })
         .map(attr => ({
           label: attr.label || attr.name,
-          value: formatAttributeOptions(attr.options || []),
+          value: attr.terms?.nodes?.length ? attr.terms.nodes.map((t: any) => t.name).join(', ') : formatAttributeOptions(attr.options || []),
         })),
     ],
   };
@@ -122,9 +123,18 @@ export default function ProductSections({ product, specs }: ProductSectionsProps
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const posthog = usePostHog();
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      if (sectionId === 'specificatii') {
+        posthog?.capture('product_specs_expanded', {
+          product_name: product.name,
+          product_id: product.id
+        });
+      }
+
       const offset = 100;
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
@@ -137,8 +147,8 @@ export default function ProductSections({ product, specs }: ProductSectionsProps
   return (
     <div className="relative">
       {/* Sticky Product Bar - Appears after scrolling past "Add to Cart" */}
-      <StickyProductBar 
-        product={product} 
+      <StickyProductBar
+        product={product}
         activeSection={activeSection}
         onSectionClick={scrollToSection}
       />

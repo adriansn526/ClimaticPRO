@@ -7,6 +7,7 @@ import NextImage from 'next/image';
 import { Search, X, Loader2, ShoppingCart, ArrowRight } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/contexts/ToastContext';
+import posthog from 'posthog-js';
 
 interface SearchProduct {
     id: number;
@@ -75,15 +76,14 @@ export default function SearchWithSuggestions({ mobile = false, onClose }: { mob
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (query.length > 0) {
+            posthog.capture('search_performed', {
+                query,
+                results_count: suggestions.length,
+            });
             if (onClose) onClose();
             setIsOpen(false);
-            // Redirect to a search results page (not implemented yet, but good practice)
-            // router.push(`/cautare?q=${encodeURIComponent(query)}`); 
-            // For now, if there is a top suggestion, go to it? Or just do nothing?
-            // Let's verify if we have suggestions.
-            if (suggestions.length > 0) {
-                router.push(`/produs/${suggestions[0].slug}`);
-            }
+            // Redirect to the products archive page with search query
+            router.push(`/produse?search=${encodeURIComponent(query)}`);
         }
     };
 
@@ -102,7 +102,7 @@ export default function SearchWithSuggestions({ mobile = false, onClose }: { mob
         }
 
         addItem({
-            id: product.id,
+            id: product.id.toString(),
             databaseId: product.id,
             name: product.name,
             price: price.toString(),
@@ -111,7 +111,7 @@ export default function SearchWithSuggestions({ mobile = false, onClose }: { mob
             image: { sourceUrl: product.image, altText: product.name },
             slug: product.slug,
             stockStatus: 'IN_STOCK', // Assumed since we check before calling
-        }, 1);
+        } as any, 1);
         showToast("Produs adăugat în coș", "success");
     };
 
@@ -166,7 +166,17 @@ export default function SearchWithSuggestions({ mobile = false, onClose }: { mob
                             <Link
                                 key={product.id}
                                 href={`/produs/${product.slug}`}
-                                onClick={() => { setIsOpen(false); if (onClose) onClose(); }}
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    if (onClose) onClose();
+                                    posthog.capture('search_product_selected', {
+                                        query,
+                                        product_id: product.id,
+                                        product_name: product.name,
+                                        product_slug: product.slug,
+                                        brand: product.brand,
+                                    });
+                                }}
                                 className="flex items-center gap-4 p-3 hover:bg-gray-50 transition-colors group"
                             >
                                 {/* Image */}
@@ -203,7 +213,7 @@ export default function SearchWithSuggestions({ mobile = false, onClose }: { mob
                                         {product.salePrice ? (
                                             <>
                                                 <span className="text-xs font-bold text-red-600" dangerouslySetInnerHTML={{ __html: product.salePrice }} />
-                                                <span className="text-[10px] text-gray-400 line-through decoration-gray-400" dangerouslySetInnerHTML={{ __html: product.regularPrice }} />
+                                                <span className="text-[10px] text-gray-400 line-through decoration-gray-400" dangerouslySetInnerHTML={{ __html: product.regularPrice || '' }} />
                                             </>
                                         ) : (
                                             <span className="text-xs font-bold text-gray-900" dangerouslySetInnerHTML={{ __html: product.price }} />

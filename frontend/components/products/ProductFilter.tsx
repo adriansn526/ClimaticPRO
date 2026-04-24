@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { WooCommerceCategory } from '@/lib/woocommerce';
 import { ChevronDown, ChevronRight, X, Search } from 'lucide-react';
 import Accordion from '@/components/ui/Accordion';
+import { usePostHog } from 'posthog-js/react';
 
 interface FilterAttribute {
     name: string;
@@ -25,6 +26,7 @@ interface ProductFilterProps {
     maxPrice?: number;
     total?: number;
     selectedCategory?: string;
+    inStockDefault?: boolean;
 }
 
 // --- Internal Helper Component for Attribute Lists ---
@@ -90,18 +92,21 @@ const FilterSection = ({
         </div>
     );
 };
-
 export default function ProductFilter({
     categories,
     filters,
     minPrice = 0,
     maxPrice = 10000,
     total,
-    selectedCategory: propCategory
+    selectedCategory: propCategory,
+    inStockDefault = true
 }: ProductFilterProps) {
     const { brands = [], btu = [], energy = [] } = filters || {};
     const router = useRouter();
     const searchParams = useSearchParams();
+    const posthog = usePostHog();
+
+    const inStock = searchParams.get('inStock') !== 'false' && inStockDefault !== false;
 
     const selectedCategory = propCategory || searchParams.get('category') || '';
 
@@ -129,9 +134,21 @@ export default function ProductFilter({
         btu?: string[];
         energy?: string[];
         price?: [number, number];
+        inStock?: boolean;
     }) => {
         const params = new URLSearchParams(searchParams.toString());
         params.delete('after'); // Reset pagination
+
+        // Track custom event for posthog
+        posthog?.capture('filter_applied', {
+            filter_updates: Object.keys(updates).reduce((acc, key) => {
+                if (updates[key as keyof typeof updates] !== undefined) {
+                    acc[key] = updates[key as keyof typeof updates];
+                }
+                return acc;
+            }, {} as Record<string, any>),
+            category: updates.category ?? selectedCategory
+        });
 
         // Category SEO redirect
         if (updates.category !== undefined) {
@@ -160,6 +177,10 @@ export default function ProductFilter({
         if (updates.price) {
             params.set('minPrice', updates.price[0].toString());
             params.set('maxPrice', updates.price[1].toString());
+        }
+
+        if (updates.inStock !== undefined) {
+            params.set('inStock', updates.inStock ? 'true' : 'false');
         }
 
         router.push(`/produse?${params.toString()}`, { scroll: false });
@@ -220,6 +241,24 @@ export default function ProductFilter({
                 <div className="flex justify-between items-center lg:hidden mb-6">
                     <h2 className="text-xl font-bold">Filtre</h2>
                     <button onClick={() => setIsMobileOpen(false)}><X className="w-6 h-6" /></button>
+                </div>
+
+                {/* Toggle In Stoc */}
+                <div className="mb-6 border-b border-gray-100 pb-6">
+                    <label className="flex items-center justify-between cursor-pointer group">
+                        <span className="text-sm font-medium text-gray-900 group-hover:text-primary-600">Doar vizibile în stoc</span>
+                        <div className="relative">
+                            <input 
+                                type="checkbox" 
+                                className="sr-only" 
+                                checked={inStock} 
+                                onChange={() => applyFilters({ inStock: !inStock })} 
+                                title="Filtrează produse în stoc"
+                            />
+                            <div className={`block w-10 h-6 rounded-full transition-colors ${inStock ? 'bg-primary-600' : 'bg-gray-300'}`}></div>
+                            <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${inStock ? 'transform translate-x-4' : ''}`}></div>
+                        </div>
+                    </label>
                 </div>
 
                 {/* Active Filters Summary */}

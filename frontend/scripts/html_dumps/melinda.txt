@@ -1,0 +1,73 @@
+--- melinda PRODUCT SNIPPET ---
+<div class="category-item">
+ <h3 class="category-title">
+  <a class="single-category" href="/pompe-de-circulatie-wig0000022">
+   Pompe de circulatie
+  </a>
+ </h3>
+ <ul>
+  <li>
+   <a href="/pompe-de-circulatie-electronice-wig0000024">
+    <i class="sr-icon-angle-right">
+    </i>
+    Pompe de circulatie electronice
+   </a>
+  </li>
+  <li>
+   <a href="/pompe-de-recirculare-acm-wig0000025">
+    <i class="sr-icon-angle-right">
+    </i>
+    Pompe de recirculare acm
+   </a>
+  </li>
+  <li>
+   <a href="/accesorii-wig0000026">
+    <i class="sr-icon-angle-right">
+    </i>
+    Accesorii
+   </a>
+  </li>
+ </ul>
+</div>
+
+
+--- melinda PRODUCT SNIPPET ---
+<div class="category-item">
+ <h3 class="category-title">
+  <a class="single-category" href="/organe-de-asamblare-si-feronerie">
+   Organe de asamblare si feronerie
+  </a>
+ </h3>
+ <ul>
+  <li>
+   <a href="/feronerie-si-accesorii">
+    <i class="sr-icon-angle-right">
+    </i>
+    Feronerie si accesorii
+   </a>
+  </li>
+  <li>
+   <a href="/nituri-capse-coliere-si-alte-accesorii">
+    <i class="sr-icon-angle-right">
+    </i>
+    Nituri, capse, coliere si alte accesorii
+   </a>
+  </li>
+  <li>
+   <a href="/suruburi">
+    <i class="sr-icon-angle-right">
+    </i>
+    Suruburi
+   </a>
+  </li>
+  <li>
+   <a href="/cuie">
+    <i class="sr-icon-angle-right">
+    </i>
+    Cuie
+   </a>
+  </li>
+ </ul>
+</div>
+
+

@@ -62,6 +62,12 @@ export interface WooCommerceProduct {
       label?: string;
       options: string[];
       variation?: boolean;
+      terms?: {
+        nodes: {
+          name: string;
+          slug: string;
+        }[];
+      };
     }[];
   } | null;
   metaData?: {
@@ -198,6 +204,7 @@ export async function getProductById(id: number): Promise<WooCommerceProduct | n
         ... on SimpleProduct {
           price
           regularPrice
+          salePrice
         }
       }
     }
@@ -311,7 +318,7 @@ export async function getFeaturedProducts(limit: number = 8): Promise<WooCommerc
 export async function getBestSellingProducts(limit: number = 4): Promise<WooCommerceProduct[]> {
   const query = `
     query GetBestSellingProducts {
-      products(first: ${limit}, where: { orderby: { field: TOTAL_SALES, order: DESC } }) {
+      products(first: 24, where: { orderby: { field: TOTAL_SALES, order: DESC } }) {
         nodes {
           id
           databaseId
@@ -375,8 +382,13 @@ export async function getBestSellingProducts(limit: number = 4): Promise<WooComm
     }
 
     const products = json.data?.products?.nodes || [];
-    // Filter out-of-stock products
-    return replaceUrlInObject(products.filter((p: any) => p.stockStatus === 'IN_STOCK'));
+    // Filter out-of-stock products and installation products
+    const filteredProducts = products.filter((p: any) => 
+      p.stockStatus === 'IN_STOCK' && 
+      !p.name.toLowerCase().includes('instalar')
+    );
+    
+    return replaceUrlInObject(filteredProducts.slice(0, limit));
   } catch (error) {
     console.error('Error fetching best selling products:', error);
     return [];
@@ -527,10 +539,40 @@ export interface GetProductsParams {
   maxPrice?: number;
   orderby?: { field: string; order: string };
   exclude?: number[];
+  inStock?: boolean;
 }
 
 // Helper to normalize attribute names
-const normalize = (str: string) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+const normalize = (str: string) => str.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-');
+
+// Helper to standardize BTU to conventional steps
+const standardizeBtu = (str: string) => {
+    const lower = str.toLowerCase();
+    const hasBtuWord = lower.includes('btu');
+    const match = str.match(/(?:^|\D)(\d{4,5})(?:\D|$)/); 
+    
+    if (!match) return null;
+    if (!hasBtuWord && lower.includes('kw')) return null;
+
+    let btu = parseInt(match[1], 10);
+    if (btu < 4000 || btu > 80000) return null;
+
+    const standards = [5000, 7000, 9000, 12000, 14000, 15000, 18000, 21000, 22000, 24000, 28000, 32000, 36000, 42000, 48000, 60000];
+    let closest = standards[0];
+    let minDiff = Math.abs(btu - closest);
+    for (const s of standards) {
+        const diff = Math.abs(btu - s);
+        if (diff < minDiff) {
+            closest = s;
+            minDiff = diff;
+        }
+    }
+    
+    if (minDiff <= 3000) {
+        return closest;
+    }
+    return btu;
+};
 
 // Extracted function to fetch ALL products (cached)
 export async function getAllProductsCached(): Promise<WooCommerceProduct[]> {
@@ -649,7 +691,7 @@ export function generateCategoryFilters(products: any[], categories: WooCommerce
   const filterMap: Record<string, { capacities: any[], energyClasses: any[], brands: any[] }> = {};
 
   // Helper to normalize
-  const normalize = (str: string) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const normalize = (str: string) => str.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-');
 
   // Helper to map category Slug to all its descendant slugs
   const getDescendantSlugs = (node: WooCommerceCategory): string[] => {
@@ -705,13 +747,21 @@ export function generateCategoryFilters(products: any[], categories: WooCommerce
         // Check for 'capacitate', 'btu', or specific slug 'pa_capacitate'
         if (name.includes('capacitate') || name.includes('btu') || name === 'pa_capacitate') {
           if (a.terms?.nodes && a.terms.nodes.length > 0) {
-            a.terms.nodes.forEach((t: any) => capMap.set(t.slug, { ...t, count: (capMap.get(t.slug)?.count || 0) + 1 }));
+            a.terms.nodes.forEach((t: any) => {
+              const std = standardizeBtu(t.name);
+              if (std !== null) {
+                const finalSlug = `${std}-btu`;
+                const finalName = `${std} BTU`;
+                capMap.set(finalSlug, { name: finalName, slug: finalSlug, count: (capMap.get(finalSlug)?.count || 0) + 1 });
+              }
+            });
           } else if (a.options && a.options.length > 0) {
             a.options.forEach((o: string) => {
-              const s = normalize(o); // Simple internal slug for local options
-              // Only add if it looks like a capacity (contains digits)
-              if (/\d/.test(o)) {
-                capMap.set(s, { name: o, slug: s, count: (capMap.get(s)?.count || 0) + 1 });
+              const std = standardizeBtu(o);
+              if (std !== null) {
+                const finalSlug = `${std}-btu`;
+                const finalName = `${std} BTU`;
+                capMap.set(finalSlug, { name: finalName, slug: finalSlug, count: (capMap.get(finalSlug)?.count || 0) + 1 });
               }
             });
           }
@@ -720,14 +770,18 @@ export function generateCategoryFilters(products: any[], categories: WooCommerce
         // Energy
         // Check for 'clasa', 'energy', 'energie', or specific slug 'pa_clasa_energie'
         if ((name.includes('clasa') || name.includes('energy') || name.includes('energie') || name === 'pa_clasa_energie') && !name.includes('zgomot')) {
+          const formatEnergySlug = (str: string) => str.toLowerCase().replace(/\+/g, '-plus').replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/(^-|-$)/g, '');
+          
           if (a.terms?.nodes && a.terms.nodes.length > 0) {
-            a.terms.nodes.forEach((t: any) => energyMap.set(t.slug, { ...t, count: (energyMap.get(t.slug)?.count || 0) + 1 }));
+            a.terms.nodes.forEach((t: any) => {
+                const finalSlug = formatEnergySlug(t.name);
+                energyMap.set(finalSlug, { name: t.name.toUpperCase(), slug: finalSlug, count: (energyMap.get(finalSlug)?.count || 0) + 1 });
+            });
           } else if (a.options && a.options.length > 0) {
             a.options.forEach((o: string) => {
-              const s = normalize(o);
-              // Only add if it's clear (A++, A+, etc)
               if (o.toUpperCase().includes('A')) {
-                energyMap.set(s, { name: o, slug: s, count: (energyMap.get(s)?.count || 0) + 1 });
+                const finalSlug = formatEnergySlug(o);
+                energyMap.set(finalSlug, { name: o.toUpperCase(), slug: finalSlug, count: (energyMap.get(finalSlug)?.count || 0) + 1 });
               }
             });
           }
@@ -799,9 +853,9 @@ export async function getProducts(params: GetProductsParams = {}, limit = 24, af
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
     if (category) {
       const cats = p.productCategories?.nodes || [];
-      // Check if ANY of the product's categories match ANY of our target categories (parent or descendants)
       if (!cats.some((c: any) => targetCategories.has(c.slug))) return false;
     }
+    if (params.inStock && p.stockStatus !== 'IN_STOCK') return false;
     return true;
   });
 
@@ -814,6 +868,10 @@ export async function getProducts(params: GetProductsParams = {}, limit = 24, af
 
   const extractFacets = (products: any[], keywords: string[]) => {
     const counts = new Map<string, { term: string, slug: string, name: string, count: number }>();
+    const isBtu = keywords.includes('btu') || keywords.includes('capacitate') || keywords.includes('pa_btu');
+    const isEnergy = keywords.includes('energi') || keywords.includes('clasa') || keywords.includes('pa_clasa');
+
+    const formatEnergySlug = (str: string) => str.toLowerCase().replace(/\+/g, '-plus').replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/(^-|-$)/g, '');
 
     products.forEach(p => {
       const pAttrs = p.attributes?.nodes || [];
@@ -824,16 +882,43 @@ export async function getProducts(params: GetProductsParams = {}, limit = 24, af
           // Prefer terms (global), fallback to options (local)
           if (a.terms?.nodes && a.terms.nodes.length > 0) {
             a.terms.nodes.forEach((t: any) => {
-              const current = counts.get(t.slug) || { term: t.name, name: t.name, slug: t.slug, count: 0 };
+              let finalSlug = t.slug;
+              let finalName = t.name;
+              
+              if (isBtu) {
+                  const std = standardizeBtu(t.name);
+                  if (std === null) return;
+                  finalSlug = `${std}-btu`;
+                  finalName = `${std} BTU`;
+              } else if (isEnergy) {
+                  finalSlug = formatEnergySlug(t.name);
+                  finalName = t.name.toUpperCase();
+              }
+
+              const current = counts.get(finalSlug) || { term: finalName, name: finalName, slug: finalSlug, count: 0 };
               current.count++;
-              counts.set(t.slug, current);
+              counts.set(finalSlug, current);
             });
           } else if (a.options && a.options.length > 0) {
             a.options.forEach((opt: string) => {
-              const slug = normalize(opt);
-              const current = counts.get(slug) || { term: opt, name: opt, slug: slug, count: 0 };
+              let finalSlug = normalize(opt);
+              let finalName = opt;
+              
+              if (isBtu) {
+                  const std = standardizeBtu(opt);
+                  if (std === null) return;
+                  finalSlug = `${std}-btu`;
+                  finalName = `${std} BTU`;
+              } else if (isEnergy && opt.toUpperCase().includes('A')) {
+                  finalSlug = formatEnergySlug(opt);
+                  finalName = opt.toUpperCase();
+              } else if (isEnergy) {
+                  return; // Skip if it doesn't contain 'A'
+              }
+
+              const current = counts.get(finalSlug) || { term: finalName, name: finalName, slug: finalSlug, count: 0 };
               current.count++;
-              counts.set(slug, current);
+              counts.set(finalSlug, current);
             });
           }
         }
@@ -902,13 +987,38 @@ export async function getProducts(params: GetProductsParams = {}, limit = 24, af
     const slugs = Array.isArray(targetSlugs) ? targetSlugs : [targetSlugs];
     if (slugs.length === 0) return true;
 
+    const isBtu = attrKeywords.includes('btu') || attrKeywords.includes('capacitate') || attrKeywords.includes('pa_btu');
+    const isEnergy = attrKeywords.includes('energi') || attrKeywords.includes('clasa') || attrKeywords.includes('pa_clasa');
+
+    const formatEnergySlug = (str: string) => str.toLowerCase().replace(/\+/g, '-plus').replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/(^-|-$)/g, '');
+
     const pAttrs = product.attributes?.nodes || [];
     const relevantTerms = pAttrs.flatMap((a: any) => {
       const name = a.name?.toLowerCase() || '';
       const label = a.label?.toLowerCase() || '';
       if (attrKeywords.some(kw => name.includes(kw) || label.includes(kw))) {
-        const termSlugs = a.terms?.nodes?.map((t: any) => t.slug) || [];
-        const optionSlugs = a.options?.map((o: string) => normalize(o)) || [];
+        const termSlugs = a.terms?.nodes?.map((t: any) => {
+            if (isBtu) {
+                const std = standardizeBtu(t.name);
+                if (std !== null) return `${std}-btu`;
+                return null;
+            } else if (isEnergy) {
+                return formatEnergySlug(t.name);
+            }
+            return t.slug;
+        }).filter(Boolean) || [];
+        const optionSlugs = a.options?.map((o: string) => {
+            if (isBtu) {
+                const std = standardizeBtu(o);
+                if (std !== null) return `${std}-btu`;
+                return null;
+            } else if (isEnergy && o.toUpperCase().includes('A')) {
+                return formatEnergySlug(o);
+            } else if (isEnergy) {
+                return null;
+            }
+            return normalize(o);
+        }).filter(Boolean) || [];
         return [...termSlugs, ...optionSlugs];
       }
       return [];
@@ -1203,7 +1313,7 @@ export async function getAttributes(taxonomy: string = 'pa_brand'): Promise<{ te
 export async function getProductsByTag(tag: string, limit: number = 4): Promise<WooCommerceProduct[]> {
   const query = `
     query GetProductsByTag($tag: String!, $limit: Int!) {
-    products(first: $limit, where: { tag: $tag }) {
+    products(first: $limit, where: { tagIn: [$tag] }) {
         nodes {
         id
         databaseId
@@ -1627,4 +1737,145 @@ export async function createWooCommerceOrder(orderData: any): Promise<any> {
     console.error('Error creating WooCommerce order:', error);
     return { success: false, error: 'Network error' };
   }
+}
+
+export async function createWooCommerceProduct(productData: any): Promise<any> {
+  const baseUrl = (process.env.WORDPRESS_API_URL || 'https://cms.climaticpro.ro/graphql').replace('/graphql', '/wp-json');
+  const key = process.env.WOOCOMMERCE_CONSUMER_KEY;
+  const secret = process.env.WOOCOMMERCE_CONSUMER_SECRET;
+
+  if (!key || !secret) {
+    console.error('WooCommerce credentials missing for createWooCommerceProduct');
+    return { success: false, error: 'Credentials missing' };
+  }
+
+  const url = `${baseUrl}/wc/v3/products?consumer_key=${key}&consumer_secret=${secret}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productData)
+    });
+
+    const responseText = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(responseText);
+    } catch (e) {
+      console.error('Failed to parse WooCommerce response on Create Product:', responseText);
+      return { success: false, error: 'Invalid response from server' };
+    }
+
+    if (!response.ok) {
+      console.error('WooCommerce Create Product Error:', data);
+      return { success: false, error: data.message || 'Failed to create product' };
+    }
+
+    return { success: true, product: data };
+  } catch (error) {
+    console.error('Error creating WooCommerce product:', error);
+    return { success: false, error: 'Network error' };
+  }
+}
+
+export async function updateWooCommerceProduct(productId: number, updateData: any): Promise<boolean> {
+  const baseUrl = (process.env.WORDPRESS_API_URL || 'https://cms.climaticpro.ro/graphql').replace('/graphql', '/wp-json');
+  const key = process.env.WOOCOMMERCE_CONSUMER_KEY;
+  const secret = process.env.WOOCOMMERCE_CONSUMER_SECRET;
+
+  if (!key || !secret) {
+    console.error('WooCommerce credentials missing for updateWooCommerceProduct');
+    return false;
+  }
+
+  const url = `${baseUrl}/wc/v3/products/${productId}?consumer_key=${key}&consumer_secret=${secret}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updateData)
+    });
+
+    if (!response.ok) {
+        const err = await response.text();
+        console.error(`Failed to update WooCommerce Product ID ${productId}:`, err);
+        return false;
+    }
+
+    console.log(`WooCommerce Product ID ${productId} successfully synced.`);
+    return true;
+  } catch (error) {
+    console.error(`Network Error updating WooCommerce Product ID ${productId}:`, error);
+    return false;
+  }
+}
+
+export async function smartSyncB2BToWooCommerce(product: any, hasStock: boolean = true) {
+    const wooProduct = await getProductBySlug(product.slug);
+    
+    // Construct full image URL for sideloading from PIM relative path
+    let images = [];
+    if (product.image) {
+        images.push({ src: `https://climaticpro.ro${product.image}` });
+    }
+
+    const price = String(product.priceRetail || product.priceB2B);
+    const stock_status = hasStock ? 'instock' : 'outofstock';
+    
+    // Extract wp category ids (from wooCategoryIds)
+    const categories = Array.isArray(product.wooCategoryIds) ? product.wooCategoryIds.map((id: number) => ({ id })) : [];
+    
+    const baseData: any = {
+        name: product.name,
+        regular_price: price,
+        stock_status,
+        manage_stock: product.manageStock,
+        description: product.description || '',
+        meta_data: [
+            { key: '_force_installation', value: product.forceInstallation ? 'true' : 'false' }
+        ]
+    };
+
+    if (product.sku) {
+        baseData.sku = product.sku;
+    }
+    
+    if (product.manageStock) {
+        baseData.stock_quantity = product.stock;
+    }
+
+    if (wooProduct) {
+         // UPDATE existing
+         try {
+             return await updateWooCommerceProduct(wooProduct.databaseId, baseData);
+         } catch(e) {
+             console.error('Failed smartSync Update', e);
+             return false;
+         }
+    } else {
+         // CREATE new
+         const createData = {
+             ...baseData,
+             type: 'simple',
+             status: 'publish',
+             slug: product.slug,
+             sku: product.sku || product.slug, // fallback sku
+             categories: categories,
+             images: images
+         };
+         try {
+             const res = await createWooCommerceProduct(createData);
+             return res.success;
+         } catch(e) {
+             console.error('Failed smartSync Create', e);
+             return false;
+         }
+    }
 }

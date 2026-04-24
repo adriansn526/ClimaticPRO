@@ -9,7 +9,7 @@ export default function FinalCTA() {
   const t = useTranslations('cta');
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary-600 via-primary-500 to-secondary-500 relative overflow-hidden">
+    <section className="py-20 bg-[#0052a3] relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -59,11 +59,11 @@ export default function FinalCTA() {
             <div className="flex items-center text-white">
               <span className="mr-3">{t('phone')}</span>
               <a
-                href="tel:+40316300101"
+                href="tel:+40316060050"
                 className="flex items-center font-bold text-lg hover:text-white/80 transition-colors"
               >
                 <Phone className="w-5 h-5 mr-2" />
-                +40 316 300 101
+                +40 316 060 050
               </a>
             </div>
           </motion.div>

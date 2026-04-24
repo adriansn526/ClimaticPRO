@@ -1,0 +1,40 @@
+--- evofrost PRODUCT SNIPPET ---
+<div class="product-listing clearfix">
+ <div class="row product -g-listing-products-holder">
+  <div class="product-box center col-md-3 col-xs-6 dataProductId __GomagListingProductBox -g-product-box-720" data-block-name="ListingName" data-gomag='{"Lei_price":"7.00","Lei_final_price":"7.00","Lei":"Lei","Lei_vat":"","Euro_price":"1.36","Euro_final_price":"1.36","Euro":"Euro","Euro_vat":""}' data-product-id="720">
+   <div class="box-holder">
+    <a class="image _productMainUrl_720" data-pageid="79" href="https://www.evofrost.ro/aer-conditionat/condensator-capacitor-1-µf.html">
+     <img alt="Aer conditionat - Condensator (capacitor) 1 µF - 00229" class="img-responsive listImage _productMainImage_720" data-flip="" data-main="https://gomagcdn.ro/themes/fashion/gfx/no-image.png" data-src="https://gomagcdn.ro/themes/fashion/gfx/no-image.png" height="280" loading="lazy" src="https://gomagcdn.ro/themes/fashion/gfx/no-image.png" title="Condensator (capacitor) 1 µF - 00229" width="280"/>
+    </a>
+    <div class="product-icon-holder">
+     <div class="product-icon-box -g-product-icon-box-720">
+     </div>
+     <div class="product-icon-box bottom -g-product-icon-bottom-box-720">
+     </div>
+    </div>
+    <div class="top-side-box">
+     <h2 class="title-holder" style="line-height:initial;">
+      <a class="title _productUrl_720" data-block="ListingName" data-pageid="79" href="https://www.evofrost.ro/aer-conditionat/condensator-capacitor-1-µf.html">
+       Condensator (capacitor) 1 µF - 002
+
+--- evofrost PRODUCT SNIPPET ---
+<div class="row product -g-listing-products-holder">
+ <div class="product-box center col-md-3 col-xs-6 dataProductId __GomagListingProductBox -g-product-box-720" data-block-name="ListingName" data-gomag='{"Lei_price":"7.00","Lei_final_price":"7.00","Lei":"Lei","Lei_vat":"","Euro_price":"1.36","Euro_final_price":"1.36","Euro":"Euro","Euro_vat":""}' data-product-id="720">
+  <div class="box-holder">
+   <a class="image _productMainUrl_720" data-pageid="79" href="https://www.evofrost.ro/aer-conditionat/condensator-capacitor-1-µf.html">
+    <img alt="Aer conditionat - Condensator (capacitor) 1 µF - 00229" class="img-responsive listImage _productMainImage_720" data-flip="" data-main="https://gomagcdn.ro/themes/fashion/gfx/no-image.png" data-src="https://gomagcdn.ro/themes/fashion/gfx/no-image.png" height="280" loading="lazy" src="https://gomagcdn.ro/themes/fashion/gfx/no-image.png" title="Condensator (capacitor) 1 µF - 00229" width="280"/>
+   </a>
+   <div class="product-icon-holder">
+    <div class="product-icon-box -g-product-icon-box-720">
+    </div>
+    <div class="product-icon-box bottom -g-product-icon-bottom-box-720">
+    </div>
+   </div>
+   <div class="top-side-box">
+    <h2 class="title-holder" style="line-height:initial;">
+     <a class="title _productUrl_720" data-block="ListingName" data-pageid="79" href="https://www.evofrost.ro/aer-conditionat/condensator-capacitor-1-µf.html">
+      Condensator (capacitor) 1 µF - 00229
+     </a>
+    </h2>
+    <div class="price -g-hide -g
+

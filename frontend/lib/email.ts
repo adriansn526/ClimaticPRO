@@ -76,7 +76,7 @@ export const sendOrderConfirmationEmail = async (data: OrderEmailData) => {
       <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
       <p style="font-size: 12px; color: #666;">
         ClimaticPRO - Instalare Profesională Aer Condiționat<br/>
-        Tel: +40 316 300 101 | Email: <a href="mailto:contact@climaticpro.ro">contact@climaticpro.ro</a>
+        Tel: +40 316 060 050 | Email: <a href="mailto:contact@climaticpro.ro">contact@climaticpro.ro</a>
       </p>
     </div>
   `;

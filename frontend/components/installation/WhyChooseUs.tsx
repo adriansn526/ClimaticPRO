@@ -76,13 +76,11 @@ export default function WhyChooseUs() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6"
+            className="mt-12 grid grid-cols-2 gap-6 max-w-2xl mx-auto"
           >
             {[
               { value: '20+', label: 'Ani Experiență' },
               { value: '1000+', label: 'Instalări' },
-              { value: '4.9/5', label: 'Rating Mediu' },
-              { value: '98%', label: 'Clienți Mulțumiți' },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl font-bold text-primary-600 mb-2">{stat.value}</div>

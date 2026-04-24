@@ -6,33 +6,41 @@ export const revalidate = 0;
 
 export async function GET() {
   try {
-    // 1. Try to get product by tag "hero-instalare" first
-    let products = await getProductsByTag('hero-instalare', 1);
+    // 1. Try to get product by tag "hero-instalare"
+    let products = await getProductsByTag('hero-instalare', 6); // Fetch more than 1 if needed
 
-    // 2. Fallback to featured products if no tag found
-    if (products.length === 0) {
-      products = await getInstallationProducts(3);
-    }
 
     // 3. Fetch specific Installation Product (ID 11170) to get current price
     let installationProductPrice = 1000;
+    let installationRegularPrice: number | null = null;
+    const parsePrice = (priceStr: string | null | undefined): number => {
+      if (!priceStr) return 0;
+      let clean = priceStr.toLowerCase().replace(/lei|ron|\s/g, '');
+      if (clean.includes(',') && clean.includes('.')) {
+        if (clean.indexOf('.') < clean.indexOf(',')) { clean = clean.replace(/\./g, '').replace(',', '.'); }
+        else { clean = clean.replace(/,/g, ''); }
+      } else if (clean.includes('.')) {
+        const parts = clean.split('.');
+        if (parts.length > 1 && parts[parts.length - 1].length === 3 && parts.length === 2 && parseInt(parts[0]) < 100) clean = clean.replace('.', '');
+        else if (parts.length > 2) clean = clean.replace(/\./g, '');
+        else if (parts.length === 2 && parts[1].length === 3) clean = clean.replace('.', '');
+      } else if (clean.includes(',')) clean = clean.replace(',', '.');
+      return parseFloat(clean) || 0;
+    };
+
     try {
       const installProduct = await getProductById(11170); // New helper
       if (installProduct) {
-        const parsePrice = (priceStr: string | null | undefined): number => {
-          if (!priceStr) return 0;
-          let clean = priceStr.toLowerCase().replace(/lei|ron|\s/g, '');
-          if (clean.includes(',') && clean.includes('.')) {
-            if (clean.indexOf('.') < clean.indexOf(',')) { clean = clean.replace(/\./g, '').replace(',', '.'); }
-            else { clean = clean.replace(/,/g, ''); }
-          } else if (clean.includes('.')) {
-            const parts = clean.split('.');
-            if (parts.length > 1 && parts[parts.length - 1].length === 3) clean = clean.replace('.', '');
-          } else if (clean.includes(',')) clean = clean.replace(',', '.');
-          return parseFloat(clean) || 0;
-        };
-        const parsed = parsePrice(installProduct.price || installProduct.regularPrice);
-        if (parsed > 0) installationProductPrice = parsed;
+        let pPrice = parsePrice(installProduct.price);
+        let rPrice = parsePrice(installProduct.regularPrice);
+        if (pPrice > 0) {
+          installationProductPrice = pPrice;
+          if (rPrice > 0 && rPrice > pPrice) {
+            installationRegularPrice = rPrice;
+          }
+        } else if (rPrice > 0) {
+          installationProductPrice = rPrice;
+        }
       }
     } catch (e) {
       console.warn('Failed to fetch installation product 11170', e);
@@ -70,32 +78,62 @@ export async function GET() {
 
       // Extract features from short description or attributes
       const features: string[] = [];
-      if (product.shortDescription) {
-        // Strip ALL HTML tags first
-        const cleanDescription = product.shortDescription.replace(/<[^>]*>?/gm, ' ');
-        // Split by bullets or special chars if common usage, OR extract specifically from li if desired.
-        // User asked to remove tags, so we aggressively strip.
-        // However, regex match for li content is safer for lists.
-        const featureMatches = product.shortDescription.match(/<li>(.*?)<\/li>/g);
 
+      // Smart extraction from attributes
+      if (product.attributes && product.attributes.nodes) {
+        const attrs = product.attributes.nodes;
+
+        // 1. Tehnologie (Inverter)
+        const tehno = attrs.find((a: any) => a.name.toLowerCase().includes('inverter') || a.name.toLowerCase() === 'tehnologie');
+        if (tehno && tehno.options && tehno.options.length > 0) {
+          // Daca numele e chiar "Inverter", il punem direct. Altfel punem "Inverter" daca optiunea zice Da.
+          if (tehno.name.toLowerCase().includes('inverter')) features.push('Inverter');
+          else features.push(tehno.options[0]);
+        } else {
+          features.push('Inverter'); // Default bun
+        }
+
+        // 2. Control / WiFi
+        const wifi = attrs.find((a: any) => a.name.toLowerCase().includes('wi-fi') || a.name.toLowerCase().includes('wifi'));
+        if (wifi && wifi.options && wifi.options.length > 0) {
+          if (wifi.options[0].toLowerCase() === 'da' || wifi.options[0].toLowerCase().includes('inclus')) {
+            features.push('Modul Wi-Fi Integrat');
+          } else {
+            features.push(`Wi-Fi: ${wifi.options[0]}`);
+          }
+        } else {
+          features.push('Wi-Fi Ready');
+        }
+
+        // 3. Zgomot
+        const noise = attrs.find((a: any) => a.name.toLowerCase().includes('zgomot'));
+        if (noise && noise.options && noise.options.length > 0) {
+          features.push(`Silențios (${noise.options[0]})`);
+        }
+
+        // 4. Agent Frigorific
+        const freon = attrs.find((a: any) => a.name.toLowerCase().includes('agent frigorific') || a.name.toLowerCase().includes('freon'));
+        if (freon && freon.options && freon.options.length > 0) {
+          features.push(`Agent frigorific ${freon.options[0]}`);
+        }
+      }
+
+      // If we still don't have enough features, try shortDescription
+      if (features.length < 3 && product.shortDescription) {
+        const featureMatches = product.shortDescription.match(/<li>(.*?)<\/li>/g);
         if (featureMatches) {
           featureMatches.forEach(match => {
-            // Strip tags from within the li
             const feature = match.replace(/<[^>]+>/g, '').trim();
-            if (feature) features.push(feature);
+            if (feature && features.length < 6 && !features.some(f => f.toLowerCase() === feature.toLowerCase())) {
+              features.push(feature);
+            }
           });
         }
       }
 
       // Default features if none found
       if (features.length === 0) {
-        // Try to get from attributes
-        if (product.attributes) {
-          // Maybe map some attributes? For now default.
-          features.push('Inverter', 'WiFi Ready', 'Eco Mode');
-        } else {
-          features.push('Inverter', 'WiFi Ready', 'Eco Mode');
-        }
+        features.push('Inverter', 'WiFi Ready', 'Eco Mode', 'Silențios');
       }
 
       // Robust Price Parsing
@@ -170,10 +208,35 @@ export async function GET() {
       };
     });
 
+    // Fetch Premium Package specifically
+    let premiumPackagePrice = 1250;
+    let premiumRegularPrice: number | null = null;
+    try {
+      const premProduct = await getProductById(9043);
+      if (premProduct) {
+        let pPrice = parsePrice(premProduct.price);
+        let rPrice = parsePrice(premProduct.regularPrice);
+        if (pPrice > 0) {
+          premiumPackagePrice = pPrice;
+          if (rPrice > 0 && rPrice > pPrice) {
+            premiumRegularPrice = rPrice;
+          }
+        } else if (rPrice > 0) {
+          premiumPackagePrice = rPrice;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to fetch premium package product 9043', e);
+    }
+
     return NextResponse.json({
       success: true,
       products: transformedProducts,
-      installationPrice: installationProductPrice
+      installationPrice: installationProductPrice,
+      servicePackages: {
+        standard: { price: installationProductPrice, regularPrice: installationRegularPrice },
+        premium: { price: premiumPackagePrice, regularPrice: premiumRegularPrice }
+      }
     });
 
   } catch (error: any) {

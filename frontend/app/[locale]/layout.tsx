@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Outfit } from 'next/font/google';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { CartProvider } from '@/contexts/CartContext';
 import { ToastProvider } from '@/contexts/ToastContext';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CSPostHogProvider } from '@/app/providers';
+import SuspendedPostHogPageView from '@/app/PostHogPageView';
 import "@/app/globals.css";
 
 const outfit = Outfit({
@@ -53,12 +53,6 @@ export const metadata: Metadata = {
   },
 };
 
-import {
-  getWooCommerceCategories,
-  getAllBrands,
-  getAllProductsCached,
-  generateCategoryFilters
-} from '@/lib/woocommerce';
 
 export default async function RootLayout({
   children,
@@ -70,16 +64,6 @@ export default async function RootLayout({
   const { locale } = await params;
   const messages = await getMessages({ locale });
 
-  // Fetch Menu Data Globally
-  const [categories, brands, allProducts] = await Promise.all([
-    getWooCommerceCategories(),
-    getAllBrands(),
-    getAllProductsCached()
-  ]);
-
-  // Derive Filters for MegaMenu (Dynamic per category)
-  const categoryFilters = generateCategoryFilters(allProducts, categories);
-
   return (
     <html lang={locale} className={outfit.variable} suppressHydrationWarning>
       <body className="antialiased">
@@ -87,13 +71,10 @@ export default async function RootLayout({
           <ToastProvider>
             <AuthProvider>
               <CartProvider>
-                <Header
-                  categories={categories}
-                  brands={brands}
-                  categoryFilters={categoryFilters}
-                />
-                {children}
-                <Footer />
+                <CSPostHogProvider>
+                  <SuspendedPostHogPageView />
+                  {children}
+                </CSPostHogProvider>
               </CartProvider>
             </AuthProvider>
           </ToastProvider>

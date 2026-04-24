@@ -9,6 +9,8 @@ import { extractProductSpecs, extractBrand, cleanPrice, calculateDiscount } from
 import { getBrandImage } from '@/lib/brandImages';
 import CompareButton from '@/components/products/CompareButton';
 import WishlistButton from '@/components/wishlist/WishlistButton';
+import { usePostHog } from 'posthog-js/react';
+import { useCart } from '@/contexts/CartContext';
 
 interface ProductCardProps {
   product: WooCommerceProduct;
@@ -17,6 +19,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, layout = 'grid', priority = false }: ProductCardProps) {
+  const posthog = usePostHog();
+  const { addItem } = useCart();
 
   // Extract real product specifications
   const specs = extractProductSpecs(product);
@@ -40,17 +44,17 @@ export default function ProductCard({ product, layout = 'grid', priority = false
   };
 
   return (
-    <div className={`group relative bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full ${layout === 'list' ? 'flex flex-row gap-4 sm:gap-6' : 'flex flex-col'
+    <div className={`group relative bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full ${layout === 'list' ? 'flex flex-row items-stretch gap-3 sm:gap-4 p-2 sm:p-3' : 'flex flex-col'
       }`}>
       {/* Badges */}
       <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 flex flex-col gap-1 sm:gap-2">
         {product.featured && (
-          <span className="bg-yellow-400 text-gray-900 text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-md">
+          <span className="bg-yellow-400 text-gray-900 text-[9px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-md">
             Recomandat
           </span>
         )}
         {product.onSale && discountPercentage && (
-          <span className="bg-red-500 text-white text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+          <span className="bg-red-500 text-white text-[9px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
             -{discountPercentage}%
           </span>
         )}
@@ -61,22 +65,22 @@ export default function ProductCard({ product, layout = 'grid', priority = false
         <div className="bg-white/90 hover:bg-white rounded-full shadow-md transition-all">
           <WishlistButton
             product={product}
-            className="!p-1.5 sm:!p-2 w-8 h-8 sm:w-10 sm:h-10 !shadow-none !bg-transparent"
+            className="!p-1.5 sm:!p-2 w-7 h-7 sm:w-10 sm:h-10 border-0 !shadow-none !bg-transparent"
           />
         </div>
         <div className="bg-white/90 hover:bg-white rounded-full shadow-md transition-all">
-          <CompareButton product={compareItem} className="w-8 h-8 sm:w-10 sm:h-10 p-1.5 sm:p-2" />
+          <CompareButton product={compareItem} className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 border-0" />
         </div>
       </div>
 
       {/* Product Image */}
-      <Link href={`/produs/${product.slug}`} className={`${layout === 'list' ? 'w-1/3 sm:w-1/4 min-w-[140px] relative' : ''}`}>
-        <div className={`relative aspect-square ${layout === 'list' ? 'h-full' : 'sm:aspect-[4/3]'} bg-gray-50 overflow-hidden rounded-t-lg sm:rounded-t-xl ${layout === 'list' ? 'rounded-l-lg sm:rounded-l-xl rounded-tr-none' : ''}`}>
+      <Link href={`/produs/${product.slug}`} className={`${layout === 'list' ? 'w-[120px] sm:w-[180px] shrink-0' : ''}`}>
+        <div className={`relative aspect-square ${layout === 'list' ? 'h-full w-full' : 'sm:aspect-[4/3]'} bg-gray-50 overflow-hidden rounded-lg sm:rounded-xl`}>
           <NextImage
             src={productImage}
             alt={product.image?.altText || product.name}
             fill
-            className="object-contain p-4 group-hover:scale-110 transition-transform duration-500 ease-in-out mix-blend-multiply"
+            className="object-contain p-2 sm:p-4 group-hover:scale-110 transition-transform duration-500 ease-in-out mix-blend-multiply"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             priority={priority}
           />
@@ -84,23 +88,23 @@ export default function ProductCard({ product, layout = 'grid', priority = false
       </Link>
 
       {/* Product Info */}
-      <div className={`p-2 sm:p-4 ${layout === 'list' ? 'flex-1 flex flex-col justify-center' : ''}`}>
+      <div className={`p-1 sm:p-2 ${layout === 'list' ? 'flex-1 flex flex-col justify-between py-2' : ''}`}>
         {/* Brand */}
-        <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-3 min-h-[18px] sm:min-h-[24px]">
+        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3 min-h-[16px] sm:min-h-[24px]">
           {brandImageInfo?.imageUrl ? (
-            <div className="relative h-4 sm:h-6 w-auto max-w-[60px] sm:max-w-[100px]">
+            <div className="relative h-3 sm:h-5 w-auto max-w-[50px] sm:max-w-[80px]">
               <NextImage
                 src={brandImageInfo.imageUrl}
                 alt={brandImageInfo.name}
-                width={100}
-                height={24}
-                sizes="(max-width: 640px) 80px, 100px"
+                width={80}
+                height={20}
+                sizes="(max-width: 640px) 50px, 80px"
                 className="object-contain object-left"
                 unoptimized
               />
             </div>
           ) : (
-            <span className="text-[10px] sm:text-xs font-semibold text-primary-600 uppercase">
+            <span className="text-[9px] sm:text-xs font-semibold text-primary-600 uppercase">
               {brand || ''}
             </span>
           )}
@@ -108,7 +112,7 @@ export default function ProductCard({ product, layout = 'grid', priority = false
 
         {/* Product Name */}
         <Link href={`/produs/${product.slug}`}>
-          <h3 className="font-semibold text-xs sm:text-base text-gray-900 mb-1.5 sm:mb-2 line-clamp-2 hover:text-primary-600 transition-colors min-h-[2rem] sm:min-h-[3rem]">
+          <h3 className="font-semibold text-xs sm:text-sm text-gray-900 mb-1 sm:mb-2 line-clamp-2 hover:text-primary-600 transition-colors leading-tight">
             {product.name}
           </h3>
         </Link>
@@ -176,18 +180,34 @@ export default function ProductCard({ product, layout = 'grid', priority = false
 
 
         {/* Actions */}
-        <div className="flex gap-1 sm:gap-2">
-          <button suppressHydrationWarning className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-1.5 sm:py-3 px-1.5 sm:px-4 rounded-md sm:rounded-lg transition-colors flex items-center justify-center gap-0.5 sm:gap-2 text-[10px] sm:text-base" aria-label={`Adaugă ${product.name} în coș`}>
-            <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">Adaugă în Coș</span>
-            <span className="sm:hidden">Adaugă</span>
+        <div className="flex gap-2 sm:gap-3 mt-auto">
+          <button suppressHydrationWarning
+            className="flex-1 bg-gray-900 hover:bg-black text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-xs sm:text-sm shadow-sm"
+            aria-label={`Adaugă ${product.name} în coș`}
+            onClick={(e) => {
+              e.preventDefault();
+              addItem(product, 1);
+              window.dispatchEvent(new CustomEvent('open-cart'));
+              posthog?.capture('product_added_to_cart', {
+                product_id: product.id,
+                product_name: product.name,
+                brand,
+                price: parseFloat(product.price ? product.price.replace(/[^0-9.]/g, '') : '0') || 0,
+                currency: 'RON',
+                quantity: 1,
+                source: 'product_card'
+              });
+            }}
+          >
+            <ShoppingCart className="w-4 h-4" />
+            <span>Adaugă în Coș</span>
           </button>
           <Link
             href={`/produs/${product.slug}`}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-1.5 sm:p-3 rounded-md sm:rounded-lg transition-colors flex items-center justify-center"
+            className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg transition-colors flex items-center justify-center shadow-sm"
             aria-label="Quick view"
           >
-            <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
+            <Eye className="w-4 h-4" />
           </Link>
         </div>
 

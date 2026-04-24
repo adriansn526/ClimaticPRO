@@ -14,6 +14,7 @@ import { useWishlist } from '@/lib/hooks/useWishlist';
 import { useCompare } from '@/lib/hooks/useCompare';
 import CartDrawer from '@/components/cart/CartDrawer';
 import { WooCommerceCategory, WooCommerceBrand, WooCommerceAttribute } from '@/lib/woocommerce';
+import { usePostHog } from 'posthog-js/react';
 
 import SearchWithSuggestions from '@/components/search/SearchWithSuggestions';
 
@@ -26,24 +27,34 @@ interface HeaderProps {
 export default function Header({ categories = [], brands = [], categoryFilters }: HeaderProps) {
   const t = useTranslations('common');
   const pathname = usePathname();
+  const posthog = usePostHog();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { totalItems, isCartOpen, setIsCartOpen } = useCart();
   const [isSearchOpen, setIsSearchOpen] = useState(false); // New State for Mobile Search
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   // Header nu e sticky pe paginile de produs
   const isProductPage = pathname?.startsWith('/produs/');
   const headerClass = isProductPage ? 'relative' : 'sticky top-0';
 
-  const navigation = [
-    { name: 'Instalare', href: '/instalare' },
-    { name: 'Resurse & Ghiduri', href: '/resurse' },
-    { name: 'Metode de Plata', href: '/metode-plata' },
-    { name: 'Vanzari B2B', href: '/vanzari-b2b' },
+  const navigation: { name: string; href?: string; isDropdown: boolean; children?: { name: string; href: string }[] }[] = [
+    { 
+      name: 'Servicii', 
+      isDropdown: true, 
+      children: [
+        { name: 'Instalare A/C', href: '/instalare' },
+        { name: 'Igienizare', href: '/mentenanta' },
+        { name: 'Diagnoză / Reparații', href: '/mentenanta' },
+        { name: 'Toate Serviciile', href: '/servicii' }
+      ]
+    },
+    { name: 'Resurse & Ghiduri', href: '/resurse', isDropdown: false },
+    { name: 'Metode de Plata', href: '/metode-plata', isDropdown: false },
+    { name: 'Vanzari B2B', href: '/vanzari-b2b', isDropdown: false },
   ];
 
   // ... (hooks remain)
 
-  const { totalItems } = useCart();
   const { count: wishlistCount } = useWishlist();
   const { count: compareCount } = useCompare();
 
@@ -61,8 +72,15 @@ export default function Header({ categories = [], brands = [], categoryFilters }
       }
     };
 
+    const handleOpenCart = () => setIsCartOpen(true);
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('open-cart', handleOpenCart);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('open-cart', handleOpenCart);
+    };
   }, [isScrolled]);
 
   return (
@@ -94,14 +112,52 @@ export default function Header({ categories = [], brands = [], categoryFilters }
               />
               <nav className="flex items-center gap-4">
                 {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-gray-700 hover:text-primary-600 text-xs font-bold uppercase tracking-wide transition-colors"
-                  >
-                    {item.name}
-                  </Link>
+                  <div key={item.name} className="relative group flex items-center h-full">
+                    {item.isDropdown ? (
+                      <div 
+                        onMouseEnter={() => setActiveDropdown(item.name)}
+                        onMouseLeave={() => setActiveDropdown(null)}
+                        className="h-full flex items-center relative"
+                      >
+                        <button 
+                          onClick={(e) => {
+                             e.preventDefault();
+                             setActiveDropdown(activeDropdown === item.name ? null : item.name);
+                          }}
+                          className={`text-[11px] font-bold uppercase tracking-wide transition-colors whitespace-nowrap flex items-center h-full ${activeDropdown === item.name ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}
+                        >
+                          {item.name}
+                          <svg className={`w-3 h-3 ml-1 transition-transform ${activeDropdown === item.name ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        
+                        {activeDropdown === item.name && (
+                          <div className="absolute top-full pt-2 -ml-2 left-0 w-56 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                            <div className="bg-white border rounded shadow-lg py-2">
+                              {item.children?.map(child => (
+                                <Link onClick={() => setActiveDropdown(null)} key={child.name} href={child.href} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 font-medium">
+                                  {child.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        href={item.href!}
+                        className="text-gray-700 hover:text-primary-600 text-[11px] font-bold uppercase tracking-wide transition-colors whitespace-nowrap flex items-center h-full"
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                  </div>
                 ))}
+                <Link
+                  href="/pentru-instalatori"
+                  className="ml-2 bg-orange-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wide hover:bg-orange-600 transition-colors shadow-sm whitespace-nowrap"
+                >
+                  Pentru Instalatori
+                </Link>
               </nav>
             </div>
 
@@ -128,6 +184,10 @@ export default function Header({ categories = [], brands = [], categoryFilters }
 
             {/* Right Actions */}
             <div className="hidden md:flex items-center gap-4">
+              <a href="tel:+40316060050" onClick={() => posthog?.capture('phone_number_clicked', { source: 'header_desktop' })} className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors">
+                <Phone className="w-5 h-5" />
+                {!isScrolled && <span className="text-[10px] uppercase font-bold mt-0.5">Contact</span>}
+              </a>
               <Link href="/cont" className="flex flex-col items-center text-gray-700 hover:text-primary-600 transition-colors">
                 <User className="w-5 h-5" />
                 {!isScrolled && <span className="text-[10px] uppercase font-bold mt-0.5">Cont</span>}
@@ -170,7 +230,7 @@ export default function Header({ categories = [], brands = [], categoryFilters }
             </div>
 
             {/* Mobile Actions */}
-            <div className="flex md:hidden items-center gap-3 mr-2">
+            <div className="flex md:hidden items-center gap-4 mr-2">
               {/* NEW Mobile Search Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
@@ -183,18 +243,7 @@ export default function Header({ categories = [], brands = [], categoryFilters }
               <Link href="/cont" className="text-gray-700 hover:text-primary-600" aria-label="Contul meu">
                 <User className="w-5 h-5" />
               </Link>
-              <Link href="/wishlist" className="relative text-gray-700 hover:text-primary-600" aria-label="Favorite">
-                <Heart className="w-5 h-5" />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border border-white"></span>
-                )}
-              </Link>
-              <Link href="/compara" className="relative text-gray-700 hover:text-primary-600" aria-label="Compară produse">
-                <GitCompare className="w-5 h-5" />
-                {compareCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full border border-white"></span>
-                )}
-              </Link>
+
               <button
                 onClick={() => setIsCartOpen(true)}
                 className="relative text-gray-700 hover:text-primary-600"
@@ -222,7 +271,7 @@ export default function Header({ categories = [], brands = [], categoryFilters }
       </div>
 
       {/* Navigation Bar - Only visible when NOT scrolled */}
-      <div className={`bg-gray-50 border-b hidden md:block transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-10 opacity-100'}`}>
+      <div className={`bg-gray-50 border-b hidden md:block transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 overflow-hidden' : 'h-10 opacity-100'}`}>
         <div className="container mx-auto px-4 h-full">
           <div className="flex items-center gap-6 h-full">
             <MegaMenu
@@ -233,14 +282,52 @@ export default function Header({ categories = [], brands = [], categoryFilters }
 
             <nav className="flex items-center gap-6 h-full">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-primary-600 text-xs font-bold uppercase tracking-wide transition-colors flex items-center h-full"
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name} className="relative group flex items-center h-full">
+                  {item.isDropdown ? (
+                    <div
+                      onMouseEnter={() => setActiveDropdown(item.name)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                      className="h-full flex items-center relative"
+                    >
+                      <button 
+                         onClick={(e) => {
+                            e.preventDefault();
+                            setActiveDropdown(activeDropdown === item.name ? null : item.name);
+                         }}
+                         className={`text-[11px] font-bold uppercase tracking-wide transition-colors flex items-center h-full whitespace-nowrap ${activeDropdown === item.name ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}
+                      >
+                        {item.name}
+                        <svg className={`w-3 h-3 ml-1 transition-transform ${activeDropdown === item.name ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                      </button>
+                      
+                      {activeDropdown === item.name && (
+                        <div className="absolute top-full left-0 w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                          <div className="bg-white border rounded shadow-xl py-2 mt-1 -ml-4">
+                            {item.children?.map(child => (
+                              <Link onClick={() => setActiveDropdown(null)} key={child.name} href={child.href} className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 font-medium">
+                                {child.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href!}
+                      className="text-gray-700 hover:text-primary-600 text-[11px] font-bold uppercase tracking-wide transition-colors flex items-center h-full whitespace-nowrap"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
               ))}
+              <Link
+                href="/pentru-instalatori"
+                className="ml-2 bg-orange-500 text-white px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wide hover:bg-orange-600 transition-colors shadow-sm whitespace-nowrap flex items-center h-fit my-auto"
+              >
+                Pentru Instalatori
+              </Link>
             </nav>
           </div>
         </div>

@@ -1,9 +1,31 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Info } from 'lucide-react';
 
 export default function InstallationPricing() {
+  const [pricingMode, setPricingMode] = useState<'fixed'|'from'|'loading'>('loading');
+  const [price12k, setPrice12k] = useState(950);
+  const [extraCustomServices, setExtraCustomServices] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/public/pricing')
+      .then(res => res.json())
+      .then(data => {
+        if(data.success) {
+          setPricingMode(data.mode);
+          setPrice12k(data.price12k);
+          if (data.extraServices && data.extraServices.length > 0) {
+            setExtraCustomServices(data.extraServices);
+          }
+        } else {
+          setPricingMode('fixed');
+        }
+      })
+      .catch(() => setPricingMode('fixed'));
+  }, []);
+
   const baseServices = [
     'Traseu frigorific 3m (țevi cupru izolate)',
     'Cablu comandă și alimentare UE 3m',
@@ -17,7 +39,7 @@ export default function InstallationPricing() {
     'Garanție montaj (egală cu garanția aparatului)',
   ];
 
-  const extraServices = [
+  const defaultExtraServices = [
     { name: 'Traseu frigorific suplimentar (peste 3m)', price: '100 RON/ml' },
     { name: 'Mascare traseu cu mască PVC', price: '50 RON/ml' },
     { name: 'Prelungire cablu alimentare', price: '10 RON/ml' },
@@ -25,6 +47,13 @@ export default function InstallationPricing() {
     { name: 'Demontare AC existent', price: '150 RON' },
     { name: 'Trecere suplimentară prin beton/zidărie', price: 'Gratuit' },
   ];
+
+  const displayExtra = extraCustomServices.length > 0 
+    ? extraCustomServices.map(ex => ({ 
+        name: ex.name, 
+        price: `${pricingMode === 'from' ? 'De la ' : ''}${ex.price} RON${ex.unit ? '/' + ex.unit : ''}` 
+      }))
+    : defaultExtraServices;
 
   return (
     <section className="py-16 bg-gray-50">
@@ -52,8 +81,15 @@ export default function InstallationPricing() {
                 <div className="inline-block bg-primary-100 text-primary-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
                   Instalare Standard
                 </div>
-                <div className="text-5xl font-bold text-gray-900 mb-2">950 RON</div>
-                <p className="text-gray-600">Include tot ce ai nevoie</p>
+                <div className="text-5xl font-bold text-gray-900 mb-2">
+                  {pricingMode === 'loading' ? '...' : (
+                    <span>
+                      {pricingMode === 'from' && <span className="text-2xl mr-2">De la</span>}
+                      {price12k} RON
+                    </span>
+                  )}
+                </div>
+                <p className="text-gray-600">Pentru segmentul 9000-12000 BTU</p>
               </div>
 
               <div className="space-y-3 mb-6">
@@ -89,7 +125,7 @@ export default function InstallationPricing() {
               </div>
 
               <div className="space-y-4">
-                {extraServices.map((service, index) => (
+                {displayExtra.map((service, index) => (
                   <div
                     key={index}
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200"
@@ -97,7 +133,7 @@ export default function InstallationPricing() {
                     <span className="text-gray-900 text-sm font-semibold flex-1">
                       {service.name}
                     </span>
-                    <span className="text-primary-600 font-bold text-base ml-4 drop-shadow-sm">
+                    <span className="text-primary-600 font-bold text-base ml-4 drop-shadow-sm text-right">
                       {service.price}
                     </span>
                   </div>

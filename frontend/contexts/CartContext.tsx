@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { WooCommerceProduct } from '@/lib/woocommerce';
+import posthog from 'posthog-js';
 
 // Alias Product to WooCommerceProduct to minimize code changes
 type Product = WooCommerceProduct;
@@ -19,6 +20,8 @@ interface CartContextType {
     clearCart: () => void;
     totalItems: number;
     totalPrice: number;
+    isCartOpen: boolean;
+    setIsCartOpen: (isOpen: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -26,6 +29,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
     // Load cart from localStorage on mount
     useEffect(() => {
@@ -98,7 +102,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
 
     const removeItem = (productId: string) => {
-        setItems((currentItems) => currentItems.filter((item) => item.product.id !== productId));
+        setItems((currentItems) => {
+            const removedItem = currentItems.find((item) => item.product.id === productId);
+            if (removedItem) {
+                posthog.capture('product_removed_from_cart', {
+                    product_id: removedItem.product.id,
+                    product_name: removedItem.product.name,
+                    product_sku: removedItem.product.sku,
+                    quantity: removedItem.quantity,
+                    currency: 'RON',
+                });
+            }
+            return currentItems.filter((item) => item.product.id !== productId);
+        });
     };
 
     const updateQuantity = (productId: string, quantity: number) => {
@@ -135,6 +151,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 clearCart,
                 totalItems,
                 totalPrice,
+                isCartOpen,
+                setIsCartOpen,
             }}
         >
             {children}

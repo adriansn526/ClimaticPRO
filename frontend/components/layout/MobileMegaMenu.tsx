@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { X, ChevronRight, Home, Building2, Factory, Settings, Flame, Wrench, Shield, Wind, Headphones } from 'lucide-react';
 import { WooCommerceCategory, WooCommerceBrand, WooCommerceAttribute } from '@/lib/woocommerce';
+import { usePostHog } from 'posthog-js/react';
 
 interface MobileMegaMenuProps {
   isOpen: boolean;
@@ -28,6 +29,7 @@ const categoryIcons: Record<string, any> = {
 
 export default function MobileMegaMenu({ isOpen, onClose, categories = [], brands = [], categoryFilters = {} }: MobileMegaMenuProps) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const posthog = usePostHog();
 
   // Filter out 'Uncategorized'
   const displayCategories = categories.filter(c => c.slug !== 'uncategorized');
@@ -78,6 +80,29 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
           <div className="p-4 space-y-2">
             <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 px-2">Categorii Produse</h3>
 
+            {/* STATIC SERVICES ITEM */}
+            <div className="border-b border-gray-100 pb-2">
+              <div
+                className="flex items-center justify-between px-2 py-3 cursor-pointer select-none text-gray-800 font-medium hover:bg-gray-50 rounded-lg"
+                onClick={() => toggleCategory('servicii')}
+              >
+                <div className="flex items-center gap-3">
+                  <Headphones className="w-5 h-5 text-primary-600" />
+                  <span className="font-bold">Servicii ClimaticPRO</span>
+                </div>
+                <ChevronRight className={`w-4 h-4 text-gray-400 transition-transform ${expandedCategory === 'servicii' ? 'rotate-90' : ''}`} />
+              </div>
+
+              {expandedCategory === 'servicii' && (
+                <div className="pl-10 pr-2 pb-2 space-y-3 animate-in slide-in-from-top-2 fade-in duration-200 mt-2">
+                  <Link href="/instalare" onClick={onClose} className="block text-sm text-gray-600 hover:text-primary-600">Instalare A/C</Link>
+                  <Link href="/mentenanta" onClick={onClose} className="block text-sm text-gray-600 hover:text-primary-600">Igienizare</Link>
+                  <Link href="/mentenanta" onClick={onClose} className="block text-sm text-gray-600 hover:text-primary-600">Diagnoză / Reparații</Link>
+                  <Link href="/servicii" onClick={onClose} className="block text-sm font-bold text-primary-700 hover:underline mt-2">Toate Serviciile</Link>
+                </div>
+              )}
+            </div>
+
             {displayCategories.map((cat) => {
               const Icon = categoryIcons[cat.slug] || Home;
               const isExpanded = expandedCategory === cat.id;
@@ -89,7 +114,15 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                 <div key={cat.id} className="border-b border-gray-100 last:border-0 pb-2">
                   <div
                     className="flex items-center justify-between px-2 py-3 cursor-pointer select-none text-gray-800 font-medium hover:bg-gray-50 rounded-lg"
-                    onClick={() => hasChildren ? toggleCategory(cat.id) : (onClose(), window.location.href = `/produse?category=${cat.slug}`)}
+                    onClick={() => {
+                      if (hasChildren) {
+                        toggleCategory(cat.id);
+                      } else {
+                        posthog?.capture('mega_menu_category_clicked', { category: cat.name, location: 'mobile_sidebar' });
+                        onClose();
+                        window.location.href = `/produse?category=${cat.slug}`;
+                      }
+                    }}
                   >
                     <div className="flex items-center gap-3">
                       <Icon className="w-5 h-5 text-primary-600" />
@@ -106,7 +139,10 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                       <Link
                         href={`/produse?category=${cat.slug}`}
                         className="block text-sm font-bold text-primary-700 mb-2 hover:underline"
-                        onClick={onClose}
+                        onClick={() => {
+                          onClose();
+                          posthog?.capture('mega_menu_category_clicked', { category: cat.name, location: 'mobile_view_all' });
+                        }}
                       >
                         Vezi toate produsele {cat.name}
                       </Link>
@@ -119,7 +155,10 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                               key={sub.id}
                               href={`/produse?category=${sub.slug}`}
                               className="block text-sm text-gray-600 py-1 hover:text-primary-600"
-                              onClick={onClose}
+                              onClick={() => {
+                                onClose();
+                                posthog?.capture('mega_menu_category_clicked', { category: sub.name, location: 'mobile_subcategory' });
+                              }}
                             >
                               {sub.name}
                             </Link>
@@ -137,7 +176,10 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                                 key={cap.id || cap.slug}
                                 href={`/produse?category=${cat.slug}&pa_capacitate=${cap.slug}`}
                                 className="text-xs px-2 py-1 bg-gray-50 border rounded text-center truncate"
-                                onClick={onClose}
+                                onClick={() => {
+                                  onClose();
+                                  posthog?.capture('mega_menu_category_clicked', { category: cap.name, location: 'mobile_capacity_filter' });
+                                }}
                               >
                                 {cap.name}
                               </Link>
@@ -155,7 +197,10 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                                 key={cl.id || cl.slug}
                                 href={`/produse?category=${cat.slug}&pa_clasa_energie=${cl.slug}`}
                                 className="text-xs px-2 py-1 bg-green-50 text-green-700 border border-green-100 rounded flex items-center gap-1"
-                                onClick={onClose}
+                                onClick={() => {
+                                  onClose();
+                                  posthog?.capture('mega_menu_category_clicked', { category: cl.name, location: 'mobile_energy_class_filter' });
+                                }}
                               >
                                 {cl.name}
                               </Link>
@@ -173,7 +218,10 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                                 key={b.slug}
                                 href={`/produse?category=${cat.slug}&pa_brand=${b.slug}`}
                                 className="text-xs px-2 py-1 bg-white border rounded shadow-sm text-gray-700 font-medium"
-                                onClick={onClose}
+                                onClick={() => {
+                                  onClose();
+                                  posthog?.capture('mega_menu_category_clicked', { category: b.name, location: 'mobile_brand_filter' });
+                                }}
                               >
                                 {b.name}
                               </Link>
@@ -187,6 +235,21 @@ export default function MobileMegaMenu({ isOpen, onClose, categories = [], brand
                 </div>
               );
             })}
+          </div>
+
+          <div className="p-4 mt-2 border-t border-gray-100 bg-gray-50 pb-8">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 px-2">Pentru Parteneri</h3>
+            <Link
+              href="/pentru-instalatori"
+              onClick={() => {
+                onClose();
+                posthog?.capture('mega_menu_partner_clicked', { location: 'mobile_sidebar_bottom' });
+              }}
+              className="flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-sm hover:bg-blue-700 transition-colors"
+            >
+              <Wrench className="w-5 h-5 text-white" />
+              <span className="font-bold">Aplicația Pentru Instalatori</span>
+            </Link>
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useEffect, useState } from 'react';
+import { usePostHog } from 'posthog-js/react';
 
 interface CartDrawerProps {
     isOpen: boolean;
@@ -15,10 +16,26 @@ interface CartDrawerProps {
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     const { items, updateQuantity, removeItem, totalItems, totalPrice } = useCart();
     const [mounted, setMounted] = useState(false);
+    const posthog = usePostHog();
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (isOpen && items.length > 0) {
+            posthog?.capture('cart_viewed', {
+                total_items: totalItems,
+                total_price: totalPrice,
+                items: items.map(item => ({
+                    product_id: item.product.id,
+                    product_name: item.product.name,
+                    quantity: item.quantity,
+                    price: item.product.price
+                }))
+            });
+        }
+    }, [isOpen, items, totalItems, totalPrice, posthog]);
 
     const cleanPrice = (priceStr: string) => {
         if (!priceStr) return 0;
@@ -149,7 +166,16 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                                                 {/* Remove Button */}
                                                 <button
-                                                    onClick={() => removeItem(item.product.id)}
+                                                    onClick={() => {
+                                                        removeItem(item.product.id);
+                                                        posthog?.capture('remove_from_cart', {
+                                                            product_id: item.product.id,
+                                                            product_name: item.product.name,
+                                                            quantity: item.quantity,
+                                                            price: price,
+                                                            currency: 'RON'
+                                                        });
+                                                    }}
                                                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
                                                     title="Șterge"
                                                     suppressHydrationWarning
@@ -195,7 +221,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         <div className="space-y-3">
                             <Link
                                 href="/checkout"
-                                onClick={onClose}
+                                onClick={() => {
+                                    posthog?.capture('checkout_started', {
+                                        total_items: totalItems,
+                                        total_price: totalPrice,
+                                        currency: 'RON'
+                                    });
+                                    onClose();
+                                }}
                                 className="block w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition font-bold text-center shadow-lg hover:shadow-xl"
                             >
                                 Finalizează Comanda

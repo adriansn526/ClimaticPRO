@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
+import { getPostHogClient } from '@/lib/posthog-server';
 
 
 export async function POST(request: NextRequest) {
   // WooCommerce API Client
   const WooCommerce = new WooCommerceRestApi({
-    url: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cms-climaticpro.asns.ro',
+    url: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cms.climaticpro.ro',
     consumerKey: process.env.WOOCOMMERCE_CONSUMER_KEY || '',
     consumerSecret: process.env.WOOCOMMERCE_CONSUMER_SECRET || '',
     version: 'wc/v3',
@@ -98,6 +99,24 @@ export async function POST(request: NextRequest) {
 
     // Trimitere email confirmare (opțional - WooCommerce trimite automat)
     // Poți adăuga aici integrare cu Resend/Nodemailer pentru email custom
+
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: data.email,
+      event: 'installation_booking_created',
+      properties: {
+        order_id: response.data.id,
+        installation_date: data.selectedDate,
+        has_own_device: data.hasOwnDevice,
+        room_type: data.roomType,
+        floor: data.floor || null,
+        sector: data.sector,
+        product_id: data.selectedProduct?.id || null,
+        product_name: data.selectedProduct?.name || null,
+        source: 'api',
+      },
+    });
+    await posthog.shutdown();
 
     return NextResponse.json({
       success: true,

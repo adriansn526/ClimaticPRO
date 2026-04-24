@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
+import { usePostHog } from 'posthog-js/react';
 
 export default function WishlistClient() {
     const { wishlist, removeFromWishlist, clearWishlist, count, isLoaded } = useWishlist();
@@ -17,7 +18,10 @@ export default function WishlistClient() {
     const [showShareModal, setShowShareModal] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+    const posthog = usePostHog();
+
     const handleExportPDF = () => {
+        posthog?.capture('quote_pdf_downloaded', { source: 'wishlist' });
         exportWishlistToPDF(wishlist, {
             companyName: 'ClimaticPro',
             contactEmail: 'contact@climaticpro.ro',
@@ -36,11 +40,11 @@ export default function WishlistClient() {
             addItem({
                 id: item.id,
                 name: item.name,
-                slug: item.slug,
+                slug: item.slug || '',
                 price: item.price,
-                image: item.image ? { sourceUrl: item.image } : undefined,
+                image: item.image ? { sourceUrl: item.image, altText: item.name } : null,
                 stockStatus: 'instock', // Assume in stock for wishlist items
-            }, 1);
+            } as any, 1);
             setAddedCount(i + 1);
             // Small delay for UX
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -48,9 +52,8 @@ export default function WishlistClient() {
 
         setIsAddingToCart(false);
 
-        // Open cart drawer or redirect
-        // Since we don't have direct control over drawer here easily without context, we'll just finish
-        // Optional: Redirect to checkout or show toast
+        // Open cart drawer
+        window.dispatchEvent(new CustomEvent('open-cart'));
     };
 
     if (!isLoaded) {

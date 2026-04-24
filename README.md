@@ -39,9 +39,9 @@ PORT=3001 npm run dev
 
 ## 🌐 URLs
 
-- **Frontend**: https://climaticpro.asns.ro
-- **CMS**: https://cms-climaticpro.asns.ro
-- **GraphQL**: https://cms-climaticpro.asns.ro/graphql
+- **Frontend**: https://climaticpro.ro
+- **CMS**: https://cms.climaticpro.ro
+- **GraphQL**: https://cms.climaticpro.ro/graphql
 
 ## 🗄️ Database
 

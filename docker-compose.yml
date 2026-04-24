@@ -64,6 +64,9 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_POSTHOG_KEY=phc_pbdaj420QpWJ0a3baUUUCQxBcQ2Dj4zJPa4kv7kfcbX
+        - NEXT_PUBLIC_POSTHOG_HOST=/ingest
     image: climaticpro-frontend:latest
     restart: always
     environment:
@@ -72,17 +75,61 @@ services:
       - HOSTNAME=0.0.0.0
       - WOOCOMMERCE_CONSUMER_KEY=ck_478c6b7d67abbe57217778d048b8b5b5392cda4d
       - WOOCOMMERCE_CONSUMER_SECRET=cs_f27ad42ddb71fb5c64800be288b939598b21494f
+      - NEXT_PUBLIC_POSTHOG_KEY=phc_pbdaj420QpWJ0a3baUUUCQxBcQ2Dj4zJPa4kv7kfcbX
+      - NEXT_PUBLIC_POSTHOG_HOST=/ingest
+      - DATABASE_URL=postgresql://climatic_app:AppPassword123!@climaticpro-postgres-1:5432/climatic_app_db
+      - JWT_SECRET=fallback-secret-for-jwt-keep-safe-in-prod
+      - FACEBOOK_APP_ID=1883430878974385
+      - FACEBOOK_APP_SECRET=0df2312f7a51a55802d9312b1f499269
+      - TIKTOK_CLIENT_KEY=sbawfafopladjl9u1h
+      - TIKTOK_CLIENT_SECRET=8rF2pnp8POsVlGsp16QxMQPdmL33f2ng
+      - NEXT_PUBLIC_SITE_URL=https://climaticpro.ro
+      - EMAIL_HOST=mail.climaticpro.ro
+      - EMAIL_PORT=465
+      - EMAIL_SECURE=true
+      - EMAIL_USER=contact@climaticpro.ro
+      - EMAIL_PASS=Clim@ticpr0
+      - GOOGLE_PLACES_API_KEY=AIzaSyBibz7oscpRhwg2kCYYQH2s8d_gIdxa9KA
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SCRAPER_PROXY_URL=http://brd.superproxy.io:33335
+      - SCRAPER_PROXY_USER=brd-customer-hl_84a2f091-zone-climatic_residential_proxy1
+      - SCRAPER_PROXY_PASS=rp8n9mk1zqrb
+      - TBI_UNICID=892cc157-6f2e-4641-8ee9-034b0a6ecf55
+      - TBI_STORE_ID=climaticpro_ro
+      - TBI_USERNAME=climaticpro
+      - TBI_PASSWORD=MXw8fTPIBg7LSJL1
     ports:
       - "3010:80"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       
-      # Router for dev.climaticpro.ro
+      # Router for climaticpro.ro
       - "traefik.http.routers.climaticpro-frontend-prod.rule=Host(`climaticpro.ro`) || Host(`www.climaticpro.ro`)"
       - "traefik.http.routers.climaticpro-frontend-prod.entrypoints=websecure"
       - "traefik.http.routers.climaticpro-frontend-prod.tls.certresolver=httpresolver"
       - "traefik.http.services.climaticpro-frontend-prod.loadbalancer.server.port=80"
+    volumes:
+      - ./data/documents:/app/data/documents
+      - ./data/media:/app/data/media
+      - ./frontend/public/apk:/app/public/apk
+    networks:
+      - proxy
+
+  scheduler:
+    image: alpine/curl
+    restart: always
+    environment:
+      - CRON_SECRET=dev-secret-123
+    command: >
+      /bin/sh -c "
+      while true; do
+        echo '[Heartbeat] Pinging publishing cron...';
+        curl -s -H 'Authorization: Bearer dev-secret-123' http://frontend:80/api/cron/publish;
+        echo '[Heartbeat] Pinging scrapers queue...';
+        curl -s -H 'Authorization: Bearer dev-secret-123' http://frontend:80/api/cron/scrapers;
+        sleep 300;
+      done"
     networks:
       - proxy
 
