@@ -130,10 +130,17 @@ export async function runUniversalScraper(config: ScraperConfig): Promise<Scrape
           break; // move to next url if dead
         }
 
-        // We can wait briefly to ensure dynamic elements render, but Cheerio will just parse what's there
-        // If it's React/Vue SPA, we wait for the product Link selector to appear
+        // Check for Cloudflare
         try {
-          await page.waitForSelector(config.productLinkSelector, { timeout: 5000 });
+          const pageTitle = await page.title();
+          const bodyHtml = await page.content();
+          if (pageTitle.includes('Just a moment') || bodyHtml.includes('cf-browser-verification') || bodyHtml.includes('challenge-running')) {
+            console.log(`[Scraper] Cloudflare challenge detected on ${currentPage}! Waiting up to 15s to pass...`);
+            await new Promise(r => setTimeout(r, 10000)); // Wait 10s for the challenge to automatically solve
+            await page.waitForSelector(config.productLinkSelector, { timeout: 10000 });
+          } else {
+            await page.waitForSelector(config.productLinkSelector, { timeout: 5000 });
+          }
         } catch (e) {
           // If no items found immediately, maybe it's just slow, or empty. We proceed anyway.
         }
